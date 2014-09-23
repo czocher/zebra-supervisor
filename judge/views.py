@@ -172,7 +172,12 @@ class SubmissionDetailView(DetailView):
 
     def get(self, request, *args, **kwargs):
         submission = self.get_object()
-        status = submission.get_status_display()
+        if submission.status == submission.WAITING_STATUS:
+            status = 'waiting'
+        elif submission.status == submission.JUDGING_STATUS:
+            status = 'judging'
+        else:
+            status = 'judged'
         score = submission.score
 
         if request.is_ajax():

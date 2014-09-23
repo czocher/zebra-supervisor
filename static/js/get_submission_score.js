@@ -15,7 +15,7 @@ $(document).ready(function() {
         this.status = xml.firstChild.childNodes[0].textContent;
         this.score = xml.firstChild.childNodes[1].textContent;
 
-        if(this.status=="Judged") {
+        if(this.status=="judged") {
           $(element).text(this.score);
           $(element).attr("data-finished", true);
         } else {
