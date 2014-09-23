@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+{% load static from staticfiles %}
+{% load contest_menu %}
+
+{% block header %}{% trans "Questions" %} {% trans "in" %} {{ contest.name }} {% endblock %}
+
+{% block content %}
+
+{% if question_list %}
+<table class="table table-striped table-hover table-sortable">
+  <thead>
+    <tr>
+      <th>{% trans "Id" %}</th>
+      <th>{% trans "Title" %}</th>
+      <th>{% trans "Problem" %}</th>
+      <th>{% trans "Is answered" %}</th>
+      <th>{% trans "Was read" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for question in question_list %}
+    <tr>
+      <td><a href="{% url 'question' question.contest.id question.id %}">{{ question.id }}</a></td>
+      <td>{{ question.title|slice:'25' }}</td>
+      <td>{% if question.problem %}{{ question.problem }}{% else %}{% trans "General" %}{% endif %}</td>
+      <td>{% if question.is_answered %}<img src="{% static "img/icon-yes.gif"%}">{% else %} <img src="{% static "img/icon-no.gif"%}">{% endif %}</td>
+      <td>{% if user not in question.readedBy.all %}<img src="{% static "img/icon-no.gif"%}">{% else %} <img src="{% static "img/icon-yes.gif"%}">{% endif %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'new_question' contest.pk %}" class="btn btn-primary btn-block">{% trans "Add new question"%}</a>
+{% else %}
+<div class="alert alert-info" role="alert">{% trans "No questions for this contest." %}</h4>
+{% endif %}
+{% endblock %}
+
+
+{% block aside %}
+{% contest_menu contest request.user %}
+{% endblock %}

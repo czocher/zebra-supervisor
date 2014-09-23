@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static from staticfiles %}
+{% load contest_menu %}
+
+{% block header %}{% trans "List of submissions" %} {% trans "in" %} {{ contest.name }}{% endblock %}
+
+{% block content %}
+{% if submission_list %}
+<table class="table table-striped table-hover table-sortable">
+  <thead>
+    <tr>
+      <th>{% trans "Problem" %}</th>
+      <th>{% trans "Timestamp" %}</th>
+      <th>{% trans "Score" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for submission in submission_list %}
+    <tr>
+      <td><a href="{% url 'submission' submission.id %}">{{ submission.problem }}</a></td>
+      <td>{{ submission.timestamp }}</td>
+      <td>
+        <span class="ajax-loader" data-ajax="submission" data-id="{{ submission.id }}">
+          {% if submission.status != submission.JUDGED_STATUS %}
+          {{ submission.get_status_display }}...
+          {% else %}
+          {{ submission.score }}
+          {% endif %}
+        </span>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="alert alert-info" role="alert">{% trans "There are no submissions in this contest." %}</div>
+{% endif %}
+{% endblock %}
+
+{% block aside %}
+{% contest_menu contest request.user %}
+{% endblock %}

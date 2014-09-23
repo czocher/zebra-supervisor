@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load contest_menu %}
+{% load bootstrap3 %}
+{% load i18n %}
+
+{% block header %}{% trans "Submit solution for" %} {{ problem.name }} ({{ problem.codename }}) {% trans "in" %} {{ contest.name }}{% endblock %}
+
+{% block content %}
+<form role="form" enctype="multipart/form-data" action="." method="post">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  <button type="submit" class="btn btn-default">{% trans "Submit" %}</button>
+</form>
+{% endblock %}
+
+
+{% block aside %}
+{% contest_menu contest request.user %}
+{% endblock %}

@@ -1,0 +1,185 @@
+# Zebra Judge app translation file.
+# Copyright (C) 2012 Zebra
+# This file is distributed under the same license as the Zebra package.
+#
+# Paweł Jan Czochański <czochanski@gmail.com>, 2021.
+# Paweł Wysocki <pablow91@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.01\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-23 03:40+0200\n"
+"PO-Revision-Date: 2012-11-04 11:24+0100\n"
+"Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
+"Language-Team: Zebra Polish Language Team\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: admin.py:9
+msgid "Set selected nodes as authorized"
+msgstr "Ustaw oznaczone węzły jako autoryzowane"
+
+#: admin.py:14
+msgid "Set selected nodes as unauthorized"
+msgstr "Ustaw oznaczone węzły jako nieautoryzowane"
+
+#: admin.py:19
+msgid "authorized"
+msgstr "autoryzowane"
+
+#: admin.py:25
+msgid "is authorized"
+msgstr "autoryzowane"
+
+#: admin.py:26
+msgid "is unauthorized"
+msgstr "nieautoryzowane"
+
+#: admin.py:38
+msgid "Activate selected sessions"
+msgstr "Uaktywnij wybrane sesje"
+
+#: admin.py:43
+msgid "Deactivate selected sessions"
+msgstr "Deaktywuj wybrane sesje"
+
+#: admin.py:48
+msgid "expired"
+msgstr "wygasła"
+
+#: admin.py:54
+msgid "is expired"
+msgstr "wygasłe"
+
+#: admin.py:55
+msgid "is unexpired"
+msgstr "niewygasłe"
+
+#: admin.py:67
+msgid "active"
+msgstr "aktywna"
+
+#: admin.py:73
+msgid "is active"
+msgstr "aktywne"
+
+#: admin.py:74
+msgid "is inactive"
+msgstr "nieaktywna"
+
+#: models.py:12 models.py:31
+msgid "Name"
+msgstr "Nazwa"
+
+#: models.py:13
+msgid "Example: C++"
+msgstr "Przykład: C++"
+
+#: models.py:14
+msgid "Compiler command"
+msgstr "Komenda kompilatora"
+
+#: models.py:15
+msgid "Example: g++"
+msgstr "Przykład: g++"
+
+#: models.py:16
+msgid "Compiler arguments"
+msgstr "Argumenty kompilatora"
+
+#: models.py:17
+msgid "Example: -Wall -Wextra -pedantic -oresult"
+msgstr "Przykład: -Wall -Wextra -pedantic -oresult"
+
+#: models.py:18
+msgid "Result filename"
+msgstr "Nazwa pliku wynikowego"
+
+#: models.py:19
+msgid "Example: result"
+msgstr "Przykład: wynik"
+
+#: models.py:22
+msgid "Language"
+msgstr "Język"
+
+#: models.py:23
+msgid "Languages"
+msgstr "Języki"
+
+#: models.py:32
+msgid "Key"
+msgstr "Klucz"
+
+#: models.py:33
+msgid "Authorized"
+msgstr "Autoryzowany"
+
+#: models.py:36 models.py:51 models.py:66
+msgid "Node"
+msgstr "Węzeł"
+
+#: models.py:37
+msgid "Nodes"
+msgstr "Węzły"
+
+#: models.py:45
+msgid "IP Address"
+msgstr "Adres IP"
+
+#: models.py:46
+msgid "Version"
+msgstr "Wersja"
+
+#: models.py:47
+msgid "Free memory"
+msgstr "Wolna pamięć"
+
+#: models.py:48
+msgid "Disk space"
+msgstr "Przestrzeń dyskowa"
+
+#: models.py:49
+msgid "Processor frequency"
+msgstr "Częstotliwość taktowania"
+
+#: models.py:50
+msgid "Supported languages"
+msgstr "Wspierane języki"
+
+#: models.py:54
+msgid "Node information"
+msgstr "Informacja o węźle"
+
+#: models.py:55
+msgid "Node informations"
+msgstr "Informacje o węźle"
+
+#: models.py:65
+msgid "ID"
+msgstr "ID"
+
+#: models.py:67
+msgid "Expiration time"
+msgstr "Termin wygasania"
+
+#: models.py:69
+msgid "Active"
+msgstr "Aktywny"
+
+#: models.py:72
+msgid "Session"
+msgstr "Sesja"
+
+#: models.py:73
+msgid "Sessions"
+msgstr "Sesje"
+
+#: models.py:82
+msgid "Expired"
+msgstr "Wygasła"

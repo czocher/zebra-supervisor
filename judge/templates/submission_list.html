@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static from staticfiles %}
+
+{% block header %}{% trans "List of submissions" %}{% endblock %}
+
+{% block content %}
+{% if submission_list %}
+<table class="table table-striped table-hover table-sortable">
+  <thead>
+    <tr>
+      <th>{% trans "Problem" %}</th>
+      <th>{% trans "Timestamp" %}</th>
+      <th>{% trans "Score" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for submission in submission_list %}
+    <tr>
+      <td><a href="{% url 'submission' submission.id %}">{{ submission.problem }}</a></td>
+      <td>{{ submission.timestamp }}</td>
+      <td>
+        <span class="ajax-loader" data-ajax="submission" data-id="{{ submission.id }}">
+          {% if submission.status != submission.JUDGED_STATUS %}
+          {{ submission.get_status_display }}...
+          {% else %}
+          {{ submission.score }}
+          {% endif %}
+        </span>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="alert alert-info" role="alert">{% trans "There are no submissions to display." %}</div>
+{% endif %}
+{% endblock %}
+
+{% block aside %}
+
+<ul class="nav nav-sidebar">
+  <li class="active">
+    <a href="{% url 'contests' %}">{% trans "Contests" %}</a>
+  </li>
+</ul>
+{% endblock %}

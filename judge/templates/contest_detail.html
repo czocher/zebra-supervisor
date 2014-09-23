@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load contest_menu %}
+{% load i18n %}
+
+{% block header %}{% trans "List of problems" %} {% trans "in" %} {{ contest.name }}{% endblock %}
+
+{% block content %}
+
+{% if not contest.is_active %}
+<div class="alert alert-warning" role="alert">{% trans "Contest is inactive, you cannot send solutions." %}</div>
+{% endif %}
+{% if contest.is_started %}
+<table class="table table-striped table-hover table-sortable">
+  <thead>
+    <tr>
+      <th>{% trans "Codename" %}</th>
+      <th>{% trans "Name" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for problem in contest.problems.all %}
+    <tr>
+      <td>{{ problem.codename }}</td>
+      <td><a href="{% url 'problem' contest.pk problem.codename %}">{{ problem.name }}</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="alert alert-info" role="alert">{% trans "No problems to show." %}</div>
+{% endif %}
+{% endblock %}
+
+{% block aside %}
+{% contest_menu contest request.user %}
+{% endblock %}

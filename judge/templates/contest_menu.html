@@ -1,0 +1,57 @@
+{% load i18n %}
+
+<ul class="nav nav-sidebar">
+  <li class="active">
+    <a href="{% url 'contest' contest.pk %}">{% trans "Problems" %}</a>
+  </li>
+  <ul class="nav nav-sidebar">
+    {% for problem in contest.problems.all %}
+    <li>
+      <a href="{% url 'problem' contest.pk problem.codename %}">{{ problem.name }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</ul>
+
+<ul class="nav nav-sidebar">
+  <li class="active">
+    <a href="{% url 'contestSubmissions' contest.pk %}">{% trans "Submissions" %}</a>
+  </li>
+  {% if submissions %}
+  <ul class="nav nav-sidebar">
+    {% for submission in submissions|slice:":5" %}
+    <li>
+      <a href="{% url 'submission' submission.id %}">{{ submission.problem.name|slice:'20' }} - <span data-ajax="submission" data-id="{{ submission.id }}">{% if submission.status != submission.JUDGED_STATUS %}{{ submission.get_status_display }}...{% else %}{{ submission.score }}{% endif %}</span></a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</ul>
+
+{% if contest.is_printing_available %}
+<ul class="nav nav-sidebar">
+  <li class="active">
+    <a href="{% url 'printSourceCode' contest.pk %}">{% trans "Print source code" %}</a>
+  </li>
+</ul>
+{% endif %}
+
+<ul class="nav nav-sidebar">
+  <li class="active">
+    <a href="{% url 'ranking' contest.pk %}" >{% trans "Ranking" %}</a>
+  </li>
+</ul>
+
+<ul class="nav nav-sidebar">
+  <li class="active">
+    <a href="{% url 'questions' contest.id %}">{% trans "Questions" %}</a>
+  </li>
+  <ul class="nav nav-sidebar">
+    {% for question in questions|slice:":5"%}
+    <li>
+      <a href="{% url 'question' question.contest.id question.id %}">{{ question.title|slice:'25' }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+</ul>

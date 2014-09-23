@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load contest_menu %}
+{% load i18n %}
+
+{% block header %}{{ contest.name }} {% endblock %}
+
+{% block content %}
+
+{% if not contest.is_active %}
+<div class="alert alert-warning" role="alert">{% trans "Contest is inactive, you cannot send solutions." %}</div>
+{% endif %}
+
+<h3>{{ problem.name }} ({{ problem.codename }})</h3>
+
+{{ problem.content|safe }}
+
+{% for sampleio in problem.sampleio_set.all %}
+<h3>{% trans "Example" %} #{{ forloop.counter }}:</h3>
+<h4>{% trans "Input" %}</h4>
+<pre>{{ sampleio.input|safe }}</pre>
+<h4>{% trans "Output" %}</h4>
+<pre>{{ sampleio.output|safe }}</pre>
+{% endfor %}
+
+{% if contest.is_active %}
+<a href="submit/" class="btn btn-primary btn-lg btn-block">{% trans "Send solution" %}</a>
+{% else %}
+<a href="#" class="btn btn-primary btn-lg btn-block" disabled="disabled">{% trans "Send solution" %}</a>
+{% endif %}
+
+{% endblock %}
+
+{% block aside %}
+{% contest_menu contest request.user %}
+{% endblock %}

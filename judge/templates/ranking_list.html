@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% load contest_menu %}
+{% load i18n %}
+
+{% block header %}{% trans "Score ranking for" %} {{ contest.name }} {% endblock %}
+
+{% block content %}
+{% if contest.is_freezed %}
+<div class="alert alert-info" role="alert">{% trans "The score rankings have been frozen since:"%} {{ contest.freeze_time }}</div>
+{% endif %}
+{% if empty %}
+<div class="alert alert-info" role="alert">{% trans "The score rankings are empty." %}</div>
+{% else %}
+<table class="table table-striped table-hover table-sortable">
+  <thead>
+    <tr>
+      <th>{% trans "User" %}</th>
+      {% for key in problem_list %}
+      <th>{{ key }}</th>
+      {% endfor %}
+      <th>{% trans "Total Score" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for key, value in ranking_list.items %}
+    <tr>
+      {% block ranking_row %}
+      <td>{{ value.first_name }} {{ value.last_name }}</td>
+      {% for problem in problem_list %}
+      {% for key, value in value.problems.items %}
+      {% if key == problem %}
+      <td>{{ value.score }}</td>
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
+      <td>{{ value.score }}</td>
+      {% endblock %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% endblock %}
+
+{% block aside %}
+{% contest_menu contest request.user %}
+{% endblock %}

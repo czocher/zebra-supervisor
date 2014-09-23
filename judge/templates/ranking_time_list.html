@@ -1,0 +1,12 @@
+{% extends "ranking_list.html" %}
+{% block ranking_row %}
+<td>{{ value.first_name }} {{ value.last_name }}</td>
+{% for problem in problem_list %}
+{% for key, value in value.problems.items %}
+{% if key == problem %}
+<td>{{ value.timestamp }} ({{ value.total }})</td>
+{% endif %}
+{% endfor %}
+{% endfor %}
+<td>{{ value.score }} ({{ value.totalTime }})</td>
+{% endblock %}
