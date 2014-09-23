@@ -1,12 +1,12 @@
 - fields:
-    date_joined: 2012-05-22 10:37:43.580635+00:00
+    date_joined: "2012-05-22 10:37:43.580635+00:00"
     email: ''
     first_name: ''
     groups: []
     is_active: true
     is_staff: false
     is_superuser: false
-    last_login: 2012-05-22 10:37:43.580612+00:00
+    last_login: "2012-05-22 10:37:43.580612+00:00"
     last_name: ''
     password: ''
     user_permissions: []
@@ -14,14 +14,14 @@
   model: auth.user
   pk: -1
 - fields:
-    date_joined: 2012-05-22 10:37:43+00:00
+    date_joined: "2012-05-22 10:37:43+00:00"
     email: pablow91@gmail.com
     first_name: "Pawe\u0142"
     groups: []
     is_active: true
     is_staff: true
     is_superuser: true
-    last_login: 2012-06-03 15:30:09.340573+00:00
+    last_login: "2012-06-03 15:30:09.340573+00:00"
     last_name: Wysocki
     password: pbkdf2_sha256$10000$rkZUHS4l4BFr$4JDGm78b0vLnJTcvXAfuBn2mYHlptYjr8DvuQddgpVk=
     user_permissions: []
@@ -29,14 +29,14 @@
   model: auth.user
   pk: 1
 - fields:
-    date_joined: 2012-05-22 10:38:35+00:00
+    date_joined: "2012-05-22 10:38:35+00:00"
     email: czochanski@gmail.com
     first_name: "Pawe\u0142 Jan"
     groups: []
     is_active: true
     is_staff: true
     is_superuser: true
-    last_login: 2012-05-22 10:38:35+00:00
+    last_login: "2012-05-22 10:38:35+00:00"
     last_name: Czochanski
     password: pbkdf2_sha256$10000$Vml57tLmXmvv$/UkwF+qWJ4iI3hSpYVPhoAZSDL0B3tzHi6XUfqlo7cs=
     user_permissions: []
@@ -44,14 +44,14 @@
   model: auth.user
   pk: 2
 - fields:
-    date_joined: 2012-05-22 10:39:08+00:00
+    date_joined: "2012-05-22 10:39:08+00:00"
     email: karol@gmail.com
     first_name: Karol
     groups: []
     is_active: true
     is_staff: false
     is_superuser: false
-    last_login: 2012-05-22 11:18:21.021406+00:00
+    last_login: "2012-05-22 11:18:21.021406+00:00"
     last_name: Kowalski
     password: pbkdf2_sha256$10000$EkWQ8dnXkhjv$Bu+kKplZCo2gXiRtLzzV7Ga96mZ8dizrq3ESpgdLH2o=
     user_permissions: []
@@ -59,14 +59,14 @@
   model: auth.user
   pk: 3
 - fields:
-    date_joined: 2012-05-22 10:39:27+00:00
+    date_joined: "2012-05-22 10:39:27+00:00"
     email: jak_kowal@gmail.com
     first_name: Jan
     groups: []
     is_active: true
     is_staff: false
     is_superuser: false
-    last_login: 2012-05-22 11:17:03.155501+00:00
+    last_login: "2012-05-22 11:17:03.155501+00:00"
     last_name: Kowalski
     password: pbkdf2_sha256$10000$kyBxVtf7Fllr$jy6znZ8zhtDDD9x+NFC3ckBLjQC3Uv+9h+vbr+JSfvs=
     user_permissions: []
@@ -90,22 +90,22 @@
 - fields: {input: 1 4, output: 1 2 3 4, problem: 1}
   model: judge.sampleio
   pk: 2
-- fields: {file: tests/in.tar.gz, timestamp: !!timestamp '2012-05-22 08:57:06+00:00'}
+- fields: {file: tests/in.tar.gz, timestamp: "2012-05-22 08:57:06+00:00"}
   model: judge.inputtest
   pk: 1
-- fields: {file: tests/in.tar_1.gz, timestamp: !!timestamp '2012-06-03 14:16:42+00:00'}
+- fields: {file: tests/in.tar_1.gz, timestamp: "2012-06-03 14:16:42+00:00"}
   model: judge.inputtest
   pk: 2
-- fields: {file: tests/out.tar.gz, timestamp: !!timestamp '2012-05-22 08:57:23+00:00'}
+- fields: {file: tests/out.tar.gz, timestamp: "2012-05-22 08:57:23+00:00"}
   model: judge.outputtest
   pk: 1
-- fields: {file: tests/out.tar_1.gz, timestamp: !!timestamp '2012-06-03 14:16:54+00:00'}
+- fields: {file: tests/out.tar_1.gz, timestamp: "2012-06-03 14:16:54+00:00"}
   model: judge.outputtest
   pk: 2
-- fields: {file: tests/conf.tar.gz, timestamp: !!timestamp '2012-05-22 08:57:28+00:00'}
+- fields: {file: tests/conf.tar.gz, timestamp: "2012-05-22 08:57:28+00:00"}
   model: judge.configtest
   pk: 1
-- fields: {file: tests/conf.tar_2.gz, timestamp: !!timestamp '2012-06-03 15:48:51+00:00'}
+- fields: {file: tests/conf.tar_2.gz, timestamp: "2012-06-03 15:48:51+00:00"}
   model: judge.configtest
   pk: 3
 - fields: {config: 1, input: 1, output: 1, problem: 1}
@@ -115,46 +115,46 @@
   model: judge.tests
   pk: 2
 - fields:
-    end_time: 2012-12-30 22:00:00+00:00
-    freeze_time: 2012-06-30 20:00:00+00:00
+    end_time: "2012-12-30 22:00:00+00:00"
+    freeze_time: "2012-06-30 20:00:00+00:00"
     name: Individual Contest
     penalty: 0
     printing: true
     problems: [1, 2]
-    start_time: 2011-12-31 22:00:00+00:00
+    start_time: "2011-12-31 22:00:00+00:00"
     team: false
   model: judge.contest
   pk: 1
 - fields:
-    end_time: 2018-12-30 22:00:00+00:00
-    freeze_time: 2018-06-30 20:00:00+00:00
+    end_time: "2018-12-30 22:00:00+00:00"
+    freeze_time: "2018-06-30 20:00:00+00:00"
     name: Team contest
     penalty: 20
     printing: true
     problems: [1, 2]
-    start_time: 2011-12-31 22:00:00+00:00
+    start_time: "2011-12-31 22:00:00+00:00"
     team: true
   model: judge.contest
   pk: 2
 - fields: {author: 1, compilelog: '', contest: 1, language: cpp, node: null, problem: 1,
     score: -1, source: "#include <iostream>\r\nusing namespace std;\r\nint main(){\r\
       \n\tint a,b;\r\n\tcin>>a>>b;\r\n\tfor (int i=a;i<=b;i++){\r\n\t\tcout<<i<<\"\
-      \ \";\r\n\t}\r\n\tcout<<endl;\r\n\treturn 0;\r\n}\r\n", status: 1, timestamp: !!timestamp '2012-05-22
-      08:59:44+00:00'}
+      \ \";\r\n\t}\r\n\tcout<<endl;\r\n\treturn 0;\r\n}\r\n", status: 1, timestamp: "2012-05-22
+      08:59:44+00:00"}
   model: judge.submission
   pk: 1
 - fields: {author: 1, compilelog: '', contest: 1, language: pas, node: null, problem: 1,
     score: -1, source: "program HelloWorld;\r\nvar j,a,b : integer;\r\nbegin\r\n\t\
       read(a);\r\n\tread(b);\r\n\tfor  j:= 1 to b do\r\n\tbegin\r\n\t\tif (j>=a) then\r\
       \n\t\tbegin\r\n\t\t\twrite(j);\r\n\t\t\twrite(' ');\r\n\t\tend;\r\n\tend;\r\n\
-      \twriteln();\r\nend.\r\n", status: 1, timestamp: !!timestamp '2012-05-22 08:59:53+00:00'}
+      \twriteln();\r\nend.\r\n", status: 1, timestamp: "2012-05-22 08:59:53+00:00"}
   model: judge.submission
   pk: 2
 - fields: {author: 1, compilelog: '', contest: 1, language: py, node: null, problem: 1,
     score: -1, source: "import sys\r\nx, y = raw_input().split()\r\nfor n in range(int(x),\
       \ int(y) + 1):\r\n    sys.stdout.write(str(n))\r\n    sys.stdout.write(' ')\r\
-      \nsys.stdout.write('\\n')\r\n", status: 1, timestamp: !!timestamp '2012-05-22
-      09:00:01+00:00'}
+      \nsys.stdout.write('\\n')\r\n", status: 1, timestamp: "2012-05-22
+      09:00:01+00:00"}
   model: judge.submission
   pk: 3
 - fields: {author: 1, compilelog: '', contest: 1, language: java, node: null, problem: 1,
@@ -162,37 +162,37 @@
       \ static void main(String[] args){\r\n\t\tScanner sc = new Scanner(System.in);\r\
       \n\t\tint a = sc.nextInt();\r\n\t\tint b = sc.nextInt();\r\n\t\tfor (int i =\
       \ a; i <= b; i++)\r\n\t\t\tSystem.out.print(i + \" \");\r\n\t\tSystem.out.println();\r\
-      \n  }\r\n}\r\n", status: 1, timestamp: !!timestamp '2012-05-22 09:00:09+00:00'}
+      \n  }\r\n}\r\n", status: 1, timestamp: "2012-05-22 09:00:09+00:00"}
   model: judge.submission
   pk: 4
 - fields: {author: 4, compilelog: '', contest: 1, language: cpp, node: null, problem: 1,
     score: -1, source: "#include <iostream>\r\nusing namespace std;\r\nint main(){\r\
       \n\tint a,b;\r\n\tcin>>a>>b;\r\n\tfor (int i=a;i<=b;i++){\r\n\t\tcout<<i<<\"\
-      \ \";\r\n\t}\r\n\tcout<<endl;\r\n\treturn 0;\r\n}\r\n", status: 1, timestamp: !!timestamp '2012-05-22
-      09:17:12+00:00'}
+      \ \";\r\n\t}\r\n\tcout<<endl;\r\n\treturn 0;\r\n}\r\n", status: 1, timestamp: "2012-05-22
+      09:17:12+00:00"}
   model: judge.submission
   pk: 5
 - fields: {author: 1, compilelog: '', contest: 1, language: cpp, node: null, problem: 2,
     score: -1, source: "#include <iostream>\r\n\r\nusing namespace std;\r\nint main(){\r\
-      \ncout<<\"Hello World!\"<<endl;\r\n}", status: 1, timestamp: !!timestamp '2012-06-03
-      15:42:38+00:00'}
+      \ncout<<\"Hello World!\"<<endl;\r\n}", status: 1, timestamp: "2012-06-03
+      15:42:38+00:00"}
   model: judge.submission
   pk: 6
 - fields: {author: 2, compilelog: '', contest: 2, language: cpp, node: null, problem: 1,
     score: -1, source: "#include <iostream>\r\nusing namespace std;\r\nint main(){\r\
       \n\tint a,b;\r\n\tcin>>a>>b;\r\n\tfor (int i=a;i<=b;i++){\r\n\t\tcout<<i<<\"\
-      \ \";\r\n\t}\r\n\tcout<<endl;\r\n\treturn 0;\r\n}\r\n", status: 1, timestamp: !!timestamp '2012-06-03
-      15:52:52+00:00'}
+      \ \";\r\n\t}\r\n\tcout<<endl;\r\n\treturn 0;\r\n}\r\n", status: 1, timestamp: "2012-06-03
+      15:52:52+00:00"}
   model: judge.submission
   pk: 7
 - fields: {author: 3, compilelog: '', contest: 2, language: py, node: null, problem: 2,
-    score: -1, source: print "Hello World!", status: 1, timestamp: !!timestamp '2012-06-03
-      15:53:48+00:00'}
+    score: -1, source: print "Hello World!", status: 1, timestamp: "2012-06-03
+      15:53:48+00:00"}
   model: judge.submission
   pk: 8
 - fields: {author: 3, compilelog: '', contest: 2, language: py, node: null, problem: 2,
-    score: -1, source: print "Hello World", status: 1, timestamp: !!timestamp '2012-06-03
-      15:50:57+00:00'}
+    score: -1, source: print "Hello World", status: 1, timestamp: "2012-06-03
+      15:50:57+00:00"}
   model: judge.submission
   pk: 9
 - fields:
@@ -203,7 +203,7 @@
     public: false
     question: I has the dumbs.
     readBy: []
-    timestamp: 2012-06-03 14:17:53+00:00
+    timestamp: "2012-06-03 14:17:53+00:00"
     title: I don't know how to program
   model: questions.question
   pk: 1
@@ -215,7 +215,7 @@
     public: true
     question: When will the pizza arrive?
     readBy: []
-    timestamp: 2012-06-03 14:18:37+00:00
+    timestamp: "2012-06-03 14:18:37+00:00"
     title: Pizza
   model: questions.question
   pk: 2
@@ -228,7 +228,7 @@
     question: "Hello,\r\nI couldn't understand this problem. Can you explain it a\
       \ bit further?"
     readBy: []
-    timestamp: 2012-06-03 14:19:22+00:00
+    timestamp: "2012-06-03 14:19:22+00:00"
     title: Hard problem
   model: questions.question
   pk: 3
