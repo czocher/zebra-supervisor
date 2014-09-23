@@ -17,6 +17,7 @@ from pygments.formatters import HtmlFormatter
 
 
 class Problem(models.Model):
+
     """Model representing a single problem."""
 
     EXAMPLE_PROBLEM = """
@@ -34,8 +35,11 @@ On the input the program recives two binary numbers.
 On the output the program should print a binary number.
 """
 
-    codename = models.SlugField(_("Codename"), max_length=10, unique=True,
-               help_text=_("Example: 'FIB01'. A short text to identify this problem, used as an id for urls."))
+    codename = models.SlugField(_("Codename"), max_length=10, unique=True)
+    codename.help_text = _(
+        "Example: 'FIB01'. "
+        "A short text to identify this problem, used as an id for urls."
+    )
     name = models.CharField(_("Name"), max_length=255)
     content = models.TextField(_("Content"), default=EXAMPLE_PROBLEM)
 
@@ -81,6 +85,7 @@ class Test(models.Model):
 
 
 class InputTest(Test):
+
     class Meta:
         verbose_name = _("Test input")
         verbose_name_plural = _("Test inputs")
@@ -91,6 +96,7 @@ class InputTest(Test):
 
 
 class OutputTest(Test):
+
     class Meta:
         verbose_name = _("Test output")
         verbose_name_plural = _("Test outputs")
@@ -101,6 +107,7 @@ class OutputTest(Test):
 
 
 class ConfigTest(Test):
+
     class Meta:
         verbose_name = _("Test config")
         verbose_name_plural = _("Test configs")
@@ -111,9 +118,12 @@ class ConfigTest(Test):
 
 
 class Tests(models.Model):
-    input = models.OneToOneField(InputTest, verbose_name=_("Inputs"), related_name='input')
-    output = models.OneToOneField(OutputTest, verbose_name=_("Outputs"), related_name='output')
-    config = models.OneToOneField(ConfigTest, verbose_name=_("Config"), related_name='config')
+    input = models.OneToOneField(
+        InputTest, verbose_name=_("Inputs"), related_name='input')
+    output = models.OneToOneField(
+        OutputTest, verbose_name=_("Outputs"), related_name='output')
+    config = models.OneToOneField(
+        ConfigTest, verbose_name=_("Config"), related_name='config')
     problem = models.OneToOneField(Problem, verbose_name=_("Problem"))
 
     class Meta:
@@ -125,14 +135,17 @@ class Tests(models.Model):
 
 
 class Contest(models.Model):
+
     """Model representing a single contest."""
     name = models.CharField(_("Name"), max_length=255)
     start_time = models.DateTimeField(_("Start time"), default=timezone.now)
     freeze_time = models.DateTimeField(_("Freeze time"), default=timezone.now)
     end_time = models.DateTimeField(_("End time"), default=timezone.now)
-    problems = models.ManyToManyField(Problem, verbose_name=_("Problems"), related_name='contests')
+    problems = models.ManyToManyField(
+        Problem, verbose_name=_("Problems"), related_name='contests')
     team = models.BooleanField(_("Team contest"), default=False)
-    penalty = models.IntegerField(_("Penalty for wrong submissions"), default=0)
+    penalty = models.IntegerField(
+        _("Penalty for wrong submissions"), default=0)
     printing = models.BooleanField(_("Is printing avaliable"))
 
     class Meta:
@@ -152,7 +165,8 @@ class Contest(models.Model):
         return ('contest', (), {'pk': self.id, })
 
     def _is_active(self):
-        return timezone.now() > self.start_time and timezone.now() < self.end_time
+        return timezone.now() > self.start_time and \
+            timezone.now() < self.end_time
     _is_active.boolean = True
     _is_active.short_description = _("Active")
     is_active = property(_is_active)
@@ -164,58 +178,72 @@ class Contest(models.Model):
     is_started = property(_is_started)
 
     def _is_freezed(self):
-        return timezone.now() > self.freeze_time and timezone.now() < self.end_time
+        return timezone.now() > self.freeze_time and \
+            timezone.now() < self.end_time
     _is_freezed.boolean = True
     _is_freezed.short_desctiption = _("Freezed")
     is_freezed = property(_is_freezed)
 
     def _is_printing_available(self):
         return self.printing and settings.PRINTING['enable'] \
-                and self.is_active
+            and self.is_active
     _is_printing_available.boolean = True
     _is_printing_available.short_description = _("Printing")
     is_printing_available = property(_is_printing_available)
 
     class Res(object):
+
         def __init__(self):
             self.score = 0
             self.total = 0
             self.timestamp = 0
 
     def getProblemsAndLastUsersSubmissions(self, includeFreezing):
-       contestSubmissions = Submission.objects.filter(status=Submission.JUDGED_STATUS, contest=self).values("author", "problem", "problem__codename", "author__pk").annotate(Count("id")).order_by("problem__name")
+        contestSubmissions = Submission.objects.filter(
+            status=Submission.JUDGED_STATUS, contest=self).values(
+                "author", "problem",
+                "problem__codename", "author__pk").annotate(
+                    Count("id")).order_by("problem__name")
 
-       if (includeFreezing):
-           contestSubmissions = contestSubmissions.filter(timestamp__lte=self.freeze_time)
+        if (includeFreezing):
+            contestSubmissions = contestSubmissions.filter(
+                timestamp__lte=self.freeze_time)
 
-       problems = {}
-       for problem in self.problems.order_by("codename"):
-           problems[problem.codename] = self.Res()
+        problems = {}
+        for problem in self.problems.order_by("codename"):
+            problems[problem.codename] = self.Res()
 
-       users = {}
+        users = {}
 
-       for submission in contestSubmissions:
-           if submission["author"] not in users:
-               users[submission["author"]] = User.objects.get(pk=(submission["author__pk"]))
-               users[submission["author"]].problems = deepcopy(problems)
-               users[submission["author"]].score = 0
-               users[submission["author"]].totalTime = 0
-               users[submission["author"]].currentSubmissions = []
-           totalSubmissions = submission["id__count"]
-           lastSub = Submission.objects.order_by("-timestamp").filter(contest=self, author__exact=submission["author"], problem__exact=submission["problem"])
-           if (includeFreezing):
-               lastSub = lastSub.filter(timestamp__lte=self.freeze_time)
-           lastSub = lastSub[0]
-           users[submission["author"]].score += lastSub.score
-           users[submission["author"]].problems[submission["problem__codename"]].score = lastSub.score
-           users[submission["author"]].problems[submission["problem__codename"]].total = totalSubmissions
-           users[submission["author"]].problems[submission["problem__codename"]].timestamp = lastSub.timestamp
-           users[submission["author"]].currentSubmissions.append(lastSub)
+        for submission in contestSubmissions:
+            if submission["author"] not in users:
+                users[submission["author"]] = User.objects.get(
+                    pk=(submission["author__pk"]))
+                users[submission["author"]].problems = deepcopy(problems)
+                users[submission["author"]].score = 0
+                users[submission["author"]].totalTime = 0
+                users[submission["author"]].currentSubmissions = []
+            totalSubmissions = submission["id__count"]
+            lastSub = Submission.objects.order_by("-timestamp").filter(
+                contest=self, author__exact=submission["author"],
+                problem__exact=submission["problem"])
+            if (includeFreezing):
+                lastSub = lastSub.filter(timestamp__lte=self.freeze_time)
+            lastSub = lastSub[0]
+            users[submission["author"]].score += lastSub.score
+            users[submission["author"]].problems[
+                submission["problem__codename"]].score = lastSub.score
+            users[submission["author"]].problems[
+                submission["problem__codename"]].total = totalSubmissions
+            users[submission["author"]].problems[
+                submission["problem__codename"]].timestamp = lastSub.timestamp
+            users[submission["author"]].currentSubmissions.append(lastSub)
 
-       return sorted(problems.iterkeys()), users
+        return sorted(problems.iterkeys()), users
 
 
 class Submission(models.Model):
+
     """Class representing a single user submited solution for a problem."""
 
     WAITING_STATUS = 1
@@ -228,16 +256,23 @@ class Submission(models.Model):
         (JUDGED_STATUS, _("Judged")),
     }
 
-    author = models.ForeignKey(User, verbose_name=_("Author"), related_name='submissions')
-    problem = models.ForeignKey(Problem, verbose_name=_("Problem"), related_name='submissions')
-    contest = models.ForeignKey(Contest, verbose_name=_("Contest"), related_name='submissions', blank=True, null=True)
+    author = models.ForeignKey(
+        User, verbose_name=_("Author"), related_name='submissions')
+    problem = models.ForeignKey(
+        Problem, verbose_name=_("Problem"), related_name='submissions')
+    contest = models.ForeignKey(Contest, verbose_name=_(
+        "Contest"), related_name='submissions', blank=True, null=True)
     source = models.TextField(_("Source code"))
-    language = models.CharField(_("Language"), max_length=10, choices=settings.LANGUAGES)
+    language = models.CharField(
+        _("Language"), max_length=10, choices=settings.LANGUAGES)
     timestamp = models.DateTimeField(_("Send time"), default=timezone.now)
-    compilelog = models.TextField(_("Compilation log"), default='', blank=True, null=True)
+    compilelog = models.TextField(
+        _("Compilation log"), default='', blank=True, null=True)
     score = models.IntegerField(_("Score"), default=(-1))
-    status = models.IntegerField(_("Status"), choices=STATUS_CHOICES, default=WAITING_STATUS)
-    node = models.ForeignKey(Node, verbose_name=_("Node"), blank=True, null=True, on_delete=models.SET_NULL)
+    status = models.IntegerField(
+        _("Status"), choices=STATUS_CHOICES, default=WAITING_STATUS)
+    node = models.ForeignKey(Node, verbose_name=_(
+        "Node"), blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         verbose_name = _("Submission")
@@ -245,7 +280,8 @@ class Submission(models.Model):
         ordering = ['-timestamp']
 
     def __unicode__(self):
-        return "Solution for %s by %s" % (self.problem.codename, self.author.username)
+        return "Solution for %s by %s" % (self.problem.codename,
+                                          self.author.username)
 
     @models.permalink
     def get_absolute_url(self):
@@ -263,8 +299,10 @@ class Submission(models.Model):
 
 
 class Result(models.Model):
+
     """Class representing a single test result for a submission."""
-    submission = models.ForeignKey(Submission, verbose_name=_("Submission"), related_name='results')
+    submission = models.ForeignKey(
+        Submission, verbose_name=_("Submission"), related_name='results')
     returncode = models.IntegerField(_("Return code"), default=0)
     mark = models.BooleanField(_("Mark"), default=True)
     time = models.FloatField(_("Execution time"), default=0)
@@ -275,4 +313,5 @@ class Result(models.Model):
         ordering = ['time']
 
     def __unicode__(self):
-        return "%s result for %s" % (self.submission.author.username, self.submission.problem.codename)
+        return "%s result for %s" % (self.submission.author.username,
+                                     self.submission.problem.codename)

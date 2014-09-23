@@ -32,6 +32,7 @@ class ContestListView(ListView):
             author=self.request.user)
         return context
 
+
 class ContestDetailView(DetailView):
 
     template_name = 'contest_detail.html'
@@ -72,7 +73,8 @@ class ProblemDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ProblemDetailView, self).get_context_data(**kwargs)
-        context['contest'] = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
+        context['contest'] = get_object_or_404(
+            Contest, pk=self.kwargs['contest_pk'])
         return context
 
 
@@ -140,14 +142,17 @@ class ContestSubmissionListView(ListView):
     allow_empty = True
 
     def get_context_data(self, **kwargs):
-        context = super(ContestSubmissionListView, self).get_context_data(**kwargs)
-        context['contest'] = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
+        context = super(
+            ContestSubmissionListView, self).get_context_data(**kwargs)
+        context['contest'] = get_object_or_404(
+            Contest, pk=self.kwargs['contest_pk'])
         return context
 
     def get_queryset(self):
         submissions = super(ContestSubmissionListView, self).get_queryset()
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
-        submissions = submissions.filter(author=self.request.user, contest=contest)
+        submissions = submissions.filter(
+            author=self.request.user, contest=contest)
         return submissions
 
 
@@ -174,16 +179,24 @@ class SubmissionDetailView(DetailView):
             s = {'submission': {'status': status, 'score': score}}
             return HttpResponse(unparse(s), content_type="application/xml")
         else:
-            return super(SubmissionDetailView, self).get(request, *args, **kwargs)
+            return super(SubmissionDetailView, self).get(
+                request, *args, **kwargs)
 
 
 class Printer(object):
+
     @staticmethod
     def prints(content, lang, title="Source Code", header="Competition"):
         def remove_accents(input_str):
             nkfd_form = normalize('NFKD', unicode(input_str))
             return nkfd_form.encode('ASCII', 'ignore')
-        proc = Popen('a2ps --printer="' + settings.PRINTING['printer'] + '" --pretty-print="' + lang.lower().encode('utf-8') + '" --header="' + remove_accents(header) + '" --left-footer --footer --center-title="' + remove_accents(title) + '"', stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
+        proc = Popen('a2ps --printer="' + settings.PRINTING['printer']
+                     + '" --pretty-print="'
+                     + lang.lower().encode('utf-8')
+                     + '" --header="' + remove_accents(header)
+                     + '" --left-footer --footer --center-title="'
+                     + remove_accents(title)
+                     + '"', stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
         proc.communicate(input=remove_accents(content))
         proc.wait()
 
@@ -192,10 +205,13 @@ class SubmissionPrintView(View):
 
     def get(self, request, *args, **kwargs):
         submission = get_object_or_404(Submission, pk=self.kwargs['pk'])
-        if not submission.contest.is_printing_available or submission.author != self.request.user:
+        if not submission.contest.is_printing_available or \
+           submission.author != self.request.user:
             error(request, _("Printing not available"))
         else:
-            Printer.prints(content=submission.source, lang=submission.language, title=submission.problem.name, header=submission.contest.name)
+            Printer.prints(content=submission.source, lang=submission.language,
+                           title=submission.problem.name,
+                           header=submission.contest.name)
             success(request, _("Printing successful"))
 
         return redirect('submission', int(self.kwargs['pk']))
@@ -209,12 +225,14 @@ class SubmissionPrintCreateView(FormView):
     success_url = '../'
 
     def get_context_data(self, **kwargs):
-        context = super(SubmissionPrintCreateView, self).get_context_data(**kwargs)
+        context = super(
+            SubmissionPrintCreateView, self).get_context_data(**kwargs)
 
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
 
         checker = ObjectPermissionChecker(self.request.user)
-        if not checker.has_perm('view_contest', contest) or not contest.is_printing_available or not contest.is_active:
+        if not checker.has_perm('view_contest', contest) or \
+           not contest.is_printing_available or not contest.is_active:
             raise PermissionDenied
         context['contest'] = contest
         return context
@@ -223,14 +241,17 @@ class SubmissionPrintCreateView(FormView):
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
 
         checker = ObjectPermissionChecker(self.request.user)
-        if not checker.has_perm('view_contest', contest) or not contest.is_printing_available:
+        if not checker.has_perm('view_contest', contest) or \
+           not contest.is_printing_available:
             raise PermissionDenied
-        Printer.prints(content=form.cleaned_data['source'], lang=form.cleaned_data['language'], header=contest.name)
+        Printer.prints(content=form.cleaned_data['source'],
+                       lang=form.cleaned_data['language'], header=contest.name)
 
         return super(SubmissionPrintCreateView, self).form_valid(form)
 
     def post(self, request, *args, **kwargs):
-        post = super(SubmissionPrintCreateView, self).post(request, *args, **kwargs)
+        post = super(SubmissionPrintCreateView, self).post(
+            request, *args, **kwargs)
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
 
         if not contest.is_printing_available:
@@ -256,7 +277,8 @@ class ScoreRankingListView(TemplateView):
            checker.has_perm('see_unfrozen_ranking', contest):
             includeFreezed = False
 
-        problems, users = contest.getProblemsAndLastUsersSubmissions(includeFreezed)
+        problems, users = contest.getProblemsAndLastUsersSubmissions(
+            includeFreezed)
 
         if len(users) == 0:
             return dict({'empty': True, 'contest': contest})
@@ -276,10 +298,13 @@ class ScoreRankingListView(TemplateView):
                         problem.score = 0
                         problem.timestamp = "-"
                     else:
-                        problem.timestamp = problem.timestamp - begin_time + timedelta(minutes=((problem.total - 1) * contest.penalty))
+                        problem.timestamp = problem.timestamp
+                        - begin_time + timedelta(minutes=((problem.total - 1)
+                                                          * contest.penalty))
                         user.score += 1
                         user.totalTime += problem.timestamp
 
-        context['ranking_list'] = OrderedDict(sorted(users.items(), key=lambda t: (-t[1].score, t[1].totalTime)))
+        context['ranking_list'] = OrderedDict(
+            sorted(users.items(), key=lambda t: (-t[1].score, t[1].totalTime)))
 
         return context

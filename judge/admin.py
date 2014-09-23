@@ -31,19 +31,22 @@ class ActiveListFilter(admin.SimpleListFilter):
 
 def set_waiting_status(modeladmin, request, queryset):
     queryset.update(status=Submission.WAITING_STATUS)
-set_waiting_status.short_description = _("Set selected submissions as waiting for judging")
+set_waiting_status.short_description = _(
+    "Set selected submissions as waiting for judging")
 
 
 def rejudge_last_submissions(modeladmin, request, queryset):
     for contest in queryset:
-        dummy, users = contest.getProblemsAndLastUsersSubmissions(includeFreezing=False)
+        dummy, users = contest.getProblemsAndLastUsersSubmissions(
+            includeFreezing=False)
         for dummy, user in users.items():
             for submission in user.currentSubmissions:
                 submission.remove_results()
                 submission.score = -1
                 submission.status = Submission.WAITING_STATUS
                 submission.save()
-rejudge_last_submissions.short_description = _("Rejudge last submission for each user and task")
+rejudge_last_submissions.short_description = _(
+    "Rejudge last submission for each user and task")
 
 
 def rejudge_all_submissions(modeladmin, requset, queryset):
@@ -54,7 +57,8 @@ def rejudge_all_submissions(modeladmin, requset, queryset):
             submission.score = -1
             submission.status = Submission.WAITING_STATUS
             submission.save()
-rejudge_all_submissions.short_description = _("Rejudge all submission for this contest")
+rejudge_all_submissions.short_description = _(
+    "Rejudge all submission for this contest")
 
 
 class ContestAdmin(GuardedModelAdmin):
@@ -97,7 +101,8 @@ class ResultInline(admin.StackedInline):
 class SubmissionAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('author', 'problem', 'contest', 'language', 'timestamp', 'status', 'score'),
+            'fields': ('author', 'problem', 'contest', 'language', 'timestamp',
+                       'status', 'score'),
         }),
         (_("Source"), {
             'classes': ('collapse',),
@@ -109,9 +114,11 @@ class SubmissionAdmin(admin.ModelAdmin):
         }),
     )
     inlines = [ResultInline, ]
-    list_display = ('author', 'problem', 'contest', 'language', 'timestamp', 'score', 'status', 'node')
+    list_display = ('author', 'problem', 'contest', 'language', 'timestamp',
+                    'score', 'status', 'node')
     list_filter = ('status',)
-    search_fields = ['author__first_name', 'author__last_name', 'author__username', 'problem__name', 'contest__name']
+    search_fields = ['author__first_name', 'author__last_name',
+                     'author__username', 'problem__name', 'contest__name']
     actions = [set_waiting_status, ]
 
 

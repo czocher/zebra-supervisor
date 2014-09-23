@@ -1,6 +1,0 @@
-django>=1.6.6
-django-guardian>=1.2.4
-django-bootstrap3>=4.11.0
-PyYAML>=3.11
-pygments>=1.6
-xmltodict>=0.9.0

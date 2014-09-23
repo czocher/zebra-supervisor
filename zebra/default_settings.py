@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # Django settings for zebra project.
 import os
 
@@ -9,7 +9,7 @@ PROJECT_ROOT = os.path.dirname(__file__)
 p = lambda *x: os.path.join(PROJECT_ROOT, '../', *x)
 
 ADMINS = (
-    #(u'Admin', 'admin@example.com'),
+    # (u'Admin', 'admin@example.com'),
 )
 
 MANAGERS = ADMINS
@@ -83,7 +83,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    #'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
@@ -106,7 +106,7 @@ except ImportError:
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-    #'django.template.loaders.eggs.Loader',
+    # 'django.template.loaders.eggs.Loader',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

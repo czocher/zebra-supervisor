@@ -3,8 +3,10 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from judge.models import Submission
 
+
 class SubmissionForm(forms.ModelForm):
-    source = forms.CharField(label=_("Source code"), widget=forms.Textarea, required=False)
+    source = forms.CharField(label=_("Source code"),
+                             widget=forms.Textarea, required=False)
     sourcefile = forms.FileField(label=_("Source file"), required=False)
 
     class Meta:
@@ -20,6 +22,7 @@ class SubmissionForm(forms.ModelForm):
         elif len(sourcecode) == 0 and sourcefile.size > 100000:
             raise forms.ValidationError(_("File is too large for submission."))
         elif len(sourcecode) == 0 and sourcefile:
-            self.cleaned_data['source'] = self.cleaned_data['sourcefile'].read()
+            self.cleaned_data['source'] = \
+                self.cleaned_data['sourcefile'].read()
 
         return super(SubmissionForm, self).clean()

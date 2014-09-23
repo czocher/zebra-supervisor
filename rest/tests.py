@@ -162,12 +162,13 @@ class SubmissionTest(TestCase):
         sid = response['session']['id']
         self.gurl = '/rest/getsubmission/sessionid/' + sid + '/'
         self.purl = '/rest/postsubmission/sessionid/' + sid \
-                + '/submissionid/{}/'
+            + '/submissionid/{}/'
 
     def test_getsubmission(self):
         response = self.c.get(self.gurl)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(response.items().index(('Content-Type', 'application/xml')))
+        self.assertTrue(response.items().index(
+            ('Content-Type', 'application/xml')))
 
         response = parse(response.content)
         self.assertEqual(response['submission']['pid'], 'HELLO')
@@ -195,7 +196,7 @@ class SubmissionTest(TestCase):
         </submission>"""
 
         response = self.c.post(self.purl.format(subid), data=res,
-                              content_type='application/xml')
+                               content_type='application/xml')
         self.assertEqual(response.status_code, 200)
 
         s = Submission.objects.get(id=subid)
@@ -231,7 +232,6 @@ class TestsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         response = parse(response.content)
         self.assertEqual(response['test']['in'], '1338729402')
-
 
     def test_gettests_files(self):
         response = self.c.get(self.url.format('in'))

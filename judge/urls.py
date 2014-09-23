@@ -21,17 +21,24 @@ urlpatterns = patterns('',
         SubmissionCreateView.as_view()),
 
     url(r'^contest/(?P<contest_pk>\d+)/submissions/$',
-        ContestSubmissionListView.as_view(), name='contestSubmissions'),
+        ContestSubmissionListView.as_view(
+        ), name='contestSubmissions'),
 
-    url(r'^contest/(?P<contest_pk>\d+)/print/$', SubmissionPrintCreateView.as_view(), name='printSourceCode'),
+    url(r'^contest/(?P<contest_pk>\d+)/print/$',
+        SubmissionPrintCreateView.as_view(
+        ), name='printSourceCode'),
 
-    url(r'^submissions/$', SubmissionListView.as_view(), name='submissions'),
+    url(r'^submissions/$',
+        SubmissionListView.as_view(), name='submissions'),
 
-    url(r'^submissions/(?P<pk>\d+)/print/$', SubmissionPrintView.as_view(), name='printSubmission'),
+    url(r'^submissions/(?P<pk>\d+)/print/$',
+        SubmissionPrintView.as_view(
+        ), name='printSubmission'),
 
     url(r'^submissions/(?P<pk>\d+)/$',
         SubmissionDetailView.as_view(), name='submission'),
 
-    url(r'^contest/(?P<contest_pk>\d+)/questions/', include('questions.urls')),
+    url(r'^contest/(?P<contest_pk>\d+)/questions/',
+        include('questions.urls')),
 
 )

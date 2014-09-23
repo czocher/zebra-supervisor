@@ -25,8 +25,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^login/$', 'django.contrib.auth.views.login', {
-        'template_name': 'login.html',
-    }),
+        'template_name': 'login.html', }),
 
     url(r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
 )
@@ -35,6 +34,6 @@ if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += patterns('',
-        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-    )
-
+                            (r'^media/(?P<path>.*)$',
+                             'django.views.static.serve',
+                             {'document_root': settings.MEDIA_ROOT}), )

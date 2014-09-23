@@ -15,6 +15,7 @@ from xmltodict import parse
 
 
 class SessionGetView(View):
+
     """Create a new session for the node if it authorizes properly."""
 
     template_name = "session.xml"
@@ -40,8 +41,8 @@ class SessionGetView(View):
             return HttpResponse(status=401)
         else:
             # Check if node has an active session
-            session = NodeSession.objects.filter(node=node,
-              expiration_time__gte=timezone.now(), active=True)
+            session = NodeSession.objects.filter(
+                node=node, expiration_time__gte=timezone.now(), active=True)
 
             if session:
                 session = session[0]
@@ -63,6 +64,7 @@ class SessionGetView(View):
 
 
 class SessionEndView(View):
+
     """Disable the session with the given ID."""
 
     template_name = "session.xml"
@@ -108,7 +110,7 @@ class RESTView(View):
 
         # If it is a POST request and has a XML body
         if request.method == 'POST' and request.body and \
-          request.META['CONTENT_TYPE'] == 'application/xml':
+                request.META['CONTENT_TYPE'] == 'application/xml':
             try:
                 self.data = parse(request.body)
             except:
@@ -120,6 +122,7 @@ class RESTView(View):
 
 
 class ReportView(RESTView):
+
     """Report the nodes status to the supervisor."""
 
     template_name = "report.xml"
@@ -140,11 +143,13 @@ class ReportView(RESTView):
         try:
             self.node.info
         except ObjectDoesNotExist:
-            self.node.info = NodeInfo(node=self.node, ip=ip, version=version,
-              memory=memory, frequency=frequency, disk=disk)
+            self.node.info = NodeInfo(
+                node=self.node, ip=ip, version=version,
+                memory=memory, frequency=frequency, disk=disk)
         else:
-            self.node.info = NodeInfo(ip=ip, version=version,
-              memory=memory, frequency=frequency, disk=disk)
+            self.node.info = NodeInfo(
+                ip=ip, version=version, memory=memory,
+                frequency=frequency, disk=disk)
         self.node.info.save()
 
         for langName in languages:
@@ -161,6 +166,7 @@ class ReportView(RESTView):
 
 
 class SubmissionView(RESTView):
+
     """Get a submission to test or post the testing results."""
 
     template_name = "submission.xml"
@@ -168,7 +174,7 @@ class SubmissionView(RESTView):
     def get(self, request, *args, **kwargs):
         try:
             submission = Submission.objects.select_for_update().filter(
-              status=Submission.WAITING_STATUS)[0]
+                status=Submission.WAITING_STATUS)[0]
         except IndexError:
             return HttpResponse(status=404)
 
@@ -190,7 +196,7 @@ class SubmissionView(RESTView):
             return HttpResponse(status=400)
 
         submission = get_object_or_404(
-          Submission.objects.select_for_update(), pk=sid)
+            Submission.objects.select_for_update(), pk=sid)
 
         if not bool(status):
             submission.status = submission.WAITING_STATUS
@@ -212,7 +218,7 @@ class SubmissionView(RESTView):
             mark = bool(int(result['mark']))
             time = float(result['time'])
             res = Result(returncode=returncode, mark=mark,
-                time=time, submission=submission)
+                         time=time, submission=submission)
             res.save()
         else:
             for result in results['result']:
@@ -220,7 +226,7 @@ class SubmissionView(RESTView):
                 mark = bool(int(result['mark']))
                 time = float(result['time'])
                 res = Result(returncode=returncode, mark=mark,
-                    time=time, submission=submission)
+                             time=time, submission=submission)
                 res.save()
 
         num_good_results = submission.results.all().filter(mark=True).count()
@@ -228,7 +234,7 @@ class SubmissionView(RESTView):
 
         try:
             submission.score = int((float(num_good_results)
-             / float(num_results)) * 100)
+                                    / float(num_results)) * 100)
         except ZeroDivisionError:
             submission.score = 0
 
@@ -238,6 +244,7 @@ class SubmissionView(RESTView):
 
 
 class TestView(RESTView):
+
     """Get the tests or the test timestamp for the problem
     with the given id."""
 

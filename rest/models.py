@@ -8,6 +8,7 @@ import uuid
 
 
 class Language(models.Model):
+
     """Available node language class."""
     name = models.CharField(_("Name"), max_length=50)
     name.help_text = _("Example: C++")
@@ -27,6 +28,7 @@ class Language(models.Model):
 
 
 class Node(models.Model):
+
     """Class representing the system node used for solution testing."""
     name = models.CharField(_("Name"), max_length=255)
     key = models.CharField(_("Key"), max_length=255)
@@ -41,14 +43,22 @@ class Node(models.Model):
 
 
 class NodeInfo(models.Model):
+
     """Node hardware and software information."""
     ip = models.IPAddressField(_("IP Address"), blank=True, null=True)
-    version = models.CharField(_("Version"), max_length=255, blank=True, null=True)
-    memory = models.CharField(_("Free memory"), max_length=255,  blank=True, null=True)
-    disk = models.CharField(_("Disk space"), max_length=255, blank=True, null=True)
-    frequency = models.CharField(_("Processor frequency"), max_length=255,  blank=True, null=True)
-    languages = models.ManyToManyField(Language, verbose_name=_("Supported languages"), related_name='languages', blank=True, null=True)
-    node = models.OneToOneField(Node, verbose_name=_("Node"), related_name="info")
+    version = models.CharField(
+        _("Version"), max_length=255, blank=True, null=True)
+    memory = models.CharField(
+        _("Free memory"), max_length=255,  blank=True, null=True)
+    disk = models.CharField(
+        _("Disk space"), max_length=255, blank=True, null=True)
+    frequency = models.CharField(
+        _("Processor frequency"), max_length=255,  blank=True, null=True)
+    languages = models.ManyToManyField(Language, verbose_name=_(
+        "Supported languages"), related_name='languages',
+        blank=True, null=True)
+    node = models.OneToOneField(
+        Node, verbose_name=_("Node"), related_name="info")
 
     class Meta:
         verbose_name = _("Node information")
@@ -62,10 +72,13 @@ REST_SESSION_DURATION = getattr(settings, 'REST_SESSION_DURATION', 900)
 
 
 class NodeSession(models.Model):
-    id = models.CharField(_("ID"), primary_key=True, max_length=36, default=uuid.uuid1, editable=False)
-    node = models.ForeignKey(Node, verbose_name=_("Node"), related_name='node_session')
-    expiration_time = models.DateTimeField(_("Expiration time"),
-      default=lambda: timezone.now() + datetime.timedelta(seconds=REST_SESSION_DURATION))
+    id = models.CharField(_("ID"), primary_key=True,
+                          max_length=36, default=uuid.uuid1, editable=False)
+    node = models.ForeignKey(
+        Node, verbose_name=_("Node"), related_name='node_session')
+    expiration_time = models.DateTimeField(_("Expiration time"))
+    expiration_time.default = lambda: timezone.now() \
+        + datetime.timedelta(seconds=REST_SESSION_DURATION)
     active = models.BooleanField(_("Active"), default=True)
 
     class Meta:
