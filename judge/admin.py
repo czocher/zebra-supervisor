@@ -9,6 +9,7 @@ from judge.models import Submission, Tests, SampleIO, Result, InputTest, \
 
 
 class ActiveListFilter(admin.SimpleListFilter):
+
     """Filters the query, so it shows only active or inactive contests."""
     title = _("active")
 
