@@ -31,7 +31,9 @@ class ActiveListFilter(admin.SimpleListFilter):
 
 
 def set_waiting_status(modeladmin, request, queryset):
-    queryset.update(status=Submission.WAITING_STATUS)
+    queryset.update(status=Submission.WAITING_STATUS, score=0)
+    for submission in queryset:
+        submission.results.all().delete()
 set_waiting_status.short_description = _(
     "Set selected submissions as waiting for judging")
 

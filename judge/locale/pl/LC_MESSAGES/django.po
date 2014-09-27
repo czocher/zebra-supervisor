@@ -34,7 +34,7 @@ msgstr "tylko nieaktywne"
 
 #: admin.py:34
 msgid "Set selected submissions as waiting for judging"
-msgstr "Ustaw wybrane wysyłki jako oczekujące na ocenienie"
+msgstr "Ustaw wybrane wysyłki jako oczekujące na ocenę"
 
 #: admin.py:46
 msgid "Rejudge last submission for each user and task"
@@ -234,7 +234,7 @@ msgstr "Czas wysyłki"
 
 #: models.py:237 templates/submission_detail.html:27
 msgid "Compilation log"
-msgstr "Log kompilacji"
+msgstr "Dziennik kompilacji"
 
 #: models.py:238 templates/contest_submission_list.html:16
 #: templates/submission_detail.html:18 templates/submission_list.html:15
