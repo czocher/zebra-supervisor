@@ -3,7 +3,8 @@ from django.test import TestCase, Client
 from models import Node, NodeSession, NodeInfo
 from judge.models import Submission
 
-from xmltodict import parse, unparse
+from xmltodict import parse
+from httplib import UNAUTHORIZED, OK, CONFLICT, NOT_FOUND, BAD_REQUEST
 
 
 class SessionTest(TestCase):
@@ -14,7 +15,7 @@ class SessionTest(TestCase):
 
     def test_getsession(self):
         response = self.c.get(self.url.format('testname', 'testkey'))
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, UNAUTHORIZED)
         nodes = Node.objects.filter(name='testname')
         self.assertEqual(nodes.count(), 1)
 
@@ -23,31 +24,31 @@ class SessionTest(TestCase):
         node.save()
 
         response = self.c.get(self.url.format('testname', 'testkey'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, OK)
         nodes = Node.objects.filter(name='testname')
         self.assertEqual(nodes.count(), 1)
 
     def test_multiple_getsessions_for_same_node(self):
         response = self.c.get(self.url.format('testname', 'testkey'))
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, UNAUTHORIZED)
         self.assertEqual(Node.objects.filter(name='testname').count(), 1)
 
         response = self.c.get(self.url.format('testname', 'testkey'))
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, UNAUTHORIZED)
         self.assertEqual(Node.objects.filter(name='testname').count(), 1)
 
     def test_multiple_getsessions_for_different_nodes(self):
         response = self.c.get(self.url.format('testname', 'testkey'))
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, UNAUTHORIZED)
         self.assertEqual(Node.objects.filter().count(), 1)
 
         response = self.c.get(self.url.format('testname2', 'testkey2'))
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, UNAUTHORIZED)
         self.assertEqual(Node.objects.filter().count(), 2)
 
     def test_endsession(self):
         response = self.c.get(self.url.format('testname', 'testkey'))
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, UNAUTHORIZED)
         nodes = Node.objects.filter(name='testname')
         self.assertEqual(nodes.count(), 1)
 
@@ -56,20 +57,19 @@ class SessionTest(TestCase):
         node.save()
 
         response = self.c.get(self.url.format('testname', 'testkey'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, OK)
 
         response = parse(response.content)
 
         sid = response['session']['id']
 
         response = self.c.get('/rest/endsession/sessionid/' + sid + '/')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, OK)
         session = NodeSession.objects.get(id=sid)
         self.assertEqual(session.active, False)
 
         response = self.c.get('/rest/getsubmission/sessionid/' + sid + '/')
-        print response.content
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, CONFLICT)
 
 
 class ReportTest(TestCase):
@@ -79,7 +79,7 @@ class ReportTest(TestCase):
         self.nurl = '/rest/getsession/nodename/{}/nodekey/{}/'
 
         response = self.c.get(self.nurl.format('testname', 'testkey'))
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, UNAUTHORIZED)
         nodes = Node.objects.filter(name='testname')
         self.assertEqual(nodes.count(), 1)
 
@@ -88,7 +88,7 @@ class ReportTest(TestCase):
         node.save()
 
         response = self.c.get(self.nurl.format('testname', 'testkey'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, OK)
 
         response = parse(response.content)
 
@@ -107,7 +107,7 @@ class ReportTest(TestCase):
                                </languages>
                                </report>""", content_type='application/xml')
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, OK)
         self.assertEqual(NodeInfo.objects.get(ip='127.0.0.1').version, '1.0')
 
     def test_invalid_content_type(self):
@@ -122,7 +122,7 @@ class ReportTest(TestCase):
                                </languages>
                                </report>""", content_type='application/abc')
 
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, BAD_REQUEST)
 
     def test_invalid_xml(self):
         response = self.c.post(self.url,
@@ -136,7 +136,7 @@ class ReportTest(TestCase):
                                </languages>
                                </report>""", content_type='application/xml')
 
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, BAD_REQUEST)
 
 
 class SubmissionTest(TestCase):
@@ -146,7 +146,7 @@ class SubmissionTest(TestCase):
         self.nurl = '/rest/getsession/nodename/{}/nodekey/{}/'
 
         response = self.c.get(self.nurl.format('testname', 'testkey'))
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, UNAUTHORIZED)
         nodes = Node.objects.filter(name='testname')
         self.assertEqual(nodes.count(), 1)
 
@@ -155,7 +155,7 @@ class SubmissionTest(TestCase):
         node.save()
 
         response = self.c.get(self.nurl.format('testname', 'testkey'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, OK)
 
         response = parse(response.content)
 
@@ -166,7 +166,7 @@ class SubmissionTest(TestCase):
 
     def test_getsubmission(self):
         response = self.c.get(self.gurl)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, OK)
         self.assertTrue(response.items().index(
             ('Content-Type', 'application/xml')))
 
@@ -197,21 +197,21 @@ class SubmissionTest(TestCase):
 
         response = self.c.post(self.purl.format(subid), data=res,
                                content_type='application/xml')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, OK)
 
         s = Submission.objects.get(id=subid)
         self.assertEqual(s.score, 50)
         self.assertEqual(s.status, s.JUDGED_STATUS)
 
 
-class TestsTest(TestCase):
+class TestTimestampsTest(TestCase):
 
     def setUp(self):
         self.c = Client()
         self.nurl = '/rest/getsession/nodename/{}/nodekey/{}/'
 
         response = self.c.get(self.nurl.format('testname', 'testkey'))
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, UNAUTHORIZED)
         nodes = Node.objects.filter(name='testname')
         self.assertEqual(nodes.count(), 1)
 
@@ -220,28 +220,53 @@ class TestsTest(TestCase):
         node.save()
 
         response = self.c.get(self.nurl.format('testname', 'testkey'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, OK)
+
+        response = parse(response.content)
+
+        sid = response['session']['id']
+        self.url = '/rest/gettesttimestamps/sessionid/' \
+                + sid + '/problemid/HELLO/'
+
+    def test_gettesttimestamp(self):
+        response = self.c.get(self.url)
+        self.assertEqual(response.status_code, OK)
+        response = parse(response.content)
+        self.assertEqual(response['test']['in'], '1338733002')
+
+class TestsTest(TestCase):
+
+    def setUp(self):
+        self.c = Client()
+        self.nurl = '/rest/getsession/nodename/{}/nodekey/{}/'
+
+        response = self.c.get(self.nurl.format('testname', 'testkey'))
+        self.assertEqual(response.status_code, UNAUTHORIZED)
+        nodes = Node.objects.filter(name='testname')
+        self.assertEqual(nodes.count(), 1)
+
+        node = nodes[0]
+        node.authorized = True
+        node.save()
+
+        response = self.c.get(self.nurl.format('testname', 'testkey'))
+        self.assertEqual(response.status_code, OK)
 
         response = parse(response.content)
 
         sid = response['session']['id']
         self.url = '/rest/gettests/sessionid/' + sid + '/problemid/HELLO/{}/'
 
-    def test_gettests_timestamp(self):
-        response = self.c.get(self.url.format('timestamp'))
-        self.assertEqual(response.status_code, 200)
-        response = parse(response.content)
-        self.assertEqual(response['test']['in'], '1338729402')
 
     def test_gettests_files(self):
         response = self.c.get(self.url.format('in'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, OK)
         self.assertTrue(response.has_header('X-Sendfile'))
 
         response = self.c.get(self.url.format('out'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, OK)
         self.assertTrue(response.has_header('X-Sendfile'))
 
         response = self.c.get(self.url.format('conf'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, OK)
         self.assertTrue(response.has_header('X-Sendfile'))

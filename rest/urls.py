@@ -1,7 +1,7 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 
 from views import SessionGetView, SessionEndView, ReportView, SubmissionView,\
-  TestView
+    TestView, TestTimestampView
 
 urlpatterns = patterns('',
     url(r'^getsession/nodename/(?P<nodeName>[\w]+)/nodekey/(?P<nodeKey>[\w]+)/$',
@@ -22,6 +22,9 @@ urlpatterns = patterns('',
     url(r'^postsubmission/sessionid/(?P<sessionId>[\w]{8}(-[\w]{4}){3}-[\w]{12})/submissionid/(?P<submissionId>\d+)/$',
         SubmissionView.as_view()),
 
-    url(r'^gettests/sessionid/(?P<sessionId>[\w]{8}(-[\w]{4}){3}-[\w]{12})/problemid/(?P<problemId>[-\w]+)/(?P<type>(in|out|conf|timestamp))/$',
+    url(r'^gettesttimestamps/sessionid/(?P<sessionId>[\w]{8}(-[\w]{4}){3}-[\w]{12})/problemid/(?P<problemId>[-\w]+)/$',
+        TestTimestampView.as_view()),
+
+    url(r'^gettests/sessionid/(?P<sessionId>[\w]{8}(-[\w]{4}){3}-[\w]{12})/problemid/(?P<problemId>[-\w]+)/(?P<type>(in|out|conf))/$',
         TestView.as_view()),
 )

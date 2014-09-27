@@ -1,6 +1,6 @@
-from models import *
+from models import Node, Language, NodeInfo, NodeSession
 from django.contrib import admin
-
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -11,6 +11,10 @@ set_authorized.short_description = _("Set selected nodes as authorized")
 
 def set_unauthorized(modeladmin, request, queryset):
     queryset.update(authorized=False)
+
+    # Deactivate all node sessions
+    for node in queryset:
+        node.node_session.update(active=False)
 set_unauthorized.short_description = _("Set selected nodes as unauthorized")
 
 
@@ -100,7 +104,7 @@ class NodeAdmin(admin.ModelAdmin):
 class NodeSessionAdmin(admin.ModelAdmin):
     list_filter = (ActiveSessionListFilter, ExpiredSessionListFilter)
     actions = [set_active, set_inactive, ]
-    list_display = ('id', '_is_expired', 'active')
+    list_display = ('id', 'expiration_time', '_is_expired', 'active')
 
 admin.site.register(Node, NodeAdmin)
 admin.site.register(Language, LanguageAdmin)

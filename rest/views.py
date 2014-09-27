@@ -1,11 +1,13 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response, get_object_or_404
 from django.utils import timezone
+from django.utils.dateformat import format
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import View
 from django.http import HttpResponse
+from httplib import OK, UNAUTHORIZED, BAD_REQUEST, NOT_FOUND, CONFLICT
 
 from judge.models import Submission, Result, Problem
 from models import Node, NodeSession, NodeInfo, Language
@@ -34,11 +36,11 @@ class SessionGetView(View):
             node.save()
 
             # Return error
-            return HttpResponse(status=401)
+            return HttpResponse(status=UNAUTHORIZED)
 
         # If found check if authorized
         if not node.authorized:
-            return HttpResponse(status=401)
+            return HttpResponse(status=UNAUTHORIZED)
         else:
             # Check if node has an active session
             session = NodeSession.objects.filter(
@@ -55,7 +57,7 @@ class SessionGetView(View):
             # Return the details to the node
             return render_to_response(self.template_name, {
                 'id': session.id,
-                'expires': session.expiration_time.strftime('%s'),
+                'expires': format(session.expiration_time, 'U'),
             }, content_type='application/xml')
 
     @method_decorator(cache_control(no_cache=True))
@@ -77,7 +79,7 @@ class SessionEndView(View):
         session.active = False
         session.save()
 
-        return HttpResponse(status=200)
+        return HttpResponse(status=OK)
 
     @method_decorator(cache_control(no_cache=True))
     def dispatch(self, *args, **kwargs):
@@ -96,17 +98,17 @@ class RESTView(View):
         try:
             session = NodeSession.objects.get(id=sessionId)
         except ObjectDoesNotExist:
-            return HttpResponse(status=401)
+            return HttpResponse(status=UNAUTHORIZED)
 
         if session.is_expired or not session.active:
-            return HttpResponse(status=401)
+            return HttpResponse(status=CONFLICT)
 
         # Identify the node
         self.node = session.node
 
         # Check if node is authorized to use webservices
         if not self.node.authorized:
-            return HttpResponse(status=401)
+            return HttpResponse(status=UNAUTHORIZED)
 
         # If it is a POST request and has a XML body
         if request.method == 'POST' and request.body and \
@@ -114,9 +116,9 @@ class RESTView(View):
             try:
                 self.data = parse(request.body)
             except:
-                return HttpResponse(status=400)
+                return HttpResponse(status=BAD_REQUEST)
         else:
-            HttpResponse(status=400)
+            HttpResponse(status=BAD_REQUEST)
 
         return super(RESTView, self).dispatch(request, *args, **kwargs)
 
@@ -138,7 +140,7 @@ class ReportView(RESTView):
             for language in self.data['report']['languages']['language']:
                 languages.append(language)
         except (KeyError, AttributeError):
-            return HttpResponse(status=400)
+            return HttpResponse(status=BAD_REQUEST)
 
         try:
             self.node.info
@@ -147,9 +149,12 @@ class ReportView(RESTView):
                 node=self.node, ip=ip, version=version,
                 memory=memory, frequency=frequency, disk=disk)
         else:
-            self.node.info = NodeInfo(
-                ip=ip, version=version, memory=memory,
-                frequency=frequency, disk=disk)
+            info = self.node.info
+            info.ip = ip
+            info.version = version
+            info.memory = memory
+            info.frequency = frequency
+            info.disk = disk
         self.node.info.save()
 
         for langName in languages:
@@ -162,7 +167,7 @@ class ReportView(RESTView):
 
         self.node.info.save()
 
-        return HttpResponse(status=200)
+        return HttpResponse(status=OK)
 
 
 class SubmissionView(RESTView):
@@ -176,7 +181,7 @@ class SubmissionView(RESTView):
             submission = Submission.objects.select_for_update().filter(
                 status=Submission.WAITING_STATUS)[0]
         except IndexError:
-            return HttpResponse(status=404)
+            return HttpResponse(status=NOT_FOUND)
 
         submission.remove_results()  # In case of rejudging
         submission.status = submission.JUDGING_STATUS
@@ -193,7 +198,7 @@ class SubmissionView(RESTView):
             sid = self.kwargs['submissionId']
             status = int(self.data['submission']['status'])
         except:
-            return HttpResponse(status=400)
+            return HttpResponse(status=BAD_REQUEST)
 
         submission = get_object_or_404(
             Submission.objects.select_for_update(), pk=sid)
@@ -201,33 +206,36 @@ class SubmissionView(RESTView):
         if not bool(status):
             submission.status = submission.WAITING_STATUS
             submission.save()
-            return HttpResponse(status=200)
+            return HttpResponse(status=OK)
 
         try:
             compilelog = self.data['submission']['compilelog']
             results = self.data['submission']['results']
         except:
-            return HttpResponse(status=400)
+            return HttpResponse(status=BAD_REQUEST)
 
         submission.compilelog = compilelog
         submission.remove_results()
 
-        if 'returncode' in results['result']:
-            result = results['result']
-            returncode = result['returncode']
-            mark = bool(int(result['mark']))
-            time = float(result['time'])
-            res = Result(returncode=returncode, mark=mark,
-                         time=time, submission=submission)
-            res.save()
-        else:
-            for result in results['result']:
-                returncode = int(result['returncode'])
+        try:
+            if 'returncode' in results['result']:
+                result = results['result']
+                returncode = result['returncode']
                 mark = bool(int(result['mark']))
                 time = float(result['time'])
                 res = Result(returncode=returncode, mark=mark,
-                             time=time, submission=submission)
+                            time=time, submission=submission)
                 res.save()
+            else:
+                for result in results['result']:
+                    returncode = int(result['returncode'])
+                    mark = bool(int(result['mark']))
+                    time = float(result['time'])
+                    res = Result(returncode=returncode, mark=mark,
+                                time=time, submission=submission)
+                    res.save()
+        except:
+            return HttpResponse(status=BAD_REQUEST)
 
         num_good_results = submission.results.all().filter(mark=True).count()
         num_results = submission.results.all().count()
@@ -240,13 +248,12 @@ class SubmissionView(RESTView):
 
         submission.status = submission.JUDGED_STATUS
         submission.save()
-        return HttpResponse(status=200)
+        return HttpResponse(status=OK)
 
 
 class TestView(RESTView):
 
-    """Get the tests or the test timestamp for the problem
-    with the given id."""
+    """Get the tests for the problem with the given id."""
 
     template_name = "test.xml"
 
@@ -261,7 +268,7 @@ class TestView(RESTView):
             out = problem.tests.output
             conf = problem.tests.config
         except ObjectDoesNotExist:
-            return HttpResponse(status=404)
+            return HttpResponse(status=NOT_FOUND)
 
         if what == 'in':
             return sendfile(inpt.file.path)
@@ -269,9 +276,28 @@ class TestView(RESTView):
             return sendfile(out.file.path)
         elif what == 'conf':
             return sendfile(conf.file.path)
-        elif what == 'timestamp':
-            return render_to_response(self.template_name, {
-                'input': inpt.timestamp.strftime('%s'),
-                'output': out.timestamp.strftime('%s'),
-                'config': conf.timestamp.strftime('%s'),
-            }, content_type='application/xml')
+
+
+class TestTimestampView(RESTView):
+
+    """Get the test timestamps for the problem with the given id."""
+
+    template_name = "test.xml"
+
+    def get(self, request, *args, **kwargs):
+        problemId = kwargs['problemId']
+
+        problem = get_object_or_404(Problem, codename=problemId)
+
+        try:
+            inpt = problem.tests.input
+            out = problem.tests.output
+            conf = problem.tests.config
+        except ObjectDoesNotExist:
+            return HttpResponse(status=NOT_FOUND)
+
+        return render_to_response(self.template_name, {
+            'input': format(inpt.timestamp, 'U'),
+            'output': format(out.timestamp, 'U'),
+            'config': format(conf.timestamp, 'U'),
+        }, content_type='application/xml')

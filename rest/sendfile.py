@@ -1,7 +1,7 @@
 import os
 
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, StreamingHttpResponse
 from django.core.servers.basehttp import FileWrapper
 
 
@@ -16,6 +16,6 @@ def sendfile(path):
         return response
 
     wrapper = FileWrapper(file(path))
-    response = HttpResponse(wrapper, content_type='text/plain')
+    response = StreamingHttpResponse(wrapper, content_type='text/plain')
     response['Content-Length'] = os.path.getsize(path)
     return response

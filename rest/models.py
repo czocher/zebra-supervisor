@@ -76,6 +76,8 @@ class NodeSession(models.Model):
                           max_length=36, default=uuid.uuid1, editable=False)
     node = models.ForeignKey(
         Node, verbose_name=_("Node"), related_name='node_session')
+    creation_time = models.DateTimeField(_("Creation time"))
+    creation_time.default = timezone.now
     expiration_time = models.DateTimeField(_("Expiration time"))
     expiration_time.default = lambda: timezone.now() \
         + datetime.timedelta(seconds=REST_SESSION_DURATION)

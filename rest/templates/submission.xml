@@ -3,6 +3,6 @@
   <sid>{{ submission.id }}</sid>
   <pid>{{ submission.problem.codename }}</pid>
   <active>{{ submission.active }}</active>
-  <lang>{{ submission.get_language_display|lower }}</lang>
-  <content><![CDATA[{{ submission.source }}]]></content>
+  <language>{{ submission.get_language_display }}</language>
+  <source><![CDATA[{{ submission.source|safe }}]]></source>
 </submission>
