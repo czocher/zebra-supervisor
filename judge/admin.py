@@ -117,8 +117,8 @@ class SubmissionAdmin(admin.ModelAdmin):
         }),
     )
     inlines = [ResultInline, ]
-    list_display = ('author', 'problem', 'contest', 'language', 'timestamp',
-                    'score', 'status', 'node')
+    list_display = ('id', 'author', 'problem', 'contest', 'language',
+                    'timestamp', 'score', 'status', 'node')
     list_filter = ('status',)
     search_fields = ['author__first_name', 'author__last_name',
                      'author__username', 'problem__name', 'contest__name']
