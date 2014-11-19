@@ -146,7 +146,7 @@ class Contest(models.Model):
     team = models.BooleanField(_("Team contest"), default=False)
     penalty = models.IntegerField(
         _("Penalty for wrong submissions"), default=0)
-    printing = models.BooleanField(_("Is printing avaliable"))
+    printing = models.BooleanField(_("Is printing avaliable"), default=False)
 
     class Meta:
         verbose_name = _("Contest")
