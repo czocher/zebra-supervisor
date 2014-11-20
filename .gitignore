@@ -1,0 +1,6 @@
+*.pyc
+*~
+settings.py
+*.mo
+secretkey.py
+database.db
