@@ -155,6 +155,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'rest_framework',
     'guardian',
     'bootstrap3',
     'judge',
@@ -207,6 +208,20 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',  # this is default
     'guardian.backends.ObjectPermissionBackend',
 )
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest.tokenpermission.TokenPermission'
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.XMLRenderer',
+    ]
+}
 
 ANONYMOUS_USER_ID = -1
 

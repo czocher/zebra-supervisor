@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<submission>
-  <sid>{{ submission.id }}</sid>
-  <pid>{{ submission.problem.codename }}</pid>
-  <active>{{ submission.active }}</active>
-  <language>{{ submission.get_language_display }}</language>
-  <source><![CDATA[{{ submission.source|safe }}]]></source>
-</submission>

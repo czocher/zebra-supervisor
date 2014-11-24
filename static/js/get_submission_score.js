@@ -6,14 +6,14 @@ $(document).ready(function() {
     }
 
     $.ajax({
-      url: "/judge/submissions/" + $(element).data("id") + "/",
-      dataType: "xml",
+      url: "/rest/submission/" + $(element).data("id") + "/?format=json",
+      dataType: "json",
       error: function() {
         $(element).text("Error");
       },
-      success: function(xml) {
-        this.status = xml.firstChild.childNodes[0].textContent;
-        this.score = xml.firstChild.childNodes[1].textContent;
+      success: function(json) {
+        this.status = json['status'];
+        this.score = json['score'];
 
         if(this.status=="judged") {
           $(element).text(this.score);

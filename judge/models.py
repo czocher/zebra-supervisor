@@ -297,6 +297,14 @@ class Submission(models.Model):
         formatter = HtmlFormatter(linenos=True)
         return highlight(self.source, lexer, formatter)
 
+    def get_status_codename(self):
+        if self.status == self.WAITING_STATUS:
+            return 'waiting'
+        elif self.status == self.JUDGING_STATUS:
+            return 'judging'
+        else:
+            return 'judged'
+
 
 class Result(models.Model):
 

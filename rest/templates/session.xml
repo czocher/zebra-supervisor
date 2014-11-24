@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session>
-  {% if id %}
-  <id>{{ id }}</id>
-  {% endif %}
-  {% if expires %}
-  <expires>{{ expires }}</expires>
-  {% endif %}
-</session>
