@@ -1,6 +1,7 @@
 from django.views.generic import RedirectView
 from django.conf.urls import patterns, include, url
 from django.conf import settings
+import rest_framework
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -11,8 +12,9 @@ urlpatterns = patterns('',
     # url(r'^$', 'zebra.views.home', name='home'),
     # url(r'^zebra/', include('zebra.foo.urls')),
 
-    url(r'^$', RedirectView.as_view(url='/judge/')),
+url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
+    url(r'^$', RedirectView.as_view(url='/judge/')),
 
     url(r'^judge/', include('judge.urls')),
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-24 14:00+0200\n"
+"POT-Creation-Date: 2014-11-24 15:55+0100\n"
 "PO-Revision-Date: 2012-11-04 11:24+0100\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -24,166 +24,38 @@ msgstr ""
 msgid "Set selected nodes as authorized"
 msgstr "Ustaw oznaczone węzły jako autoryzowane"
 
-#: admin.py:16
+#: admin.py:18
 msgid "Set selected nodes as unauthorized"
 msgstr "Ustaw oznaczone węzły jako nieautoryzowane"
 
-#: admin.py:21
+#: admin.py:23
 msgid "authorized"
 msgstr "autoryzowane"
 
-#: admin.py:27
+#: admin.py:29
 msgid "is authorized"
 msgstr "autoryzowane"
 
-#: admin.py:28
+#: admin.py:30
 msgid "is unauthorized"
 msgstr "nieautoryzowane"
 
-#: admin.py:40
-msgid "Activate selected sessions"
-msgstr "Uaktywnij wybrane sesje"
-
-#: admin.py:45
-msgid "Deactivate selected sessions"
-msgstr "Deaktywuj wybrane sesje"
-
-#: admin.py:50
-msgid "expired"
-msgstr "wygasła"
-
-#: admin.py:56
-msgid "is expired"
-msgstr "wygasłe"
-
-#: admin.py:57
-msgid "is unexpired"
-msgstr "niewygasłe"
-
-#: admin.py:69
-msgid "active"
-msgstr "aktywna"
-
-#: admin.py:75
-msgid "is active"
-msgstr "aktywne"
-
-#: admin.py:76
-msgid "is inactive"
-msgstr "nieaktywna"
-
-#: models.py:13 models.py:33
-msgid "Name"
-msgstr "Nazwa"
-
-#: models.py:14
-msgid "Example: C++"
-msgstr "Przykład: C++"
-
-#: models.py:15
-msgid "Compiler command"
-msgstr "Komenda kompilatora"
-
-#: models.py:16
-msgid "Example: g++"
-msgstr "Przykład: g++"
-
-#: models.py:17
-msgid "Compiler arguments"
-msgstr "Argumenty kompilatora"
-
-#: models.py:18
-msgid "Example: -Wall -Wextra -pedantic -oresult"
-msgstr "Przykład: -Wall -Wextra -pedantic -oresult"
-
-#: models.py:19
-msgid "Result filename"
-msgstr "Nazwa pliku wynikowego"
-
-#: models.py:20
-msgid "Example: result"
-msgstr "Przykład: wynik"
-
-#: models.py:23
-msgid "Language"
-msgstr "Język"
-
-#: models.py:24
-msgid "Languages"
-msgstr "Języki"
-
-#: models.py:34
-msgid "Key"
-msgstr "Klucz"
-
-#: models.py:35
-msgid "Authorized"
-msgstr "Autoryzowany"
-
-#: models.py:38 models.py:61 models.py:78
-msgid "Node"
-msgstr "Węzeł"
-
-#: models.py:39
-msgid "Nodes"
-msgstr "Węzły"
-
-#: models.py:48
+#: models.py:8
 msgid "IP Address"
 msgstr "Adres IP"
 
-#: models.py:50
-msgid "Version"
-msgstr "Wersja"
+#: models.py:9
+msgid "Token"
+msgstr ""
 
-#: models.py:52
-msgid "Free memory"
-msgstr "Wolna pamięć"
+#: models.py:10
+msgid "Authorized"
+msgstr "Autoryzowany"
 
-#: models.py:54
-msgid "Disk space"
-msgstr "Przestrzeń dyskowa"
+#: models.py:13
+msgid "Node"
+msgstr "Węzeł"
 
-#: models.py:56
-msgid "Processor frequency"
-msgstr "Częstotliwość taktowania"
-
-#: models.py:58
-msgid "Supported languages"
-msgstr "Wspierane języki"
-
-#: models.py:64
-msgid "Node information"
-msgstr "Informacja o węźle"
-
-#: models.py:65
-msgid "Node informations"
-msgstr "Informacje o węźle"
-
-#: models.py:75
-msgid "ID"
-msgstr "ID"
-
-#: models.py:79
-msgid "Creation time"
-msgstr "Czas utworzenia"
-
-#: models.py:81
-msgid "Expiration time"
-msgstr "Termin wygasania"
-
-#: models.py:84
-msgid "Active"
-msgstr "Aktywny"
-
-#: models.py:87
-msgid "Session"
-msgstr "Sesja"
-
-#: models.py:88
-msgid "Sessions"
-msgstr "Sesje"
-
-#: models.py:97
-msgid "Expired"
-msgstr "Wygasła"
+#: models.py:14
+msgid "Nodes"
+msgstr "Węzły"

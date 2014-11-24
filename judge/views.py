@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from guardian.core import ObjectPermissionChecker
 
 from django.core.exceptions import PermissionDenied
-from django.http import Http404, HttpResponse
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.messages.api import success, error
 
@@ -17,7 +17,6 @@ from judge.forms import SubmissionForm
 from subprocess import Popen, PIPE
 from django.conf import settings
 from unicodedata import normalize
-from xmltodict import unparse
 
 
 class ContestListView(ListView):
@@ -170,23 +169,6 @@ class SubmissionDetailView(DetailView):
         else:
             return submission
 
-    def get(self, request, *args, **kwargs):
-        submission = self.get_object()
-        if submission.status == submission.WAITING_STATUS:
-            status = 'waiting'
-        elif submission.status == submission.JUDGING_STATUS:
-            status = 'judging'
-        else:
-            status = 'judged'
-        score = submission.score
-
-        if request.is_ajax():
-            s = {'submission': {'status': status, 'score': score}}
-            return HttpResponse(unparse(s), content_type="application/xml")
-        else:
-            return super(SubmissionDetailView, self).get(
-                request, *args, **kwargs)
-
 
 class Printer(object):
 
@@ -275,6 +257,9 @@ class ScoreRankingListView(TemplateView):
         context = super(ScoreRankingListView, self).get_context_data(**kwargs)
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
         checker = ObjectPermissionChecker(self.request.user)
+
+        if not checker.has_perm('view_contest', contest):
+            raise PermissionDenied
 
         includeFreezed = True
 
