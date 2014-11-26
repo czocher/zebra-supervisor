@@ -35,6 +35,6 @@ class SubmissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Submission
         fields = ('id', 'status', 'problem', 'active',
-                  'language', 'source', 'score', 'error', 'results')
+                  'language', 'source', 'score', 'error', 'results', 'compilelog')
         write_only_fields = ('compilelog', )
         read_only_fields = ('source', 'id', 'score')
