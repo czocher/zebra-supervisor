@@ -1,14 +1,20 @@
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
+
 from judge.models import Submission, Problem
+from rest.models import Node
+
 from sendfile import sendfile
 from rest.serializers import SubmissionSerializer, TestsTimestampsSerializer
+
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.routers import DefaultRouter
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route
 from rest_framework.mixins import ListModelMixin,\
     RetrieveModelMixin, UpdateModelMixin
+
 import logging
 
 
@@ -20,15 +26,17 @@ class SubmissionViewSet(ListModelMixin, RetrieveModelMixin,
     queryset = Submission.objects.select_for_update()
     serializer_class = SubmissionSerializer
 
-    def list(self, *args, **kwargs):
+    def list(self, request, *args, **kwargs):
         """Get a submission for judging."""
         queryset = self.get_queryset()
-
+        token = request.META.get('HTTP_X_TOKEN')
+        node = get_object_or_404(Node, token=token)
         try:
             instance = queryset.filter(
                 status=Submission.WAITING_STATUS
             ).latest('timestamp')
             instance.status = Submission.JUDGING_STATUS
+            instance.node = node
             instance.results.all().delete()
             instance.save()
         except ObjectDoesNotExist:
