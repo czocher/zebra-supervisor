@@ -29,7 +29,7 @@ class SubmissionSerializer(serializers.ModelSerializer):
     language = serializers.CharField(source='get_language_display',
                                      read_only=True)
     results = ResultSerializer(source='results', many=True,
-                               allow_add_remove=True)
+                               allow_add_remove=True, required=False)
     error = serializers.BooleanField(write_only=True)
 
     class Meta:
