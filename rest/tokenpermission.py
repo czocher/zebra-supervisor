@@ -11,7 +11,7 @@ class TokenPermission(permissions.BasePermission):
 
     def _is_authorized_node(self, request):
         if not request.is_secure():
-            logger.warning("Received an insecure REST request.")
+            logger.warning("Received an insecure REST request, HTTPS required.")
 
         token = request.META.get('HTTP_X_TOKEN')
         ip = request.META.get('REMOTE_ADDR')
@@ -37,7 +37,7 @@ class TokenPermission(permissions.BasePermission):
 
     def _is_authorized_user(self, request, obj):
         if not request.is_secure():
-            logger.warning("Received an insecure REST request.")
+            logger.warning("Received an insecure REST request, HTTPS required.")
 
         # If user is staff then give him full access
         if request.user and request.user.is_staff:
