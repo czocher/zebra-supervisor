@@ -3,7 +3,6 @@ from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import CreateView, FormView
 from django.views.generic.base import View
 from django.utils.translation import ugettext_lazy as _
-from guardian.core import ObjectPermissionChecker
 
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
@@ -40,9 +39,9 @@ class ContestDetailView(DetailView):
 
     def get_object(self):
         contest = super(ContestDetailView, self).get_object()
-        checker = ObjectPermissionChecker(self.request.user)
+        user = self.request.user
 
-        if not checker.has_perm('view_contest', contest):
+        if not user.has_perm('view_contest', contest):
             raise PermissionDenied
         else:
             return contest
@@ -62,8 +61,8 @@ class ProblemDetailView(DetailView):
         if problem not in contest.problems.all():
             raise Http404
 
-        checker = ObjectPermissionChecker(self.request.user)
-        if not checker.has_perm('view_contest', contest):
+        user = self.request.user
+        if not user.has_perm('view_contest', contest):
             raise PermissionDenied
         elif not contest.is_started:
             raise Http404
@@ -93,8 +92,8 @@ class SubmissionCreateView(CreateView):
         if problem not in contest.problems.all():
             raise Http404
 
-        checker = ObjectPermissionChecker(self.request.user)
-        if not checker.has_perm('view_contest', contest):
+        user = self.request.user
+        if not user.has_perm('view_contest', contest):
             raise PermissionDenied
         else:
             context['problem'] = problem
@@ -111,8 +110,8 @@ class SubmissionCreateView(CreateView):
         elif not contest.is_active:
             raise PermissionDenied
 
-        checker = ObjectPermissionChecker(self.request.user)
-        if not checker.has_perm('view_contest', contest):
+        user = self.request.user
+        if not user.has_perm('view_contest', contest):
             raise PermissionDenied
         else:
             form.instance.problem = problem
@@ -217,8 +216,8 @@ class SubmissionPrintCreateView(FormView):
 
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
 
-        checker = ObjectPermissionChecker(self.request.user)
-        if not checker.has_perm('view_contest', contest) or \
+        user = self.request.user
+        if not user.has_perm('view_contest', contest) or \
            not contest.is_printing_available or not contest.is_active:
             raise PermissionDenied
         context['contest'] = contest
@@ -227,8 +226,8 @@ class SubmissionPrintCreateView(FormView):
     def form_valid(self, form):
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
 
-        checker = ObjectPermissionChecker(self.request.user)
-        if not checker.has_perm('view_contest', contest) or \
+        user = self.request.user
+        if not user.has_perm('view_contest', contest) or \
            not contest.is_printing_available:
             raise PermissionDenied
         Printer.prints(content=form.cleaned_data['source'],
@@ -256,15 +255,15 @@ class ScoreRankingListView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ScoreRankingListView, self).get_context_data(**kwargs)
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
-        checker = ObjectPermissionChecker(self.request.user)
+        user = self.request.user
 
-        if not checker.has_perm('view_contest', contest):
+        if not user.has_perm('view_contest', contest):
             raise PermissionDenied
 
         includeFreezed = True
 
         if self.request.user.is_superuser or \
-           checker.has_perm('see_unfrozen_ranking', contest):
+           user.has_perm('see_unfrozen_ranking', contest):
             includeFreezed = False
 
         problems, users = contest.getProblemsAndLastUsersSubmissions(
