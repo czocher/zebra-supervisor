@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.exceptions import NotAuthenticated
 
 from judge.models import Submission, Problem
 from rest.models import Node
@@ -30,7 +31,12 @@ class SubmissionViewSet(ListModelMixin, RetrieveModelMixin,
         """Get a submission for judging."""
         queryset = self.get_queryset()
         token = request.META.get('HTTP_X_TOKEN')
-        node = get_object_or_404(Node, token=token)
+
+        try:
+            node = Node.objects.get(token=token)
+        except ObjectDoesNotExist:
+            raise NotAuthenticated(detail="Unrecognized node token")
+
         try:
             instance = queryset.filter(
                 status=Submission.WAITING_STATUS
