@@ -1,5 +1,9 @@
 {% load i18n %}
+{% load guardian_tags %}
 
+{% get_obj_perms user for contest as "contest_perms" %}
+
+{% if "view_contest" in contest_perms %}
 <ul class="nav nav-sidebar">
   <li class="active">
     <a href="{% url 'contest' contest.pk %}">{% trans "Problems" %}</a>
@@ -12,6 +16,7 @@
     {% endfor %}
   </ul>
 </ul>
+{% endif %}
 
 <ul class="nav nav-sidebar">
   <li class="active">
@@ -36,11 +41,13 @@
 </ul>
 {% endif %}
 
+{% if "view_contest" in contest_perms %}
 <ul class="nav nav-sidebar">
   <li class="active">
     <a href="{% url 'ranking' contest.pk %}" >{% trans "Ranking" %}</a>
   </li>
 </ul>
+{% endif %}
 
 <ul class="nav nav-sidebar">
   <li class="active">
