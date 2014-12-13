@@ -1,6 +1,5 @@
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
-from guardian.core import ObjectPermissionChecker
 
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
@@ -36,8 +35,8 @@ class ContestCreateQuestionView(CreateView):
     def get(self, request, *args, **kwargs):
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
 
-        checker = ObjectPermissionChecker(self.request.user)
-        if not checker.has_perm('view_contest', contest):
+        user = self.request.user
+        if not user.has_perm('view_contest', contest):
             raise PermissionDenied
         else:
             self.initial['request'] = self.request
@@ -71,8 +70,8 @@ class ContestQuestionListView(ListView):
         questions = super(ContestQuestionListView, self).get_queryset()
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
 
-        checker = ObjectPermissionChecker(self.request.user)
-        if not checker.has_perm('view_contest', contest):
+        user = self.request.user
+        if not user.has_perm('view_contest', contest):
             raise PermissionDenied
 
         questions = questions.filter(Q(author=self.request.user) | Q(public=True), Q(contest=contest))
