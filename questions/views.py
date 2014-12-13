@@ -92,5 +92,5 @@ class ContestQuestionDetailView(DetailView):
             raise PermissionDenied
         else:
             if question.is_answered:
-                question.readedBy.add(self.request.user)
+                question.readBy.add(self.request.user)
             return question
