@@ -34,7 +34,27 @@ class SubmissionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Submission
-        fields = ('id', 'status', 'problem', 'active',
-                  'language', 'source', 'score', 'error', 'results', 'compilelog')
+        fields = ('id', 'status', 'problem', 'active', 'language', 'source',
+                  'score', 'error', 'results', 'compilelog')
         write_only_fields = ('compilelog', )
         read_only_fields = ('source', 'id', 'score')
+
+
+class PrintRequestSerializer(serializers.ModelSerializer):
+    status = serializers.CharField(source='get_status_codename',
+                                   read_only=True)
+    author = serializers.CharField(source='author.username',
+                                   read_only=True)
+    contest = serializers.CharField(source='contest.name',
+                                    read_only=True)
+    problem = serializers.CharField(source='problem.codename',
+                                    read_only=True)
+    language = serializers.CharField(source='get_language_display',
+                                     read_only=True)
+    error = serializers.BooleanField(write_only=True)
+
+    class Meta:
+        model = Submission
+        fields = ('id', 'status', 'author', 'contest', 'problem', 'language',
+                  'source', 'error',)
+        read_only_fields = ('source', 'id',)

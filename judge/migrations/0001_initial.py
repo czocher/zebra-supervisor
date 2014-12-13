@@ -166,4 +166,23 @@ class Migration(migrations.Migration):
             field=models.ManyToManyField(related_name='contests', verbose_name='Problems', to='judge.Problem'),
             preserve_default=True,
         ),
+        migrations.CreateModel(
+            name='PrintRequest',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('status', models.IntegerField(default=1, verbose_name='Status', choices=[(1, 'Waiting'), (2, 'Printing'), (3, 'Printed')])),
+                ('source', models.TextField(verbose_name='Source code')),
+                ('timestamp', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Send time')),
+                ('language', models.CharField(max_length=10, verbose_name='Language', choices=[(b'c', b'C'), (b'cpp', b'C++'), (b'pas', b'Pascal'), (b'py', b'Python'), (b'java', b'Java')])),
+                ('author', models.ForeignKey(related_name='printRequests', verbose_name='Author', to=settings.AUTH_USER_MODEL)),
+                ('contest', models.ForeignKey(related_name='printRequests', verbose_name='Contest', blank=True, to='judge.Contest', null=True)),
+                ('problem', models.ForeignKey(related_name='printRequests', verbose_name='Problem', blank=True, to='judge.Problem', null=True)),
+            ],
+            options={
+                'ordering': ['-timestamp'],
+                'verbose_name': 'Print request',
+                'verbose_name_plural': 'Print requests',
+            },
+            bases=(models.Model,),
+        ),
     ]

@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from guardian.admin import GuardedModelAdmin
 from judge.models import Submission, Tests, SampleIO, Result, InputTest, \
-    OutputTest, ConfigTest, Problem, Contest
+    OutputTest, ConfigTest, Problem, Contest, PrintRequest
 
 
 class ActiveListFilter(admin.SimpleListFilter):
@@ -125,6 +125,25 @@ class SubmissionAdmin(admin.ModelAdmin):
     actions = [set_waiting_status, ]
 
 
+class PrintRequestAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': ('language', 'author', 'timestamp', 'contest',
+                       'problem'),
+        }),
+        (_("Source"), {
+            'classes': ('collapse',),
+            'fields': ('source',)
+        }),
+    )
+    list_display = ('id', 'author', 'contest', 'problem', 'timestamp', 'status')
+    list_filter = ('status',)
+    search_fields = ['author__first_name', 'author__last_name',
+                     'author__username', 'problem__name', 'contest__name']
+    actions = [set_waiting_status, ]
+
+
+admin.site.register(PrintRequest, PrintRequestAdmin)
 admin.site.register(InputTest, TestAdmin)
 admin.site.register(OutputTest, TestAdmin)
 admin.site.register(ConfigTest, TestAdmin)

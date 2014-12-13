@@ -11,7 +11,7 @@ from django.contrib.messages.api import success, error
 
 from datetime import timedelta
 from collections import OrderedDict
-from judge.models import Contest, Problem, Submission
+from judge.models import Contest, Problem, Submission, PrintRequest
 from judge.forms import SubmissionForm
 from subprocess import Popen, PIPE
 from django.conf import settings
@@ -195,9 +195,13 @@ class SubmissionPrintView(View):
            submission.author != self.request.user:
             error(request, _("Printing not available"))
         else:
-            Printer.prints(content=submission.source, lang=submission.language,
-                           title=submission.problem.name,
-                           header=submission.contest.name)
+            printRequest = PrintRequest(
+                source=submission.source,
+                language=submission.language,
+                contest=submission.contest,
+                author=submission.author,
+                problem=submission.problem)
+            printRequest.save()
             success(request, _("Printing successful"))
 
         return redirect('submission', int(self.kwargs['pk']))
@@ -230,8 +234,12 @@ class SubmissionPrintCreateView(FormView):
         if not user.has_perm('view_contest', contest) or \
            not contest.is_printing_available:
             raise PermissionDenied
-        Printer.prints(content=form.cleaned_data['source'],
-                       lang=form.cleaned_data['language'], header=contest.name)
+        printRequest = PrintRequest(
+            source=form.cleaned_data['source'],
+            language=form.cleaned_data['language'],
+            contest=contest,
+            author=user)
+        printRequest.save()
 
         return super(SubmissionPrintCreateView, self).form_valid(form)
 

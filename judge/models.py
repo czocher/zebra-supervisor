@@ -309,6 +309,7 @@ class Submission(models.Model):
 class Result(models.Model):
 
     """Class representing a single test result for a submission."""
+
     submission = models.ForeignKey(
         Submission, verbose_name=_("Submission"), related_name='results')
     returncode = models.IntegerField(_("Return code"), default=0)
@@ -323,3 +324,49 @@ class Result(models.Model):
     def __unicode__(self):
         return "%s result for %s" % (self.submission.author.username,
                                      self.submission.problem.codename)
+
+
+class PrintRequest(models.Model):
+
+    """Class representing a single print request from a user."""
+
+    WAITING_STATUS = 1
+    PRINTING_STATUS = 2
+    PRINTED_STATUS = 3
+
+    STATUS_CHOICES = {
+        (WAITING_STATUS, _("Waiting")),
+        (PRINTING_STATUS, _("Printing")),
+        (PRINTED_STATUS, _("Printed")),
+    }
+
+    status = models.IntegerField(
+        _("Status"), choices=STATUS_CHOICES, default=WAITING_STATUS)
+    author = models.ForeignKey(
+        User, verbose_name=_("Author"), related_name='printRequests')
+    source = models.TextField(_("Source code"))
+    timestamp = models.DateTimeField(_("Send time"), default=timezone.now)
+    language = models.CharField(
+        _("Language"), max_length=10, choices=settings.LANGUAGES)
+    contest = models.ForeignKey(Contest, verbose_name=_(
+        "Contest"), related_name='printRequests', blank=True, null=True)
+    problem = models.ForeignKey(
+        Problem, verbose_name=_("Problem"), related_name='printRequests',
+        blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("Print request")
+        verbose_name_plural = _("Print requests")
+        ordering = ['-timestamp']
+
+    def __unicode__(self):
+        return "Print request by %s for %s in %s" % (
+            self.author.username, self.problem, self.contest)
+
+    def get_status_codename(self):
+        if self.status == self.WAITING_STATUS:
+            return 'waiting'
+        elif self.status == self.PRINTING_STATUS:
+            return 'printing'
+        else:
+            return 'printed'

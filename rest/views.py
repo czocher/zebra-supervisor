@@ -1,13 +1,13 @@
 from django.http import Http404
-from django.shortcuts import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.exceptions import NotAuthenticated
 
-from judge.models import Submission, Problem
+from judge.models import Submission, Problem, PrintRequest
 from rest.models import Node
 
 from sendfile import sendfile
-from rest.serializers import SubmissionSerializer, TestsTimestampsSerializer
+from rest.serializers import SubmissionSerializer, TestsTimestampsSerializer,\
+    PrintRequestSerializer
 
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.routers import DefaultRouter
@@ -106,6 +106,41 @@ class ProblemViewSet(GenericViewSet):
         return Response(serializer.data)
 
 
+class PrintRequestViewSet(ListModelMixin, RetrieveModelMixin,
+                          UpdateModelMixin, GenericViewSet):
+    queryset = PrintRequest.objects.select_for_update()
+    serializer_class = PrintRequestSerializer
+
+    def list(self, request, *args, **kwargs):
+        """Get a printRequest for printing."""
+        queryset = self.get_queryset()
+
+        try:
+            instance = queryset.filter(
+                status=Submission.WAITING_STATUS
+            ).latest('timestamp')
+            instance.status = PrintRequest.PRINTING_STATUS
+            instance.save()
+        except ObjectDoesNotExist:
+            raise Http404
+
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+    def pre_save(self, printRequest):
+        if printRequest.error:
+            logger.warning(
+                "There was an error while "
+                "printing PrintRequest id {}.".format(printRequest.id)
+            )
+            printRequest.status = PrintRequest.WAITING_STATUS
+        else:
+            printRequest.status = PrintRequest.PRINTED_STATUS
+
+        super(PrintRequestViewSet, self).pre_save(printRequest)
+
+
 router = DefaultRouter()
+router.register(r'printrequest', PrintRequestViewSet)
 router.register(r'submission', SubmissionViewSet)
 router.register(r'problem', ProblemViewSet)
