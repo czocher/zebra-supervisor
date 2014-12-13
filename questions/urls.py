@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
-from questions.views import ContestQuestionListView, ContestCreateQuestionView, \
-    ContestQuestionDetailView
+from questions.views import ContestQuestionListView,\
+        ContestCreateQuestionView, ContestQuestionDetailView
 
 urlpatterns = patterns('',
 

@@ -23,14 +23,17 @@ class ContestCreateQuestionView(CreateView):
         return kwargs
 
     def get_context_data(self, **kwargs):
-        context = super(ContestCreateQuestionView, self).get_context_data(**kwargs)
+        context = super(ContestCreateQuestionView, self).get_context_data(
+            **kwargs)
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
         context['contest'] = contest
         return context
 
     def post(self, request, *args, **kwargs):
-        self.success_url = '/judge/contest/' + str(kwargs['contest_pk']) + '/questions/'
-        return super(ContestCreateQuestionView, self).post(request, *args, **kwargs)
+        self.success_url = '/judge/contest/%s/questions/' % (
+            kwargs['contest_pk'], )
+        return super(ContestCreateQuestionView,
+                     self).post(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
@@ -41,7 +44,8 @@ class ContestCreateQuestionView(CreateView):
         else:
             self.initial['request'] = self.request
 
-        return super(ContestCreateQuestionView, self).get(request, *args, **kwargs)
+        return super(ContestCreateQuestionView,
+                     self).get(request, *args, **kwargs)
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -61,7 +65,8 @@ class ContestQuestionListView(ListView):
     allow_empty = True
 
     def get_context_data(self, **kwargs):
-        context = super(ContestQuestionListView, self).get_context_data(**kwargs)
+        context = super(ContestQuestionListView,
+                        self).get_context_data(**kwargs)
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
         context['contest'] = contest
         return context
@@ -74,7 +79,8 @@ class ContestQuestionListView(ListView):
         if not user.has_perm('view_contest', contest):
             raise PermissionDenied
 
-        questions = questions.filter(Q(author=self.request.user) | Q(public=True), Q(contest=contest))
+        questions = questions.filter(Q(author=self.request.user)
+                                     | Q(public=True), Q(contest=contest))
         return questions
 
 

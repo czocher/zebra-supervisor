@@ -30,13 +30,22 @@ set_question_public.short_description = _("Make questions public")
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('author', 'problem', 'contest', 'public', 'timestamp', 'title', 'question', 'answer'),
+            'fields': (
+                'author', 'problem', 'contest', 'public', 'timestamp', 'title',
+                'question', 'answer'
+            ),
         }),
     )
 
     list_filter = ('contest__name', AnsweredListFilter,)
-    list_display = ('author', 'title', 'problem', 'contest', 'timestamp', 'public', '_is_answered')
-    search_fields = ['title', 'author__first_name', 'author__last_name', 'author__username', 'problem__name', 'contest__name']
+    list_display = (
+        'author', 'title', 'problem', 'contest', 'timestamp', 'public',
+        '_is_answered'
+    )
+    search_fields = [
+        'title', 'author__first_name', 'author__last_name', 'author__username',
+        'problem__name', 'contest__name'
+    ]
     actions = [set_question_public, ]
 
 admin.site.register(Question, QuestionAdmin)

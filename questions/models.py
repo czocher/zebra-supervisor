@@ -9,9 +9,13 @@ from judge.models import Contest, Problem
 
 
 class Question(models.Model):
-    author = models.ForeignKey(User, verbose_name=_("Author"), related_name='questions')
-    contest = models.ForeignKey(Contest, verbose_name=_("Contest"), related_name='questions')
-    problem = models.ForeignKey(Problem, verbose_name=_("Problem"), related_name='questions', blank=True, null=True)
+    author = models.ForeignKey(User, verbose_name=_("Author"),
+                               related_name='questions')
+    contest = models.ForeignKey(Contest, verbose_name=_("Contest"),
+                                related_name='questions')
+    problem = models.ForeignKey(Problem, verbose_name=_("Problem"),
+                                related_name='questions', blank=True,
+                                null=True)
     title = models.CharField(_("Title"), max_length=100)
     question = models.TextField(_("Question"))
     answer = models.TextField(_("Answer"), blank=True, null=True)
