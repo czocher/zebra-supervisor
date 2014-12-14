@@ -30,6 +30,8 @@ url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
         'template_name': 'login.html', }),
 
     url(r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
+
+    (r'^jsi18n/$', 'django.views.i18n.javascript_catalog'),
 )
 
 if settings.DEBUG:

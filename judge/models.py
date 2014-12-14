@@ -299,11 +299,11 @@ class Submission(models.Model):
 
     def get_status_codename(self):
         if self.status == self.WAITING_STATUS:
-            return 'waiting'
+            return 'Waiting'
         elif self.status == self.JUDGING_STATUS:
-            return 'judging'
+            return 'Judging'
         else:
-            return 'judged'
+            return 'Judged'
 
 
 class Result(models.Model):

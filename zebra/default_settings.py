@@ -171,6 +171,7 @@ LANGUAGES = (
 
 LOCALE_PATHS = (
     p('locale'),
+    p('judge/locale'),
 )
 
 # A sample logging configuration. The only tangible logging
@@ -215,7 +216,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',  # this is default
     'guardian.backends.ObjectPermissionBackend',
 )
-
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

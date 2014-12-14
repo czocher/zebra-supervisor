@@ -1,4 +1,9 @@
 $(document).ready(function() {
+  // Dummy translations for makemessages
+  gettext("Judging");
+  gettext("Judged");
+  gettext("Waiting");
+
   function getSubmissionScore(element) {
     finished = $(element).attr("data-finished");
     if(finished) {
@@ -9,20 +14,20 @@ $(document).ready(function() {
       url: "/rest/submission/" + $(element).data("id") + "/?format=json",
       dataType: "json",
       error: function() {
-        $(element).text("Error");
+        $(element).text(gettext("Error"));
       },
       success: function(json) {
         this.status = json['status'];
         this.score = json['score'];
 
-        if(this.status=="judged") {
+        if(this.status=="Judged") {
           $(element).text(this.score);
           $(element).attr("data-finished", true);
         } else {
-          $(element).text(this.status);
+          $(element).text(gettext(this.status));
           // Perform a new check in 5 seconds
           setTimeout(function(){
-            $(element).text(this.status);
+            $(element).text(gettext(this.status));
             getSubmissionScore(element);
           }, 5000);
 
