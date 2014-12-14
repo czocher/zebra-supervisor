@@ -41,7 +41,14 @@ $(document).ready(function() {
       },
     });
   }
-  $("span[data-ajax='submission']").each(function(){
-    getSubmissionScore(this);
-  });
+  setTimeout(function() {
+    $("span[data-ajax='submission']").each(function(){
+      getSubmissionScore(this);
+    });
+  }, 5000);
+  for(var i = 1; i < 4; i++) {
+    setTimeout(function() {
+      $("span[data-ajax='submission']").append(".");
+    }, i*1200);
+  }
 });
