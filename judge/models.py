@@ -365,8 +365,8 @@ class PrintRequest(models.Model):
 
     def get_status_codename(self):
         if self.status == self.WAITING_STATUS:
-            return 'waiting'
+            return 'Waiting'
         elif self.status == self.PRINTING_STATUS:
-            return 'printing'
+            return 'Printing'
         else:
-            return 'printed'
+            return 'Printed'
