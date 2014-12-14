@@ -13,7 +13,6 @@ class TestsTimestampsSerializer(serializers.ModelSerializer):
 
 
 class ResultSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Result
         fields = ('mark', 'returncode', 'time')
@@ -28,9 +27,20 @@ class SubmissionSerializer(serializers.ModelSerializer):
                                       read_only=True)
     language = serializers.CharField(source='get_language_display',
                                      read_only=True)
-    results = ResultSerializer(source='results', many=True,
-                               allow_add_remove=True, required=False)
+    results = ResultSerializer(many=True, required=False)
     error = serializers.BooleanField(write_only=True)
+
+    def update(self, instance, validated_data):
+        results = validated_data.pop('results')
+        for result in results:
+            res = Result(
+                submission=instance,
+                mark=result.get('mark'),
+                returncode=result.get('returncode'),
+                time=result.get('time')
+            )
+            res.save()
+        return instance
 
     class Meta:
         model = Submission
@@ -38,3 +48,5 @@ class SubmissionSerializer(serializers.ModelSerializer):
                   'language', 'source', 'score', 'error', 'results', 'compilelog')
         write_only_fields = ('compilelog', )
         read_only_fields = ('source', 'id', 'score')
+
+
