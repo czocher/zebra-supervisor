@@ -6,7 +6,7 @@ $(document).ready(function() {
 
   function getSubmissionScore(element) {
     finished = $(element).attr("data-finished");
-    if(finished) {
+    if(finished === 'true') {
       return;
     }
 
@@ -41,7 +41,7 @@ $(document).ready(function() {
       },
     });
   }
-  $("span[data-ajax='submission']").each(function(){
+  $("span[data-ajax='submission'][data-finished='false']").each(function(){
     var that = this;
     setTimeout(function(){
       getSubmissionScore(that);

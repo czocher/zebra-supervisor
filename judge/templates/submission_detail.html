@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load submission_score_loader %}
 {% load contest_menu %}
 {% load i18n %}
 {% load static from staticfiles %}
@@ -16,7 +17,7 @@
   <dt>{% trans "Submited" %}:</dt>
   <dd>{{ submission.timestamp|timesince }} {% trans "ago" %} ({{ submission.timestamp }})</dd>
   <dt>{% trans "Score" %}:</dt>
-  <dd><span data-ajax="submission" data-id="{{ submission.id }}">{% if submission.status != submission.JUDGED_STATUS %}{{ submission.get_status_display }}{% else %}{{ submission.score }}{% endif %}</span></dd>
+  <dd>{% submission_score_loader submission %}</dd>
 
   {% if submission.compilelog %}
     <dt>{% trans "Compilation log" %}:</dt>

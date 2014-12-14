@@ -9,7 +9,7 @@ body {
 
 .ajax-loader {
   width: 4em;
-  display: block;
+  display: inline-block;
 }
 
 th, tr {

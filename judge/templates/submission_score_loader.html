@@ -1,0 +1,1 @@
+<span class="ajax-loader" data-ajax="submission" data-id="{{ submission.id }}" {% if submission.status == submission.JUDGED_STATUS %} data-finished='true' {% else %} data-finished='false' {% endif %}>{% if submission.status != submission.JUDGED_STATUS %}{{ submission.get_status_display }}{% else %}{{ submission.score }}{% endif %}</span>
