@@ -254,7 +254,7 @@ FIXTURE_DIRS = (
 # Duration of the REST Sessions in seconds
 REST_SESSION_DURATION = 900
 
-# Printing require a2ps
+# Show print buttons for users
 PRINTING_AVAILABLE = False
 
 BOOTSTRAP3 = {

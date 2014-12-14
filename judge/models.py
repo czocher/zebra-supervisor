@@ -185,8 +185,9 @@ class Contest(models.Model):
     is_freezed = property(_is_freezed)
 
     def _is_printing_available(self):
-        return self.printing and settings.PRINTING_AVAILABLE \
-            and self.is_active
+        return self.printing \
+                and getattr(settings, 'PRINTING_AVAILABLE', False) \
+                and self.is_active
     _is_printing_available.boolean = True
     _is_printing_available.short_description = _("Printing")
     is_printing_available = property(_is_printing_available)
