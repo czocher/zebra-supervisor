@@ -1,8 +1,8 @@
 django>=1.7.1
 django-guardian>=1.2.4
-django-bootstrap3>=4.11.0
+django-bootstrap3>=5.0.3
 PyYAML>=3.11
-pygments>=1.6
-djangorestframework>=2.4.4
-markdown>=2.5.2
-django-filter>=0.8
+Pygments>=2.0.1
+djangorestframework>=3.0.1
+Markdown>=2.5.2
+django-filter>=0.9.1
