@@ -38,6 +38,14 @@ set_waiting_status.short_description = _(
     "Set selected submissions as waiting for judging")
 
 
+def set_waiting_for_printing_status(modeladmin, request, queryset):
+    queryset.update(status=PrintRequest.WAITING_STATUS)
+    for printRequest in queryset:
+        submission.results.all().delete()
+set_waiting_for_printing_status.short_description = _(
+    "Set selected print requests as waiting for printing")
+
+
 def rejudge_last_submissions(modeladmin, request, queryset):
     for contest in queryset:
         dummy, users = contest.getProblemsAndLastUsersSubmissions(
@@ -140,7 +148,7 @@ class PrintRequestAdmin(admin.ModelAdmin):
     list_filter = ('status',)
     search_fields = ['author__first_name', 'author__last_name',
                      'author__username', 'problem__name', 'contest__name']
-    actions = [set_waiting_status, ]
+    actions = [set_waiting_for_printing_status, ]
 
 
 admin.site.register(PrintRequest, PrintRequestAdmin)

@@ -13,9 +13,6 @@ from datetime import timedelta
 from collections import OrderedDict
 from judge.models import Contest, Problem, Submission, PrintRequest
 from judge.forms import SubmissionForm
-from subprocess import Popen, PIPE
-from django.conf import settings
-from unicodedata import normalize
 
 
 class ContestListView(ListView):
@@ -169,31 +166,13 @@ class SubmissionDetailView(DetailView):
             return submission
 
 
-class Printer(object):
-
-    @staticmethod
-    def prints(content, lang, title="Source Code", header="Competition"):
-        def remove_accents(input_str):
-            nkfd_form = normalize('NFKD', unicode(input_str))
-            return nkfd_form.encode('ASCII', 'ignore')
-        proc = Popen('a2ps --printer="' + settings.PRINTING['printer']
-                     + '" --pretty-print="'
-                     + lang.lower().encode('utf-8')
-                     + '" --header="' + remove_accents(header)
-                     + '" --left-footer --footer --center-title="'
-                     + remove_accents(title)
-                     + '"', stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
-        proc.communicate(input=remove_accents(content))
-        proc.wait()
-
-
 class SubmissionPrintView(View):
 
     def get(self, request, *args, **kwargs):
         submission = get_object_or_404(Submission, pk=self.kwargs['pk'])
         if not submission.contest.is_printing_available or \
            submission.author != self.request.user:
-            error(request, _("Printing not available"))
+            error(request, _("Printing not available."))
         else:
             printRequest = PrintRequest(
                 source=submission.source,
@@ -202,7 +181,7 @@ class SubmissionPrintView(View):
                 author=submission.author,
                 problem=submission.problem)
             printRequest.save()
-            success(request, _("Printing successful"))
+            success(request, _("Print request added to print queue."))
 
         return redirect('submission', int(self.kwargs['pk']))
 
@@ -249,9 +228,9 @@ class SubmissionPrintCreateView(FormView):
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
 
         if not contest.is_printing_available:
-            error(request, _("Printing not available"))
+            error(request, _("Printing not available."))
         else:
-            success(request, _("Printing successful"))
+            success(request, _("Print request added to print queue."))
         return post
 
 

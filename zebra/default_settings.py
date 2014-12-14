@@ -255,11 +255,13 @@ FIXTURE_DIRS = (
 REST_SESSION_DURATION = 900
 
 # Printing require a2ps
-PRINTING = {
-    'enable': False,
-    'printer': '',  # Printer CUPS queue name (lpstat -p)
-}
+PRINTING_AVAILABLE = False
 
 BOOTSTRAP3 = {
     'success_css_class': '',
+}
+
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
 }
