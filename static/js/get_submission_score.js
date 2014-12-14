@@ -41,14 +41,15 @@ $(document).ready(function() {
       },
     });
   }
-  setTimeout(function() {
-    $("span[data-ajax='submission']").each(function(){
-      getSubmissionScore(this);
-    });
-  }, 5000);
-  for(var i = 1; i < 4; i++) {
-    setTimeout(function() {
-      $("span[data-ajax='submission']").append(".");
-    }, i*1200);
-  }
+  $("span[data-ajax='submission']").each(function(){
+    var that = this;
+    setTimeout(function(){
+      getSubmissionScore(that);
+    }, 5000);
+    for(var i = 1; i < 4; i++) {
+      setTimeout(function() {
+        $(that).append(".");
+      }, i*1200);
+    }
+  });
 });
