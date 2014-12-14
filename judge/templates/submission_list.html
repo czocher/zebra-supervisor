@@ -21,13 +21,7 @@
       <td><a href="{% url 'submission' submission.id %}">{{ submission.problem }}</a></td>
       <td>{{ submission.timestamp }}</td>
       <td>
-        <span class="ajax-loader" data-ajax="submission" data-id="{{ submission.id }}">
-          {% if submission.status != submission.JUDGED_STATUS %}
-          {{ submission.get_status_display }}...
-          {% else %}
-          {{ submission.score }}
-          {% endif %}
-        </span>
+        <span class="ajax-loader" data-ajax="submission" data-id="{{ submission.id }}">{% if submission.status != submission.JUDGED_STATUS %}{{ submission.get_status_display }}{% else %}{{ submission.score }}{% endif %}</span>
       </td>
     </tr>
     {% endfor %}

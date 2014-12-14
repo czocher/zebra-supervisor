@@ -26,7 +26,7 @@
   <ul class="nav nav-sidebar">
     {% for submission in submissions|slice:":5" %}
     <li>
-      <a href="{% url 'submission' submission.id %}">{{ submission.problem.name|slice:'20' }} - <span data-ajax="submission" data-id="{{ submission.id }}">{% if submission.status != submission.JUDGED_STATUS %}{{ submission.get_status_display }}...{% else %}{{ submission.score }}{% endif %}</span></a>
+      <a href="{% url 'submission' submission.id %}">{{ submission.problem.name|slice:'20' }} - <span data-ajax="submission" data-id="{{ submission.id }}">{% if submission.status != submission.JUDGED_STATUS %}{{ submission.get_status_display }}{% else %}{{ submission.score }}{% endif %}</span></a>
     </li>
     {% endfor %}
   </ul>

@@ -27,7 +27,7 @@ msgstr "Ocenione"
 
 #: static/js/get_submission_score.js:5
 msgid "Waiting"
-msgstr "Oczekujące"
+msgstr "Oczekiwanie"
 
 #: static/js/get_submission_score.js:17
 msgid "Error"
