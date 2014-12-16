@@ -31,15 +31,17 @@ class SubmissionSerializer(serializers.ModelSerializer):
     error = serializers.BooleanField(write_only=True)
 
     def update(self, instance, validated_data):
-        results = validated_data.pop('results')
-        for result in results:
-            res = Result(
-                submission=instance,
-                mark=result.get('mark'),
-                returncode=result.get('returncode'),
-                time=result.get('time')
-            )
-            res.save()
+        error = validated_data.pop('error')
+        if not error:
+            results = validated_data.pop('results')
+            for result in results:
+                res = Result(
+                    submission=instance,
+                    mark=result.get('mark'),
+                    returncode=result.get('returncode'),
+                    time=result.get('time')
+                )
+                res.save()
         return instance
 
     class Meta:
