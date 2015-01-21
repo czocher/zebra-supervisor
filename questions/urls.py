@@ -1,9 +1,8 @@
 from django.conf.urls import patterns, url
 from questions.views import ContestQuestionListView,\
-        ContestCreateQuestionView, ContestQuestionDetailView
+    ContestCreateQuestionView, ContestQuestionDetailView
 
 urlpatterns = patterns('',
-
     url(r'^$',
         ContestQuestionListView.as_view(), name='questions'),
 
@@ -12,5 +11,4 @@ urlpatterns = patterns('',
 
     url(r'(?P<pk>[\w\-_]+)/$',
         ContestQuestionDetailView.as_view(), name='question'),
-
 )

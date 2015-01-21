@@ -142,7 +142,8 @@ class PrintRequestAdmin(admin.ModelAdmin):
             'fields': ('source',)
         }),
     )
-    list_display = ('id', 'author', 'contest', 'problem', 'timestamp', 'status')
+    list_display = ('id', 'author', 'contest',
+                    'problem', 'timestamp', 'status')
     list_filter = ('status',)
     search_fields = ['author__first_name', 'author__last_name',
                      'author__username', 'problem__name', 'contest__name']

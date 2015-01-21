@@ -3,4 +3,4 @@
 settings.py
 *.mo
 secretkey.py
-database.db
+db.sqlite3
