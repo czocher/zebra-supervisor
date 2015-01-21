@@ -1,0 +1,16 @@
+language: python
+python:
+  - "2.7"
+install:
+  - pip install -r requirements.txt
+  - pip install pep8
+  - pip install coveralls
+before_script:
+  - cp zebra/default_settings.py zebra/settings.py
+script:
+  - pep8 judge questions rest zebra --exclude=migrations,default_settings.py --ignore=E128
+  - python manage.py makemigrations
+  - python manage.py syncdb
+  - coverage run --source=judge,questions,rest ./manage.py test
+after_success:
+  coveralls
