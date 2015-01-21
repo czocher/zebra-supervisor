@@ -23,7 +23,7 @@ try:
 except ImportError:
     from django.utils.crypto import get_random_string
 
-    with open(p('registero/secretkey.py'), 'w') as secretkey:
+    with open(p('zebra/secretkey.py'), 'w') as secretkey:
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
         secretkey.write('SECRET_KEY = \'%s\'\n' % (
             get_random_string(50, chars)))
