@@ -40,8 +40,6 @@ set_waiting_status.short_description = _(
 
 def set_waiting_for_printing_status(modeladmin, request, queryset):
     queryset.update(status=PrintRequest.WAITING_STATUS)
-    for printRequest in queryset:
-        submission.results.all().delete()
 set_waiting_for_printing_status.short_description = _(
     "Set selected print requests as waiting for printing")
 
