@@ -37,4 +37,4 @@ class Question(models.Model):
     is_answered = property(_is_answered)
 
     def __unicode__(self):
-        return "%s question from %s" % (self.question, self.author.username)
+        return u"{} question from {}".format(self.question, self.author.username)

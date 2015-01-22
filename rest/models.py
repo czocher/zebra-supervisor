@@ -17,4 +17,4 @@ class Node(models.Model):
         verbose_name_plural = _("Nodes")
 
     def __unicode__(self):
-        return u"%s %s" % (self.ip, self.token)
+        return u"{} {}".format(self.ip, self.token)

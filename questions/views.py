@@ -30,7 +30,7 @@ class ContestCreateQuestionView(CreateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        self.success_url = '/judge/contest/%s/questions/' % (
+        self.success_url = '/judge/contest/{}/questions/'.format(
             kwargs['contest_pk'], )
         return super(ContestCreateQuestionView,
                      self).post(request, *args, **kwargs)

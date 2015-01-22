@@ -15,4 +15,4 @@ class RequireLoginMiddleware(object):
         for url in self.urls:
             if url.match(request.path) and request.user.is_anonymous():
                 return HttpResponseRedirect(
-                    '%s?next=%s' % (self.require_login_path, request.path))
+                    '{}?next={}'.format(self.require_login_path, request.path))

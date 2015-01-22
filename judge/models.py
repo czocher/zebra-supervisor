@@ -50,7 +50,7 @@ On the output the program should print a binary number.
         verbose_name_plural = _("Problems")
 
     def __unicode__(self):
-        return "%s (%s)" % (self.name, self.codename)
+        return u"{} ({})".format(self.name, self.codename)
 
     def get_absolute_url(self):
         return reverse('problem', args=(self.id, self.codename))
@@ -66,7 +66,7 @@ class SampleIO(models.Model):
         verbose_name_plural = _("Sample I/O")
 
     def __unicode__(self):
-        return "%d" % (self.id)
+        return u"{}".format(self.id)
 
 
 class Test(models.Model):
@@ -78,7 +78,7 @@ class Test(models.Model):
         ordering = ['timestamp']
 
     def __unicode__(self):
-        return "%s" % (self.name,)
+        return u"{}".format(self.name,)
 
     @property
     def name(self):
@@ -132,7 +132,7 @@ class Tests(models.Model):
         verbose_name_plural = _("Tests")
 
     def __unicode__(self):
-        return "Tests for %s" % (self.problem.codename,)
+        return u"Tests for {}".format(self.problem.codename,)
 
 
 class Contest(models.Model):
@@ -159,7 +159,7 @@ class Contest(models.Model):
         )
 
     def __unicode__(self):
-        return self.name
+        return u"{}".format(self.name)
 
     def get_absolute_url(self):
         return reverse('contest', args=(self.id, ))
@@ -281,7 +281,7 @@ class Submission(models.Model):
         ordering = ['-timestamp']
 
     def __unicode__(self):
-        return "Solution for %s by %s" % (self.problem.codename,
+        return u"Solution for {} by {}".format(self.problem.codename,
                                           self.author.username, )
 
     def get_absolute_url(self):
@@ -322,7 +322,7 @@ class Result(models.Model):
         ordering = ['time']
 
     def __unicode__(self):
-        return "%s result for %s" % (self.submission.author.username,
+        return u"{} result for {}".format(self.submission.author.username,
                                      self.submission.problem.codename)
 
 
@@ -360,7 +360,7 @@ class PrintRequest(models.Model):
         ordering = ['-timestamp']
 
     def __unicode__(self):
-        return "Print request by %s for %s in %s" % (
+        return "Print request by {} for {} in {}".format(
             self.author.username, self.problem, self.contest)
 
     def get_status_codename(self):
