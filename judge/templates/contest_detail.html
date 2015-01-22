@@ -2,6 +2,13 @@
 {% load contest_menu %}
 {% load i18n %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+  <li><a href="/">Zebra</a></li>
+  <li class="active">{{ contest.name }}</li>
+</ol>
+{% endblock %}
+
 {% block header %}{% trans "List of problems" %} {% trans "in" %} {{ contest.name }}{% endblock %}
 
 {% block content %}

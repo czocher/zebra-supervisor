@@ -5,6 +5,14 @@
 {% load i18n %}
 {% load static from staticfiles %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+  <li><a href="/">Zebra</a></li>
+  <li><a href="{% url 'contest' submission.contest.id %}">{{ submission.contest.name }}</a></li>
+  <li><a href="{% url 'problem' submission.contest.pk submission.problem.codename %}">{{ submission.problem.codename }}</a></li>
+  <li class="active">{% trans "Submission for" %} {{ submission.problem.codename }}</li>
+</ol>
+{% endblock %}
 
 {% block header %}{% trans "Submission for" %} {{ submission.problem.name }} ({{ submission.problem.codename }}) {% trans "in" %} {{ submission.contest.name }}{% endblock %}
 

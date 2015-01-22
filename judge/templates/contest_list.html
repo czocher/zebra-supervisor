@@ -5,6 +5,13 @@
 {% load guardian_tags %}
 {% load static from staticfiles %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+  <li class="active">Zebra</li>
+</ol>
+{% endblock %}
+
+
 {% block header %}
 {% trans "Contests" %}
 {% endblock %}

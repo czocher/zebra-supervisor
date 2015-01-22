@@ -3,6 +3,14 @@
 {% load i18n %}
 {% load contest_menu %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+  <li><a href="/">Zebra</a></li>
+  <li><a href="{% url 'contest' question.contest.id %}">{{ question.contest.name }}</a></li>
+  <li class="active">{% trans "Question" %} {{ question.title }}</li>
+</ol>
+{% endblock %}
+
 {% block header %}{{ question.contest.name }} {% endblock %}
 
 {% block content %}

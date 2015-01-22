@@ -4,6 +4,15 @@
 {% load bootstrap3 %}
 {% load i18n %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+  <li><a href="/">Zebra</a></li>
+  <li><a href="{% url 'contest' contest.id %}">{{ contest.name }}</a></li>
+  <li><a href="{% url 'problem' contest.pk problem.codename %}">{{ problem.codename }}</a></li>
+  <li class="active">{% trans "Submit solution for" %} {{ problem.codename }}</li>
+</ol>
+{% endblock %}
+
 {% block header %}{% trans "Submit solution for" %} {{ problem.name }} ({{ problem.codename }}) {% trans "in" %} {{ contest.name }}{% endblock %}
 
 {% block content %}

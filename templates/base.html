@@ -72,7 +72,7 @@
             </div>
             {% endfor %}
           {% endif %}
-
+          {% block breadcrumbs %}{% endblock %}
           <h1 class="page-header">{% block header %}{% endblock %}</h1>
           {% block content %}{% endblock %}
         </div>

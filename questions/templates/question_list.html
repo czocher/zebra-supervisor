@@ -4,6 +4,14 @@
 {% load static from staticfiles %}
 {% load contest_menu %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+  <li><a href="/">Zebra</a></li>
+  <li><a href="{% url 'contest' contest.id %}">{{ contest.name }}</a></li>
+  <li class="active">{% trans "Questions" %} {% trans "in" %} {{ contest.name }}</li>
+</ol>
+{% endblock %}
+
 {% block header %}{% trans "Questions" %} {% trans "in" %} {{ contest.name }} {% endblock %}
 
 {% block content %}
