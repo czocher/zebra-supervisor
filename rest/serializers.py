@@ -3,9 +3,9 @@ from rest_framework import serializers
 
 
 class TestsTimestampsSerializer(serializers.ModelSerializer):
-    input = serializers.CharField(source='input.timestamp', read_only=True)
-    output = serializers.CharField(source='output.timestamp', read_only=True)
-    config = serializers.CharField(source='config.timestamp', read_only=True)
+    input = serializers.DateTimeField(source='input.timestamp', read_only=True)
+    output = serializers.DateTimeField(source='output.timestamp', read_only=True)
+    config = serializers.DateTimeField(source='config.timestamp', read_only=True)
 
     class Meta:
         model = Tests
