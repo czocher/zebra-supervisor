@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-14 12:29+0100\n"
+"POT-Creation-Date: 2015-01-22 01:19+0100\n"
 "PO-Revision-Date: 2012-11-04 11:24+0100\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -36,28 +36,32 @@ msgstr "tylko nieaktywne"
 msgid "Set selected submissions as waiting for judging"
 msgstr "Ustaw wybrane wysyłki jako oczekujące na ocenę"
 
-#: admin.py:46
+#: admin.py:44
 msgid "Set selected print requests as waiting for printing"
 msgstr "Ustaw wybrane żądania wydruku jako oczekujące na wydruk"
 
-#: admin.py:60
+#: admin.py:58
 msgid "Rejudge last submission for each user and task"
 msgstr ""
 "Ponownie oceń ostatnie wysyłki dla każdego problemu każdemu użytkownikowi"
 
-#: admin.py:72
+#: admin.py:70
 msgid "Rejudge all submission for this contest"
 msgstr "Ponownie oceń wszystkie wysyłki dla tych zawodów"
 
-#: admin.py:118 admin.py:142 templates/submission_detail.html:30
+#: admin.py:120 admin.py:145 templates/submission_detail.html:26
 msgid "Source"
 msgstr "Źródło"
 
-#: admin.py:122 models.py:275
+#: admin.py:124 models.py:276
 msgid "Node"
 msgstr "Węzeł"
 
-#: forms.py:8 models.py:265 models.py:347
+#: apps.py:7
+msgid "Judge"
+msgstr "Sędzia"
+
+#: forms.py:8 models.py:266 models.py:348
 msgid "Source code"
 msgstr "Kod źródłowy"
 
@@ -93,12 +97,12 @@ msgstr "Nazwa"
 msgid "Content"
 msgstr "Zawartość"
 
-#: models.py:47 models.py:61 models.py:127 models.py:262 models.py:354
-#: templates/contest_submission_list.html:14 templates/submission_list.html:13
+#: models.py:47 models.py:61 models.py:127 models.py:263 models.py:355
+#: templates/contest_submission_list.html:15 templates/submission_list.html:14
 msgid "Problem"
 msgstr "Zadanie"
 
-#: models.py:48 models.py:145 templates/contest_menu.html:9
+#: models.py:48 models.py:145 templates/contest_menu.html:10
 msgid "Problems"
 msgstr "Zadania"
 
@@ -114,8 +118,8 @@ msgstr "Wyjście"
 msgid "Sample I/O"
 msgstr "Przykładowe wejście/wyjście"
 
-#: models.py:72 templates/contest_submission_list.html:15
-#: templates/submission_list.html:14
+#: models.py:72 templates/contest_submission_list.html:16
+#: templates/submission_list.html:15
 msgid "Timestamp"
 msgstr "Data wysłania"
 
@@ -163,7 +167,7 @@ msgstr "Konfiguracja"
 msgid "Tests"
 msgstr "Testy"
 
-#: models.py:141 templates/contest_list.html:18
+#: models.py:141 templates/contest_list.html:19
 msgid "Start time"
 msgstr "Czas rozpoczęcia"
 
@@ -171,7 +175,7 @@ msgstr "Czas rozpoczęcia"
 msgid "Freeze time"
 msgstr "Czas zamrożenia"
 
-#: models.py:143 templates/contest_list.html:19
+#: models.py:143 templates/contest_list.html:20
 msgid "End time"
 msgstr "Czas zakończenia"
 
@@ -187,16 +191,16 @@ msgstr "Kara za błędną wysyłkę"
 msgid "Is printing avaliable"
 msgstr "Drukowanie dostępne"
 
-#: models.py:152 models.py:264 models.py:352
+#: models.py:152 models.py:265 models.py:353
 msgid "Contest"
 msgstr "Zawody"
 
-#: models.py:153 templates/contest_list.html:8
-#: templates/submission_list.html:45
+#: models.py:153 templates/contest_list.html:9
+#: templates/submission_list.html:40
 msgid "Contests"
 msgstr "Zawody"
 
-#: models.py:171 templates/contest_list.html:20
+#: models.py:171 templates/contest_list.html:21
 msgid "Active"
 msgstr "Aktywne"
 
@@ -208,84 +212,84 @@ msgstr "Czy rozpoczęte"
 msgid "Freezed"
 msgstr "Zamrożony"
 
-#: models.py:191 models.py:339
+#: models.py:192 models.py:340
 msgid "Printing"
 msgstr "Drukowanie"
 
-#: models.py:254 models.py:338
+#: models.py:255 models.py:339
 msgid "Waiting"
 msgstr "Oczekiwanie"
 
-#: models.py:255
+#: models.py:256
 msgid "Judging"
 msgstr "Ocenianie"
 
-#: models.py:256
+#: models.py:257
 msgid "Judged"
 msgstr "Ocenione"
 
-#: models.py:260 models.py:346
+#: models.py:261 models.py:347
 msgid "Author"
 msgstr "Autor"
 
-#: models.py:267 models.py:350
+#: models.py:268 models.py:351
 msgid "Language"
 msgstr "Język"
 
-#: models.py:268 models.py:348
+#: models.py:269 models.py:349
 msgid "Send time"
 msgstr "Czas wysyłki"
 
-#: models.py:270 templates/submission_detail.html:27
+#: models.py:271 templates/submission_detail.html:23
 msgid "Compilation log"
 msgstr "Dziennik kompilacji"
 
-#: models.py:271 templates/contest_submission_list.html:16
-#: templates/submission_detail.html:18 templates/submission_list.html:15
+#: models.py:272 templates/contest_submission_list.html:17
+#: templates/submission_detail.html:19 templates/submission_list.html:16
 msgid "Score"
 msgstr "Wynik"
 
-#: models.py:273 models.py:344
+#: models.py:274 models.py:345
 msgid "Status"
 msgstr "Status"
 
-#: models.py:278 models.py:314
+#: models.py:279 models.py:315
 msgid "Submission"
 msgstr "Wysyłka"
 
-#: models.py:279 templates/contest_list.html:45 templates/contest_menu.html:23
+#: models.py:280 templates/contest_list.html:46 templates/contest_menu.html:24
 msgid "Submissions"
 msgstr "Wysyłki"
 
-#: models.py:315
+#: models.py:316
 msgid "Return code"
 msgstr "Kod wykonania"
 
-#: models.py:316 templates/submission_detail.html:39
+#: models.py:317 templates/submission_detail.html:35
 msgid "Mark"
 msgstr "Poprawność"
 
-#: models.py:317
+#: models.py:318
 msgid "Execution time"
 msgstr "Czas wykonania"
 
-#: models.py:320
+#: models.py:321
 msgid "Result"
 msgstr "Rezultat"
 
-#: models.py:321 templates/submission_detail.html:33
+#: models.py:322 templates/submission_detail.html:29
 msgid "Results"
 msgstr "Rezultaty"
 
-#: models.py:340
+#: models.py:341
 msgid "Printed"
 msgstr "Wydrukowane"
 
-#: models.py:358
+#: models.py:359
 msgid "Print request"
 msgstr "Żądanie wydruku"
 
-#: models.py:359
+#: models.py:360
 msgid "Print requests"
 msgstr "Żądania wydruku"
 
@@ -293,8 +297,8 @@ msgstr "Żądania wydruku"
 msgid "List of problems"
 msgstr "Lista zadań"
 
-#: templates/contest_detail.html:5 templates/contest_submission_list.html:7
-#: templates/submission_detail.html:8 templates/submission_form.html:7
+#: templates/contest_detail.html:5 templates/contest_submission_list.html:8
+#: templates/submission_detail.html:9 templates/submission_form.html:7
 msgid "in"
 msgstr "w"
 
@@ -306,35 +310,35 @@ msgstr "Zawody są nieaktywne, nie można wysyłać rozwiązań."
 msgid "No problems to show."
 msgstr "Brak zadań do wyświetlenia."
 
-#: templates/contest_list.html:17
+#: templates/contest_list.html:18
 msgid "Contest name"
 msgstr "Nazwa zawodów"
 
-#: templates/contest_list.html:38
+#: templates/contest_list.html:39
 msgid "No contests to show."
 msgstr "Brak zawodów do wyświetlenia."
 
-#: templates/contest_menu.html:39 templates/print_submission_form.html:10
+#: templates/contest_menu.html:40 templates/print_submission_form.html:10
 msgid "Print source code"
 msgstr "Drukuj kod źródłowy"
 
-#: templates/contest_menu.html:47
+#: templates/contest_menu.html:48
 msgid "Ranking"
 msgstr "Ranking"
 
-#: templates/contest_menu.html:54
+#: templates/contest_menu.html:55
 msgid "Questions"
 msgstr "Pytania"
 
-#: templates/contest_submission_list.html:7 templates/submission_list.html:6
+#: templates/contest_submission_list.html:8 templates/submission_list.html:7
 msgid "List of submissions"
 msgstr "Lista wysyłek "
 
-#: templates/contest_submission_list.html:38
+#: templates/contest_submission_list.html:33
 msgid "There are no submissions in this contest."
 msgstr "Brak wysyłek w tych zawodach."
 
-#: templates/print_submission_form.html:14 templates/submission_detail.html:30
+#: templates/print_submission_form.html:14 templates/submission_detail.html:26
 msgid "Print"
 msgstr "Drukuj"
 
@@ -366,23 +370,23 @@ msgstr "Użytkownik"
 msgid "Total Score"
 msgstr "Wynik"
 
-#: templates/submission_detail.html:8
+#: templates/submission_detail.html:9
 msgid "Submission for"
 msgstr "Wysyłka dla"
 
-#: templates/submission_detail.html:16
+#: templates/submission_detail.html:17
 msgid "Submited"
 msgstr "Wysłane"
 
-#: templates/submission_detail.html:17
+#: templates/submission_detail.html:18
 msgid "ago"
 msgstr "temu"
 
-#: templates/submission_detail.html:37
+#: templates/submission_detail.html:33
 msgid "Returncode"
 msgstr "Kod wykonania"
 
-#: templates/submission_detail.html:38
+#: templates/submission_detail.html:34
 msgid "Time"
 msgstr "Czas"
 
@@ -394,14 +398,14 @@ msgstr "Wyślij rozwiązanie dla"
 msgid "Submit"
 msgstr "Wyślij"
 
-#: templates/submission_list.html:37
+#: templates/submission_list.html:32
 msgid "There are no submissions to display."
 msgstr "Brak wysyłek do wyświetlenia."
 
-#: views.py:196 views.py:252
+#: views.py:175 views.py:231
 msgid "Printing not available."
 msgstr "Drukowanie niedostępne."
 
-#: views.py:205 views.py:254
+#: views.py:184 views.py:233
 msgid "Print request added to print queue."
 msgstr "Dodano żądanie wydruku do kolejki."

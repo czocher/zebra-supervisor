@@ -70,6 +70,7 @@ rejudge_all_submissions.short_description = _(
     "Rejudge all submission for this contest")
 
 
+@admin.register(Contest)
 class ContestAdmin(GuardedModelAdmin):
     list_filter = (ActiveListFilter,)
     list_display = ('name', 'start_time', 'end_time', 'team', '_is_active')
@@ -77,6 +78,7 @@ class ContestAdmin(GuardedModelAdmin):
     actions = [rejudge_all_submissions, rejudge_last_submissions, ]
 
 
+@admin.register(InputTest, OutputTest, ConfigTest)
 class TestAdmin(admin.ModelAdmin):
     list_display = ('name', 'timestamp', 'problem')
 
@@ -90,6 +92,7 @@ class SampleIOInline(admin.StackedInline):
     extra = 1
 
 
+@admin.register(Problem)
 class ProblemAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
@@ -107,6 +110,7 @@ class ResultInline(admin.StackedInline):
     model = Result
 
 
+@admin.register(Submission)
 class SubmissionAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
@@ -131,6 +135,7 @@ class SubmissionAdmin(admin.ModelAdmin):
     actions = [set_waiting_status, ]
 
 
+@admin.register(PrintRequest)
 class PrintRequestAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
@@ -148,12 +153,3 @@ class PrintRequestAdmin(admin.ModelAdmin):
     search_fields = ['author__first_name', 'author__last_name',
                      'author__username', 'problem__name', 'contest__name']
     actions = [set_waiting_for_printing_status, ]
-
-
-admin.site.register(PrintRequest, PrintRequestAdmin)
-admin.site.register(InputTest, TestAdmin)
-admin.site.register(OutputTest, TestAdmin)
-admin.site.register(ConfigTest, TestAdmin)
-admin.site.register(Problem, ProblemAdmin)
-admin.site.register(Contest, ContestAdmin)
-admin.site.register(Submission, SubmissionAdmin)

@@ -2,6 +2,9 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
+VERBOSE_NAME = _("REST")
+
+
 class Node(models.Model):
 
     """Class representing the system node used for solution testing."""

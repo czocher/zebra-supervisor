@@ -6,6 +6,8 @@ from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+from django.core.urlresolvers import reverse
+
 from django.contrib.auth.models import User
 
 from rest.models import Node
@@ -50,9 +52,8 @@ On the output the program should print a binary number.
     def __unicode__(self):
         return "%s (%s)" % (self.name, self.codename)
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('problem', (), {'pk': self.id, 'slug': self.codename, })
+        return reverse('problem', args=(self.id, self.codename))
 
 
 class SampleIO(models.Model):
@@ -160,9 +161,8 @@ class Contest(models.Model):
     def __unicode__(self):
         return self.name
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('contest', (), {'pk': self.id, })
+        return reverse('contest', args=(self.id, ))
 
     def _is_active(self):
         return timezone.now() > self.start_time and \
@@ -282,11 +282,10 @@ class Submission(models.Model):
 
     def __unicode__(self):
         return "Solution for %s by %s" % (self.problem.codename,
-                                          self.author.username)
+                                          self.author.username, )
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('submission', (), {'pk': self.id, })
+        return reverse('submission', args=(self.id, ))
 
     def remove_results(self):
         for result in self.results.all():

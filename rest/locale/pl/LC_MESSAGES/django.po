@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-14 12:16+0100\n"
+"POT-Creation-Date: 2015-01-22 01:22+0100\n"
 "PO-Revision-Date: 2012-11-04 11:24+0100\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -20,42 +20,46 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: rest/admin.py:9
+#: admin.py:9
 msgid "Set selected nodes as authorized"
 msgstr "Ustaw oznaczone węzły jako autoryzowane"
 
-#: rest/admin.py:14
+#: admin.py:14
 msgid "Set selected nodes as unauthorized"
 msgstr "Ustaw oznaczone węzły jako nieautoryzowane"
 
-#: rest/admin.py:19
+#: admin.py:19
 msgid "authorized"
 msgstr "autoryzowane"
 
-#: rest/admin.py:25
+#: admin.py:25
 msgid "is authorized"
 msgstr "autoryzowane"
 
-#: rest/admin.py:26
+#: admin.py:26
 msgid "is unauthorized"
 msgstr "nieautoryzowane"
 
-#: rest/models.py:8
+#: apps.py:7 models.py:5
+msgid "REST"
+msgstr "REST"
+
+#: models.py:11
 msgid "IP Address"
 msgstr "Adres IP"
 
-#: rest/models.py:9
+#: models.py:12
 msgid "Token"
-msgstr ""
+msgstr "Token"
 
-#: rest/models.py:10
+#: models.py:13
 msgid "Authorized"
 msgstr "Autoryzowany"
 
-#: rest/models.py:13
+#: models.py:16
 msgid "Node"
 msgstr "Węzeł"
 
-#: rest/models.py:14
+#: models.py:17
 msgid "Nodes"
 msgstr "Węzły"
