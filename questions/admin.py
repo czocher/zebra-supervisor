@@ -27,6 +27,7 @@ def set_question_public(modeladmin, request, queryset):
 set_question_public.short_description = _("Make questions public")
 
 
+@admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
@@ -47,5 +48,3 @@ class QuestionAdmin(admin.ModelAdmin):
         'problem__name', 'contest__name'
     ]
     actions = [set_question_public, ]
-
-admin.site.register(Question, QuestionAdmin)
