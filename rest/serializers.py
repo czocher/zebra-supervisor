@@ -1,5 +1,10 @@
-from judge.models import Submission, Result, Tests
+from judge.models import Submission, PrintRequest, Result, Tests
 from rest_framework import serializers
+
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 class TestsTimestampsSerializer(serializers.ModelSerializer):
@@ -68,8 +73,21 @@ class PrintRequestSerializer(serializers.ModelSerializer):
                                      read_only=True)
     error = serializers.BooleanField(write_only=True)
 
+    def update(self, instance, validated_data):
+        error = validated_data.pop('error')
+        if error:
+            logger.warning(
+                "There was an error while "
+                "printing PrintRequest id {}.".format(instance.id)
+            )
+            instance.status = PrintRequest.WAITING_STATUS
+        else:
+            instance.status = PrintRequest.PRINTED_STATUS
+        instance.save()
+        return instance
+
     class Meta:
-        model = Submission
+        model = PrintRequest
         fields = ('id', 'status', 'author', 'contest', 'problem', 'language',
                   'source', 'error',)
         read_only_fields = ('source', 'id',)

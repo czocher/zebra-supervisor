@@ -117,7 +117,7 @@ class PrintRequestViewSet(ListModelMixin, RetrieveModelMixin,
 
         try:
             instance = queryset.filter(
-                status=Submission.WAITING_STATUS
+                status=PrintRequest.WAITING_STATUS
             ).latest('timestamp')
             instance.status = PrintRequest.PRINTING_STATUS
             instance.save()
@@ -126,18 +126,6 @@ class PrintRequestViewSet(ListModelMixin, RetrieveModelMixin,
 
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
-
-    def pre_save(self, printRequest):
-        if printRequest.error:
-            logger.warning(
-                "There was an error while "
-                "printing PrintRequest id {}.".format(printRequest.id)
-            )
-            printRequest.status = PrintRequest.WAITING_STATUS
-        else:
-            printRequest.status = PrintRequest.PRINTED_STATUS
-
-        super(PrintRequestViewSet, self).pre_save(printRequest)
 
 
 router = DefaultRouter()
