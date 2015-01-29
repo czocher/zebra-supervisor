@@ -31,6 +31,15 @@
 <pre>{{ sampleio.output|safe }}</pre>
 {% endfor %}
 
+<div class="btn-group margin-bottom">
+{% if contest.is_printing_available %}
+<a href="{% url 'printProblem' contest.pk problem.codename %}" class="btn btn-default"><span class="glyphicon glyphicon-print"></span> {% trans "Print" %}</a>
+{% else %}
+<a href="#" class="btn btn-default disabled"><span class="glyphicon glyphicon-print"></span> {% trans "Print" %}</a>
+{% endif %}
+<a href="#" class="btn btn-default disabled"><span class="glyphicon glyphicon-file"></span> {% trans "PDF" %}</a>
+</div>
+
 {% if contest.is_active %}
 <a href="submit/" class="btn btn-primary btn-lg btn-block">{% trans "Send solution" %}</a>
 {% else %}

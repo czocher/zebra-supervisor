@@ -2,7 +2,11 @@
 from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import CreateView, FormView
 from django.views.generic.base import View
+
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import string_concat
+
+from django.utils.html import strip_tags
 
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
@@ -184,6 +188,43 @@ class SubmissionPrintView(View):
             success(request, _("Print request added to print queue."))
 
         return redirect('submission', int(self.kwargs['pk']))
+
+
+class ProblemPrintView(View):
+
+    def get(self, request, *args, **kwargs):
+        contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
+        problem = get_object_or_404(Problem, codename=self.kwargs['slug'])
+
+        if problem not in contest.problems.all():
+            raise Http404
+
+        user = self.request.user
+        if not user.has_perm('view_contest', contest):
+            raise PermissionDenied
+        elif not contest.is_started:
+            raise Http404
+
+        if not contest.is_printing_available:
+            error(request, _("Printing not available."))
+        else:
+            source = "{}\n{}".format(problem.name, strip_tags(problem.content))
+            for sampleio in problem.sampleio_set.all():
+                source = string_concat(source, _("Input"), ':\n',
+                                       strip_tags(sampleio.input), '\n\n')
+                source = string_concat(source, _("Output"), ':\n',
+                                       strip_tags(sampleio.output), '\n\n')
+            printRequest = PrintRequest(
+                source=source,
+                language='plain',
+                author=user,
+                contest=contest,
+                problem=problem)
+            printRequest.save()
+            success(request, _("Print request added to print queue."))
+
+        return redirect('problem', self.kwargs['contest_pk'],
+                        self.kwargs['slug'])
 
 
 class SubmissionPrintCreateView(FormView):

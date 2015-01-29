@@ -21,6 +21,7 @@
 {% endblock %}
 
 {% block content %}
+
 <dl class="dl-horizontal">
   <dt>{% trans "Submited" %}:</dt>
   <dd>{{ submission.timestamp|timesince }} {% trans "ago" %} ({{ submission.timestamp }})</dd>
@@ -31,7 +32,7 @@
     <dt>{% trans "Compilation log" %}:</dt>
     <dd><pre>{{ submission.compilelog }}</pre></dd>
   {% endif %}
-    <dt>{% trans "Source" %} {% if submission.contest.is_printing_available %} (<a href="{% url 'printSubmission' submission.pk %}">{% trans "Print" %}</a>){% endif %}:</dt>
+    <dt>{% trans "Source" %}:</dt>
     <dd><div class="codehilite">{{ submission.highlighted_source|safe }}</div></dd>
   {% if submission.results.all %}
   <dt>{% trans "Results" %}</dt>
@@ -55,6 +56,15 @@
     </table>
     {% endif %}
   </dl>
+<div class="btn-group">
+{% if submission.contest.is_printing_available %}
+<a href="{% url 'printSubmission' submission.pk %}" class="btn btn-default"><span class="glyphicon glyphicon-print"></span> {% trans "Print" %}</a>
+{% else %}
+<a href="#" class="btn btn-default disabled"><span class="glyphicon glyphicon-print"></span> {% trans "Print" %}</a>
+{% endif %}
+<a href="#" class="btn btn-default disabled"><span class="glyphicon glyphicon-file"></span> {% trans "PDF" %}</a>
+</div>
+
 {% endblock %}
 
 {% block aside %}

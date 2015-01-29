@@ -114,3 +114,10 @@ th, tr {
   display: inline-block;
   border-radius: 50%;
 }
+
+/*
+ * Helpers
+ */
+.margin-bottom {
+  margin-bottom: 1em;
+}
