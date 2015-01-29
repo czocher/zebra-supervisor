@@ -12,7 +12,7 @@ from django.contrib.messages.api import success, error
 from datetime import timedelta
 from collections import OrderedDict
 from judge.models import Contest, Problem, Submission, PrintRequest
-from judge.forms import SubmissionForm
+from judge.forms import SubmissionForm, PrintRequestForm
 
 
 class ContestListView(ListView):
@@ -188,8 +188,8 @@ class SubmissionPrintView(View):
 
 class SubmissionPrintCreateView(FormView):
 
-    model = Submission
-    form_class = SubmissionForm
+    model = PrintRequest
+    form_class = PrintRequestForm
     template_name = 'print_submission_form.html'
     success_url = '../'
 
@@ -213,6 +213,7 @@ class SubmissionPrintCreateView(FormView):
         if not user.has_perm('view_contest', contest) or \
            not contest.is_printing_available:
             raise PermissionDenied
+
         printRequest = PrintRequest(
             source=form.cleaned_data['source'],
             language=form.cleaned_data['language'],
@@ -220,18 +221,12 @@ class SubmissionPrintCreateView(FormView):
             author=user)
         printRequest.save()
 
-        return super(SubmissionPrintCreateView, self).form_valid(form)
-
-    def post(self, request, *args, **kwargs):
-        post = super(SubmissionPrintCreateView, self).post(
-            request, *args, **kwargs)
-        contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
-
         if not contest.is_printing_available:
-            error(request, _("Printing not available."))
+            error(self.request, _("Printing not available."))
         else:
-            success(request, _("Print request added to print queue."))
-        return post
+            success(self.request, _("Print request added to print queue."))
+
+        return super(SubmissionPrintCreateView, self).form_valid(form)
 
 
 class ScoreRankingListView(TemplateView):

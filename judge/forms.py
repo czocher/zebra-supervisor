@@ -1,7 +1,7 @@
 from django import forms
 
 from django.utils.translation import ugettext_lazy as _
-from judge.models import Submission
+from judge.models import Submission, PrintRequest
 
 
 class SubmissionForm(forms.ModelForm):
@@ -22,7 +22,36 @@ class SubmissionForm(forms.ModelForm):
         elif len(sourcecode) == 0 and sourcefile.size > 100000:
             raise forms.ValidationError(_("File is too large for submission."))
         elif len(sourcecode) == 0 and sourcefile:
-            self.cleaned_data['source'] = \
-                self.cleaned_data['sourcefile'].read()
+            if sourcefile.content_type.startswith('text'):
+                raise forms.ValidationError(_("Cannot submit binary file."))
+            else:
+                self.cleaned_data['source'] = sourcefile.read()
 
         return super(SubmissionForm, self).clean()
+
+
+class PrintRequestForm(forms.ModelForm):
+    source = forms.CharField(label=_("Content"),
+                             widget=forms.Textarea, required=False)
+    sourcefile = forms.FileField(label=_("Content file"), required=False)
+
+    class Meta:
+        model = PrintRequest
+        fields = ('language', 'source')
+
+    def clean(self):
+        sourcefile = self.cleaned_data.get('sourcefile')
+        sourcecode = self.cleaned_data.get('source')
+
+        if len(sourcecode) == 0 and not sourcefile:
+            raise forms.ValidationError(
+                _("Please provide content for printing."))
+        elif len(sourcecode) == 0 and sourcefile.size > 100000:
+            raise forms.ValidationError(_("File is too large for submission."))
+        elif len(sourcecode) == 0 and sourcefile:
+            if sourcefile.content_type.startswith('text'):
+                raise forms.ValidationError(_("Cannot submit binary file."))
+            else:
+                self.cleaned_data['source'] = sourcefile.read()
+
+        return super(PrintRequestForm, self).clean()

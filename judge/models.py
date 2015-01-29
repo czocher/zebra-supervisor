@@ -251,11 +251,11 @@ class Submission(models.Model):
     JUDGING_STATUS = 2
     JUDGED_STATUS = 3
 
-    STATUS_CHOICES = {
+    STATUS_CHOICES = (
         (WAITING_STATUS, _("Waiting")),
         (JUDGING_STATUS, _("Judging")),
         (JUDGED_STATUS, _("Judged")),
-    }
+    )
 
     author = models.ForeignKey(
         User, verbose_name=_("Author"), related_name='submissions')
@@ -265,7 +265,7 @@ class Submission(models.Model):
         "Contest"), related_name='submissions', blank=True, null=True)
     source = models.TextField(_("Source code"))
     language = models.CharField(
-        _("Language"), max_length=10, choices=settings.LANGUAGES)
+        _("Language"), max_length=10, choices=settings.PROGRAMMING_LANGUAGES)
     timestamp = models.DateTimeField(_("Send time"), default=timezone.now)
     compilelog = models.TextField(
         _("Compilation log"), default='', blank=True, null=True)
@@ -334,11 +334,14 @@ class PrintRequest(models.Model):
     PRINTING_STATUS = 2
     PRINTED_STATUS = 3
 
-    STATUS_CHOICES = {
+    STATUS_CHOICES = (
         (WAITING_STATUS, _("Waiting")),
         (PRINTING_STATUS, _("Printing")),
         (PRINTED_STATUS, _("Printed")),
-    }
+    )
+
+    PRINTING_LANGUAGES = list(settings.PROGRAMMING_LANGUAGES)
+    PRINTING_LANGUAGES.extend((('plain', 'Plain'), ))
 
     status = models.IntegerField(
         _("Status"), choices=STATUS_CHOICES, default=WAITING_STATUS)
@@ -347,7 +350,7 @@ class PrintRequest(models.Model):
     source = models.TextField(_("Source code"))
     timestamp = models.DateTimeField(_("Send time"), default=timezone.now)
     language = models.CharField(
-        _("Language"), max_length=10, choices=settings.LANGUAGES)
+        _("Language"), max_length=10, choices=PRINTING_LANGUAGES)
     contest = models.ForeignKey(Contest, verbose_name=_(
         "Contest"), related_name='printRequests', blank=True, null=True)
     problem = models.ForeignKey(
