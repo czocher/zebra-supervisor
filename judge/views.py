@@ -6,6 +6,8 @@ from django.views.generic.base import View
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import string_concat
 
+from django.template.response import TemplateResponse
+
 from django.utils.html import strip_tags
 
 from django.core.exceptions import PermissionDenied
@@ -17,6 +19,12 @@ from datetime import timedelta
 from collections import OrderedDict
 from judge.models import Contest, Problem, Submission, PrintRequest
 from judge.forms import SubmissionForm, PrintRequestForm
+
+from django.http import HttpResponse
+
+import StringIO
+from cgi import escape
+from xhtml2pdf import pisa
 
 
 class ContestListView(ListView):
@@ -320,3 +328,48 @@ class ScoreRankingListView(TemplateView):
             sorted(users.items(), key=lambda t: (-t[1].score, t[1].totalTime)))
 
         return context
+
+
+class PDFTemplateResponse(TemplateResponse):
+
+    def generate_pdf(self, *args):
+        html = self.content.decode('utf-8')
+        result = StringIO.StringIO()
+        rendering = pisa.pisaDocument(StringIO.StringIO(html.encode('utf-8')),
+                                      result, encoding='utf-8')
+        if rendering.err:
+            return HttpResponse(escape(html))
+        else:
+            self.content = result.getvalue()
+
+    def __init__(self, *args, **kwargs):
+        kwargs['content_type'] = 'application/pdf'
+        super(PDFTemplateResponse, self).__init__(*args, **kwargs)
+        self.add_post_render_callback(self.generate_pdf)
+
+
+class PDFTemplateView(TemplateView):
+    response_class = PDFTemplateResponse
+
+
+class ProblemPDFView(PDFTemplateView):
+    template_name = 'problem_detail_pdf.html'
+
+    def get_context_data(self, **kwargs):
+        problem = get_object_or_404(Problem,
+                                    codename=self.kwargs['slug'])
+        contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
+
+        if problem not in contest.problems.all():
+            raise Http404
+
+        user = self.request.user
+        if not user.has_perm('view_contest', contest):
+            raise PermissionDenied
+        elif not contest.is_started:
+            raise Http404
+
+        return super(ProblemPDFView, self).get_context_data(
+            problem=problem,
+            **kwargs
+        )

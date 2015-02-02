@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from judge.views import ContestListView, ContestDetailView, ProblemDetailView, \
     ScoreRankingListView, SubmissionCreateView, ContestSubmissionListView, \
     SubmissionListView, SubmissionPrintView, SubmissionDetailView, \
-    SubmissionPrintCreateView, ProblemPrintView
+    SubmissionPrintCreateView, ProblemPrintView, ProblemPDFView
 
 
 urlpatterns = patterns('',
@@ -17,6 +17,10 @@ urlpatterns = patterns('',
     url(r'^contest/(?P<contest_pk>\d+)/problem/(?P<slug>[\w\-_]+)/print$',
         ProblemPrintView.as_view(),
         name='printProblem'),
+
+    url(r'^contest/(?P<contest_pk>\d+)/problem/(?P<slug>[\w\-_]+)/pdf$',
+        ProblemPDFView.as_view(),
+        name='pdfProblem'),
 
     url(r'^contest/(?P<contest_pk>\d+)/ranking/$',
         ScoreRankingListView.as_view(), name='ranking'),

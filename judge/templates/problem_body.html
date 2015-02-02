@@ -1,0 +1,15 @@
+{% load i18n %}
+
+
+<h3>{{ problem.name }} ({{ problem.codename }})</h3>
+
+{{ problem.content|safe }}
+
+{% for sampleio in problem.sampleio_set.all %}
+<h3>{% trans "Example" %} #{{ forloop.counter }}:</h3>
+<h4>{% trans "Input" %}</h4>
+<pre>{{ sampleio.input|safe }}</pre>
+<h4>{% trans "Output" %}</h4>
+<pre>{{ sampleio.output|safe }}</pre>
+{% endfor %}
+

@@ -6,3 +6,6 @@ Pygments>=2.0.1
 djangorestframework>=3.0.1
 Markdown>=2.5.2
 django-filter>=0.9.1
+django-easy-pdf>=0.1.0
+xhtml2pdf>=0.0.6
+reportlab>=2.7,<3

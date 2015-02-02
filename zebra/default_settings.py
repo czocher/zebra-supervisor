@@ -178,7 +178,7 @@ LOGIN_REQUIRED_URLS = (
 )
 
 # Available programming languages
-LANGUAGES = (
+PROGRAMMING_LANGUAGES = (
     ('c', 'C'),
     ('cpp', 'C++'),
     ('pas', 'Pascal'),

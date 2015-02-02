@@ -19,17 +19,7 @@
 <div class="alert alert-warning" role="alert">{% trans "Contest is inactive, you cannot send solutions." %}</div>
 {% endif %}
 
-<h3>{{ problem.name }} ({{ problem.codename }})</h3>
-
-{{ problem.content|safe }}
-
-{% for sampleio in problem.sampleio_set.all %}
-<h3>{% trans "Example" %} #{{ forloop.counter }}:</h3>
-<h4>{% trans "Input" %}</h4>
-<pre>{{ sampleio.input|safe }}</pre>
-<h4>{% trans "Output" %}</h4>
-<pre>{{ sampleio.output|safe }}</pre>
-{% endfor %}
+{% include "problem_body.html" %}
 
 <div class="btn-group margin-bottom">
 {% if contest.is_printing_available %}
@@ -37,7 +27,7 @@
 {% else %}
 <a href="#" class="btn btn-default disabled"><span class="glyphicon glyphicon-print"></span> {% trans "Print" %}</a>
 {% endif %}
-<a href="#" class="btn btn-default disabled"><span class="glyphicon glyphicon-file"></span> {% trans "PDF" %}</a>
+<a href="{% url 'pdfProblem' contest.pk problem.codename %}" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> {% trans "PDF" %}</a>
 </div>
 
 {% if contest.is_active %}
