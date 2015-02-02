@@ -51,33 +51,6 @@ class SubmissionViewSet(ListModelMixin, RetrieveModelMixin,
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
-    def pre_save(self, submission):
-        if submission.error:
-            logger.warning(
-                "There was an error while "
-                "judging submission id {}.".format(submission.id)
-            )
-            submission.score = -1
-            submission.status = Submission.WAITING_STATUS
-        else:
-            submission.status = Submission.JUDGED_STATUS
-
-        super(SubmissionViewSet, self).pre_save(submission)
-
-    def post_save(self, submission, *args, **kwargs):
-        if submission.status == Submission.JUDGED_STATUS:
-
-            num_good_results = submission.results.filter(mark=True).count()
-            num_results = submission.results.all().count()
-
-            try:
-                submission.score = int((float(num_good_results)
-                                        / float(num_results)) * 100)
-            except ZeroDivisionError:
-                submission.score = 0
-            submission.save()
-        super(SubmissionViewSet, self).post_save(submission, *args, **kwargs)
-
 
 class ProblemViewSet(GenericViewSet):
 

@@ -38,19 +38,43 @@ class SubmissionSerializer(serializers.ModelSerializer):
     results = ResultSerializer(many=True, required=False)
     error = serializers.BooleanField(write_only=True)
 
-    def update(self, instance, validated_data):
+    def update(self, submission, validated_data):
         error = validated_data.pop('error')
-        if not error:
+        submission.compilelog = validated_data.pop('compilelog')
+        submission.results.all().delete()
+
+        if error:
+            logger.warning(
+                "There was an error while "
+                "judging submission id {}.".format(submission.id)
+            )
+            submission.score = -1
+            submission.status = Submission.WAITING_STATUS
+        else:
             results = validated_data.pop('results')
             for result in results:
                 res = Result(
-                    submission=instance,
+                    submission=submission,
                     mark=result.get('mark'),
                     returncode=result.get('returncode'),
                     time=result.get('time')
                 )
                 res.save()
-        return instance
+
+            submission.status = Submission.JUDGED_STATUS
+
+            num_good_results = submission.results.filter(mark=True).count()
+            num_results = submission.results.all().count()
+
+            try:
+                submission.score = int((float(num_good_results)
+                                        / float(num_results)) * 100)
+            except ZeroDivisionError:
+                submission.score = 0
+
+        submission.save()
+
+        return submission
 
     class Meta:
         model = Submission
