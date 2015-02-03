@@ -40,7 +40,7 @@ class SubmissionSerializer(serializers.ModelSerializer):
 
     def update(self, submission, validated_data):
         error = validated_data.pop('error')
-        submission.compilelog = validated_data.pop('compilelog')
+        submission.compilelog = validated_data.get('compilelog', '')
         submission.results.all().delete()
 
         if error:
