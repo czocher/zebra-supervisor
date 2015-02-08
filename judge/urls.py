@@ -1,9 +1,9 @@
 from django.conf.urls import patterns, include, url
 from judge.views import ContestListView, ContestDetailView, \
-        ProblemDetailView, ScoreRankingListView, SubmissionCreateView, \
-        ContestSubmissionListView, SubmissionListView, SubmissionPrintView, \
-        SubmissionDetailView, SubmissionPrintCreateView, ProblemPrintView, \
-        ProblemPDFView
+    ProblemDetailView, ScoreRankingListView, SubmissionCreateView, \
+    ContestSubmissionListView, SubmissionListView, SubmissionPrintView, \
+    SubmissionDetailView, SubmissionPrintCreateView, ProblemPrintView, \
+    ProblemPDFView
 
 
 urlpatterns = patterns('',
