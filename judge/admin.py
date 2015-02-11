@@ -106,7 +106,7 @@ class ProblemAdmin(admin.ModelAdmin):
     prepopulated_fields = {'codename': ('name',)}
 
 
-class ResultInline(admin.StackedInline):
+class ResultInline(admin.TabularInline):
     model = Result
 
 
