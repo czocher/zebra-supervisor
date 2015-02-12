@@ -10,7 +10,7 @@ before_script:
 script:
   - pep8 judge questions rest zebra --exclude=migrations,default_settings.py --ignore=E128
   - python manage.py makemigrations
-  - python manage.py syncdb
+  - python manage.py migrate
   - coverage run --source=judge,questions,rest ./manage.py test
 after_success:
   coveralls
