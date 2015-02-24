@@ -68,8 +68,8 @@ class SubmissionSerializer(serializers.ModelSerializer):
             num_results = submission.results.all().count()
 
             try:
-                submission.score = int((float(num_good_results)
-                                        / float(num_results)) * 100)
+                submission.score = int((float(num_good_results) /
+                                        float(num_results)) * 100)
             except ZeroDivisionError:
                 submission.score = 0
 

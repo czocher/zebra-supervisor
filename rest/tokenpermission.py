@@ -56,9 +56,9 @@ class TokenPermission(permissions.BasePermission):
         return False
 
     def has_permission(self, request, view, *args, **kwargs):
-        return (self._is_authorized_node(request)
-                or self._is_authorized_user(request, obj=None))
+        return (self._is_authorized_node(request) or
+                self._is_authorized_user(request, obj=None))
 
     def has_object_permission(self, request, view, obj):
-        return (self._is_authorized_node(request)
-                or self._is_authorized_user(request, obj))
+        return (self._is_authorized_node(request) or
+                self._is_authorized_user(request, obj))
