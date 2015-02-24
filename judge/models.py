@@ -364,7 +364,7 @@ class PrintRequest(models.Model):
         ordering = ['-timestamp']
 
     def __unicode__(self):
-        return "Print request by {} for {} in {}".format(
+        return u"Print request by {} for {} in {}".format(
             self.author.username, self.problem, self.contest)
 
     def get_status_codename(self):
