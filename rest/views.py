@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.exceptions import NotAuthenticated

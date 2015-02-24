@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 from rest_framework import permissions
 from rest.models import Node

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.conf.urls import patterns, include, url
 from judge.views import ContestListView, ContestDetailView, \
     ProblemDetailView, ScoreRankingListView, SubmissionCreateView, \

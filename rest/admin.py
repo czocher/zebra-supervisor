@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from models import Node
 from django.contrib import admin
 from django.utils import timezone

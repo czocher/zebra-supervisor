@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from judge.models import Submission, PrintRequest, Result, Tests
 from rest_framework import serializers
 
