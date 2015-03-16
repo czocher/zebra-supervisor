@@ -80,8 +80,8 @@ class ContestQuestionListView(ListView):
         if not user.has_perm('view_contest', contest):
             raise PermissionDenied
 
-        questions = questions.filter(Q(author=self.request.user)
-                                     | Q(public=True), Q(contest=contest))
+        questions = questions.filter(Q(author=self.request.user) |
+                                     Q(public=True), Q(contest=contest))
         return questions
 
 
