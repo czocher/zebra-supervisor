@@ -153,8 +153,8 @@ LANGUAGES = (
 
 # Paths to locale folders
 LOCALE_PATHS = (
-    p('locale'),
     p('judge/locale'),
+    p('questions/locale'),
     p('rest/locale'),
 )
 

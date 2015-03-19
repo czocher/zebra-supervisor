@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-22 01:20+0100\n"
+"POT-Creation-Date: 2015-03-19 11:07+0100\n"
 "PO-Revision-Date: 2012-11-03 15:46+0100\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -20,99 +20,109 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: admin.py:8
+#: questions/admin.py:9
 msgid "is answered"
 msgstr "odpowiedziane"
 
-#: admin.py:14
+#: questions/admin.py:15
 msgid "answered"
 msgstr "odpowiedziane"
 
-#: admin.py:15
+#: questions/admin.py:16
 msgid "not answered"
 msgstr "nieodpowiedziane"
 
-#: admin.py:27
+#: questions/admin.py:28
 msgid "Make questions public"
 msgstr "Zmień widoczność na publiczną"
 
-#: apps.py:7 models.py:28 templates/question_list.html:7
+#: questions/apps.py:8 questions/models.py:29
+#: questions/templates/question_list.html:11
+#: questions/templates/question_list.html:15
 msgid "Questions"
 msgstr "Pytania"
 
-#: forms.py:9 models.py:19 templates/question_list.html:16
+#: questions/forms.py:10 questions/models.py:20
+#: questions/templates/question_list.html:24
 msgid "Title"
 msgstr "Tytuł"
 
-#: forms.py:11 models.py:20 models.py:27 templates/question_detail.html:9
-#: templates/question_detail.html.py:13
+#: questions/forms.py:12 questions/models.py:21 questions/models.py:28
+#: questions/templates/question_detail.html:10
+#: questions/templates/question_detail.html:17
+#: questions/templates/question_detail.html:21
 msgid "Question"
 msgstr "Pytanie"
 
-#: forms.py:20 templates/question_list.html:27
+#: questions/forms.py:21 questions/templates/question_list.html:35
 msgid "General"
 msgstr "Ogólne"
 
-#: forms.py:21 models.py:16 templates/question_list.html:17
+#: questions/forms.py:22 questions/models.py:17
+#: questions/templates/question_list.html:25
 msgid "Problem"
 msgstr "Zadanie"
 
-#: models.py:12 models.py:24
+#: questions/models.py:13 questions/models.py:25
 msgid "Author"
 msgstr "Autor"
 
-#: models.py:14
+#: questions/models.py:15
 msgid "Contest"
 msgstr "Zawody"
 
-#: models.py:21 templates/question_detail.html:23
+#: questions/models.py:22 questions/templates/question_detail.html:31
 msgid "Answer"
 msgstr "Odpowiedź"
 
-#: models.py:22
+#: questions/models.py:23
 msgid "Send time"
 msgstr "Czas wysyłki"
 
-#: models.py:23
+#: questions/models.py:24
 msgid "Public"
 msgstr "Publiczne"
 
-#: models.py:36
+#: questions/models.py:37
 msgid "Answered"
 msgstr "Odpowiedź"
 
-#: templates/question_detail.html:31
+#: questions/templates/question_detail.html:39
 msgid "The question has not yet been answered."
 msgstr "Na pytanie nie udzielono jeszcze odpowiedzi."
 
-#: templates/question_form.html:7
+#: questions/templates/question_form.html:11
+#: questions/templates/question_form.html:15
 msgid "New question"
 msgstr "Dodaj nowe pytanie"
 
-#: templates/question_form.html:7 templates/question_list.html:7
+#: questions/templates/question_form.html:11
+#: questions/templates/question_form.html:15
+#: questions/templates/question_list.html:11
+#: questions/templates/question_list.html:15
 msgid "in"
 msgstr "w"
 
-#: templates/question_form.html:14
+#: questions/templates/question_form.html:22
 msgid "Submit"
 msgstr "Wyślij"
 
-#: templates/question_list.html:15
+#: questions/templates/question_list.html:23
 msgid "Id"
 msgstr "Id"
 
-#: templates/question_list.html:18
+#: questions/templates/question_list.html:26
 msgid "Is answered"
 msgstr "Odpowiedziane"
 
-#: templates/question_list.html:19
+#: questions/templates/question_list.html:27
 msgid "Was read"
 msgstr "Przeczytane"
 
-#: templates/question_list.html:34
+#: questions/templates/question_list.html:42
 msgid "Add new question"
 msgstr "Dodaj nowe pytanie"
 
-#: templates/question_list.html:36
+#: questions/templates/question_list.html:44
 msgid "No questions for this contest."
 msgstr "Brak pytań dla tych zawodów."
