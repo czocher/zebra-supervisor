@@ -23,7 +23,7 @@ class SubmissionForm(forms.ModelForm):
         elif len(sourcecode) == 0 and sourcefile.size > 100000:
             raise forms.ValidationError(_("File is too large for submission."))
         elif len(sourcecode) == 0 and sourcefile:
-            if sourcefile.content_type.startswith('text'):
+            if not sourcefile.content_type.startswith('text'):
                 raise forms.ValidationError(_("Cannot submit binary file."))
             else:
                 self.cleaned_data['source'] = sourcefile.read()
@@ -50,7 +50,7 @@ class PrintRequestForm(forms.ModelForm):
         elif len(sourcecode) == 0 and sourcefile.size > 100000:
             raise forms.ValidationError(_("File is too large for submission."))
         elif len(sourcecode) == 0 and sourcefile:
-            if sourcefile.content_type.startswith('text'):
+            if not sourcefile.content_type.startswith('text'):
                 raise forms.ValidationError(_("Cannot submit binary file."))
             else:
                 self.cleaned_data['source'] = sourcefile.read()
