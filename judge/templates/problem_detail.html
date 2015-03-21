@@ -30,7 +30,7 @@
 <a href="{% url 'pdfProblem' contest.pk problem.codename %}" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> {% trans "PDF" %}</a>
 </div>
 
-{% if contest.is_active %}
+{% if contest.is_active or request.user.is_superuser %}
 <a href="submit/" class="btn btn-primary btn-lg btn-block">{% trans "Send solution" %}</a>
 {% else %}
 <a href="#" class="btn btn-primary btn-lg btn-block" disabled="disabled">{% trans "Send solution" %}</a>

@@ -114,9 +114,10 @@ class SubmissionCreateView(CreateView):
         problem = get_object_or_404(Problem, codename=self.kwargs['slug'])
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
 
+        user = self.request.user
         if problem not in contest.problems.all():
             raise Http404
-        elif not contest.is_active:
+        elif not contest.is_active and not user.is_superuser:
             raise PermissionDenied
 
         user = self.request.user
