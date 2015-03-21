@@ -156,6 +156,7 @@ LOCALE_PATHS = (
     p('judge/locale'),
     p('questions/locale'),
     p('rest/locale'),
+    p('locale'),
 )
 
 AUTHENTICATION_BACKENDS = (
