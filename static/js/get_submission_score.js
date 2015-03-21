@@ -14,7 +14,7 @@ $(document).ready(function() {
       url: "/rest/submission/" + $(element).data("id") + "/?format=json",
       dataType: "json",
       error: function() {
-        $(element).text(gettext("Error"));
+        $(element).text(gettext("Communication error"));
       },
       success: function(json) {
         this.status = json['status'];
