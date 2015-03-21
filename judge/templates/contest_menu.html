@@ -57,7 +57,11 @@
   <ul class="nav nav-sidebar">
     {% for question in questions|slice:":5"%}
     <li>
+      {% if user not in questions.readBy.all %}
+      <a href="{% url 'question' question.contest.id question.id %}"><b>{{ question.title|slice:'25' }}</b></a>
+      {% else %}
       <a href="{% url 'question' question.contest.id question.id %}">{{ question.title|slice:'25' }}</a>
+      {% endif %}
     </li>
     {% endfor %}
   </ul>
