@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-19 11:07+0100\n"
+"POT-Creation-Date: 2015-03-21 14:50+0100\n"
 "PO-Revision-Date: 2012-05-07 00:12+0200\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -26,6 +26,10 @@ msgid "Admin panel"
 msgstr "Panel administracyjny"
 
 #: templates/base.html:53
+msgid "Change password"
+msgstr "Zmiana hasła"
+
+#: templates/base.html:54
 msgid "Logout"
 msgstr "Wyloguj"
 

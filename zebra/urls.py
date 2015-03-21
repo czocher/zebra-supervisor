@@ -34,6 +34,10 @@ urlpatterns = patterns('',
 
     url(r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
 
+    url(r'password_change/$', 'django.contrib.auth.views.password_change'),
+
+    url(r'password_change_done/$', RedirectView.as_view(url='/'), name='password_change_done'),
+
     (r'^jsi18n/$', 'django.views.i18n.javascript_catalog'),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

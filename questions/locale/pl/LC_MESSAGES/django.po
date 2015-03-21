@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-19 11:07+0100\n"
+"POT-Creation-Date: 2015-03-21 14:50+0100\n"
 "PO-Revision-Date: 2012-11-03 15:46+0100\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -119,10 +119,10 @@ msgstr "Odpowiedziane"
 msgid "Was read"
 msgstr "Przeczytane"
 
-#: questions/templates/question_list.html:42
-msgid "Add new question"
-msgstr "Dodaj nowe pytanie"
-
-#: questions/templates/question_list.html:44
+#: questions/templates/question_list.html:43
 msgid "No questions for this contest."
 msgstr "Brak pytań dla tych zawodów."
+
+#: questions/templates/question_list.html:45
+msgid "Add new question"
+msgstr "Dodaj nowe pytanie"

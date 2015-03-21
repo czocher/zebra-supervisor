@@ -50,6 +50,7 @@
             <li><a href="/admin/" title="Admin panel">{% trans "Admin panel" %}</a></li>
             {% endif %}
             {% if user.is_authenticated %}
+            <li><a href="/password_change/" title="Change password">{% trans "Change password" %}</a></li>
             <li><a href="/logout" title="Logout">{% trans "Logout" %}</a></li>
             {% endif %}
           </ul>
