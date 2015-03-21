@@ -80,7 +80,7 @@ msgstr "Plik jest zbyt duży."
 
 #: judge/forms.py:27 judge/forms.py:54
 msgid "Cannot submit binary file."
-msgstr "Nie można drukować plików binarnych."
+msgstr "Nie można wysłać pliku binarnego."
 
 #: judge/forms.py:35 judge/models.py:47
 msgid "Content"
