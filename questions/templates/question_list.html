@@ -39,10 +39,10 @@
     {% endfor %}
   </tbody>
 </table>
-<a href="{% url 'new_question' contest.pk %}" class="btn btn-primary btn-block">{% trans "Add new question"%}</a>
 {% else %}
 <div class="alert alert-info" role="alert">{% trans "No questions for this contest." %}</h4>
 {% endif %}
+<a href="{% url 'new_question' contest.pk %}" class="btn btn-primary btn-block">{% trans "Add new question"%}</a>
 {% endblock %}
 
 
