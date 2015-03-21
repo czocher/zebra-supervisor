@@ -73,7 +73,7 @@ class ProblemDetailView(DetailView):
         user = self.request.user
         if not user.has_perm('view_contest', contest):
             raise PermissionDenied
-        elif not contest.is_started:
+        elif not contest.is_started and not user.is_superuser:
             raise Http404
         else:
             return problem
@@ -210,7 +210,7 @@ class ProblemPrintView(View):
         user = self.request.user
         if not user.has_perm('view_contest', contest):
             raise PermissionDenied
-        elif not contest.is_started:
+        elif not contest.is_started and not user.is_superuser:
             raise Http404
 
         if not contest.is_printing_available:
@@ -366,7 +366,7 @@ class ProblemPDFView(PDFTemplateView):
         user = self.request.user
         if not user.has_perm('view_contest', contest):
             raise PermissionDenied
-        elif not contest.is_started:
+        elif not contest.is_started and not user.is_superuser:
             raise Http404
 
         return super(ProblemPDFView, self).get_context_data(
