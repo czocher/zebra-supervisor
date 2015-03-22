@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-22 07:55+0100\n"
+"POT-Creation-Date: 2015-03-22 08:01+0100\n"
 "PO-Revision-Date: 2012-11-04 11:24+0100\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -444,16 +444,16 @@ msgid "Ok"
 msgstr "Ok"
 
 #: judge/templatetags/error_code_to_str.py:13
-msgid "Timelimit"
-msgstr "Limit czasu"
+msgid "Abnormal program termination"
+msgstr "Przedwczesne zakończenie programu"
 
 #: judge/templatetags/error_code_to_str.py:15
-msgid "Out of memory"
-msgstr "Przekroczona pamięć"
-
-#: judge/templatetags/error_code_to_str.py:17
 msgid "Floating point exception"
 msgstr "Błąd obliczeń zmiennoprzecinkowych"
+
+#: judge/templatetags/error_code_to_str.py:17
+msgid "Timelimit"
+msgstr "Limit czasu"
 
 #: judge/templatetags/error_code_to_str.py:19
 msgid "Segmentation fault"
@@ -466,3 +466,6 @@ msgstr "Drukowanie niedostępne."
 #: judge/views.py:197 judge/views.py:233 judge/views.py:277
 msgid "Print request added to print queue."
 msgstr "Dodano żądanie wydruku do kolejki."
+
+#~ msgid "Out of memory"
+#~ msgstr "Przekroczona pamięć"
