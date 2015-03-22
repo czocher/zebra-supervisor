@@ -41,7 +41,7 @@ class SubmissionViewSet(ListModelMixin, RetrieveModelMixin,
         try:
             instance = queryset.filter(
                 status=Submission.WAITING_STATUS
-            ).latest('timestamp')
+            ).earliest('timestamp')
             instance.status = Submission.JUDGING_STATUS
             instance.node = node
             instance.results.all().delete()
@@ -92,7 +92,7 @@ class PrintRequestViewSet(ListModelMixin, RetrieveModelMixin,
         try:
             instance = queryset.filter(
                 status=PrintRequest.WAITING_STATUS
-            ).erliest('timestamp')
+            ).earliest('timestamp')
             instance.status = PrintRequest.PRINTING_STATUS
             instance.save()
         except ObjectDoesNotExist:
