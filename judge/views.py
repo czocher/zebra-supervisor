@@ -217,7 +217,7 @@ class ProblemPrintView(View):
         if not contest.is_printing_available:
             error(request, _("Printing not available."))
         else:
-            source = "{}\n{}".format(problem.name, strip_tags(problem.content))
+            source = u"{}\n{}".format(problem.name, strip_tags(problem.content))
             for sampleio in problem.sampleio_set.all():
                 source = string_concat(source, _("Input"), ':\n',
                                        strip_tags(sampleio.input), '\n\n')
