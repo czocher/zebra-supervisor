@@ -92,7 +92,7 @@ class PrintRequestViewSet(ListModelMixin, RetrieveModelMixin,
         try:
             instance = queryset.filter(
                 status=PrintRequest.WAITING_STATUS
-            ).latest('timestamp')
+            ).erliest('timestamp')
             instance.status = PrintRequest.PRINTING_STATUS
             instance.save()
         except ObjectDoesNotExist:
