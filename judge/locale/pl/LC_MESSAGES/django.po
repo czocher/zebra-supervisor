@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-22 08:01+0100\n"
+"POT-Creation-Date: 2015-03-22 08:08+0100\n"
 "PO-Revision-Date: 2012-11-04 11:24+0100\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -458,6 +458,10 @@ msgstr "Limit czasu"
 #: judge/templatetags/error_code_to_str.py:19
 msgid "Segmentation fault"
 msgstr "Naruszenie ochrony pamięci"
+
+#: judge/templatetags/error_code_to_str.py:21
+msgid "Compilation error"
+msgstr "Błąd kompilacji"
 
 #: judge/views.py:188 judge/views.py:218 judge/views.py:275
 msgid "Printing not available."
