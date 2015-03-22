@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load submission_score_loader %}
+{% load error_code_to_str %}
 {% load contest_menu %}
 {% load i18n %}
 {% load static from staticfiles %}
@@ -47,7 +48,7 @@
       <tbody>
         {% for result in submission.results.all %}
         <tr>
-          <td>{{ result.returncode }}</td>
+          <td>{{ result.returncode|error_code_to_str }}</td>
           <td>{{ result.time }}</td>
           <td>{% if result.mark %}<img src="{% static "img/icon-ok.gif"%}">{% else %}<img src="{% static "img/icon-failed.gif"%}">{% endif %}</td>
         </tr>
