@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-22 07:51+0100\n"
+"POT-Creation-Date: 2015-03-22 07:55+0100\n"
 "PO-Revision-Date: 2012-11-04 11:24+0100\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -452,6 +452,10 @@ msgid "Out of memory"
 msgstr "Przekroczona pamięć"
 
 #: judge/templatetags/error_code_to_str.py:17
+msgid "Floating point exception"
+msgstr "Błąd obliczeń zmiennoprzecinkowych"
+
+#: judge/templatetags/error_code_to_str.py:19
 msgid "Segmentation fault"
 msgstr "Naruszenie ochrony pamięci"
 
