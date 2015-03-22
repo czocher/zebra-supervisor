@@ -17,3 +17,6 @@ def error_code_to_str(code):
         return _("Timelimit")
     elif code == 11:
         return _("Segmentation fault")
+    elif code == 127:
+        return _("Compilation error")
+    return code
