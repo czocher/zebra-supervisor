@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.db.models import Count
+from django.db.models.signals import pre_delete
 
 from django.conf import settings
 
@@ -118,6 +119,14 @@ class ConfigTest(Test):
     @property
     def problem(self):
         return self.config.problem.codename
+
+
+def remove_test_file(sender, instance, **kwargs):
+    """Remove test files on Test model deletion."""
+    instance.file.delete(False)
+pre_delete.connect(remove_test_file, sender=InputTest)
+pre_delete.connect(remove_test_file, sender=OutputTest)
+pre_delete.connect(remove_test_file, sender=ConfigTest)
 
 
 class Tests(models.Model):
@@ -284,7 +293,7 @@ class Submission(models.Model):
 
     def __unicode__(self):
         return u"Solution for {} by {}".format(self.problem.codename,
-                                          self.author.username, )
+                                               self.author.username, )
 
     def get_absolute_url(self):
         return reverse('submission', args=(self.id, ))
@@ -325,7 +334,7 @@ class Result(models.Model):
 
     def __unicode__(self):
         return u"{} result for {}".format(self.submission.author.username,
-                                     self.submission.problem.codename)
+                                          self.submission.problem.codename)
 
 
 class PrintRequest(models.Model):
