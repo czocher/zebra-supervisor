@@ -58,9 +58,9 @@
     {% for question in questions|slice:":5"%}
     <li>
       {% if user not in question.readBy.all and question.is_answered %}
-      <a href="{% url 'question' question.contest.id question.id %}"><b>{{ question.title|slice:'25' }}</b></a>
+      <a href="{% url 'question' question.contest.id question.id %}"><b>{% if question.problem %}{{ question.problem.codename }}:{% endif %} {{ question.title|slice:'25' }}</b></a>
       {% else %}
-      <a href="{% url 'question' question.contest.id question.id %}">{{ question.title|slice:'25' }}</a>
+      <a href="{% url 'question' question.contest.id question.id %}">{% if question.problem %}{{ question.problem.codename }}:{% endif %} {{ question.title|slice:'25' }}</a>
       {% endif %}
     </li>
     {% endfor %}
