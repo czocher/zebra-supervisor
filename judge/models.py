@@ -49,7 +49,7 @@ On the output the program should print a binary number.
     class Meta:
         verbose_name = _("Problem")
         verbose_name_plural = _("Problems")
-        ordering = ['codename',]
+        ordering = ['codename', ]
 
     def __unicode__(self):
         return u"{} ({})".format(self.name, self.codename)
