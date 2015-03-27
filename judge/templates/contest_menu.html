@@ -12,7 +12,7 @@
   <ul class="nav nav-sidebar">
     {% for problem in contest.problems.all %}
     <li>
-      <a href="{% url 'problem' contest.pk problem.codename %}">{{ problem.name }}</a>
+      <a {% if contest.is_started or not contest.is_started and user.is_superuser %}href="{% url 'problem' contest.pk problem.codename %}"{% else %}href="#"{% endif %}>{{ problem.name }}</a>
     </li>
     {% endfor %}
   </ul>
