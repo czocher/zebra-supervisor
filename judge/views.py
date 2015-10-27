@@ -319,9 +319,10 @@ class ScoreRankingListView(TemplateView):
                         problem.score = 0
                         problem.timestamp = "-"
                     else:
-                        problem.timestamp = problem.timestamp
-                        - begin_time + timedelta(minutes=((problem.total - 1) *
-                                                          contest.penalty))
+                        problem.timestamp = problem.timestamp \
+                                - begin_time \
+                                + timedelta(minutes=((problem.total - 1)
+                                    * contest.penalty))
                         user.score += 1
                         user.totalTime += problem.timestamp
 
