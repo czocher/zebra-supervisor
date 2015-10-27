@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     url(r'^api-auth/', include('rest_framework.urls',
                                namespace='rest_framework')),
 
-    url(r'^$', RedirectView.as_view(url='/judge/')),
+    url(r'^$', RedirectView.as_view(url='/judge/', permanent=True)),
 
     url(r'^judge/', include('judge.urls')),
 
@@ -34,9 +34,11 @@ urlpatterns = patterns('',
 
     url(r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
 
-    url(r'password_change/$', 'django.contrib.auth.views.password_change'),
+    url(r'password_change/$', 'django.contrib.auth.views.password_change', {
+        'template_name': 'password_change.html', }),
 
-    url(r'password_change_done/$', RedirectView.as_view(url='/'), name='password_change_done'),
+    url(r'password_change_done/$', RedirectView.as_view(url='/',
+        permanent=True), name='password_change_done'),
 
     (r'^jsi18n/$', 'django.views.i18n.javascript_catalog'),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
