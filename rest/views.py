@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.http import Http404
+from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.exceptions import NotAuthenticated
 
@@ -25,12 +26,11 @@ logger = logging.getLogger(__name__)
 
 class SubmissionViewSet(ListModelMixin, RetrieveModelMixin,
                         UpdateModelMixin, GenericViewSet):
-    queryset = Submission.objects.select_for_update()
+    queryset = Submission.objects.all()
     serializer_class = SubmissionSerializer
 
     def list(self, request, *args, **kwargs):
         """Get a submission for judging."""
-        queryset = self.get_queryset()
         token = request.META.get('HTTP_X_TOKEN')
 
         try:
@@ -39,13 +39,15 @@ class SubmissionViewSet(ListModelMixin, RetrieveModelMixin,
             raise NotAuthenticated(detail="Unrecognized node token")
 
         try:
-            instance = queryset.filter(
-                status=Submission.WAITING_STATUS
-            ).earliest('timestamp')
-            instance.status = Submission.JUDGING_STATUS
-            instance.node = node
-            instance.results.all().delete()
-            instance.save()
+            with transaction.atomic():
+                queryset = self.get_queryset().select_for_update()
+                instance = queryset.filter(
+                    status=Submission.WAITING_STATUS
+                ).earliest('timestamp')
+                instance.status = Submission.JUDGING_STATUS
+                instance.node = node
+                instance.results.all().delete()
+                instance.save()
         except ObjectDoesNotExist:
             raise Http404
 
@@ -82,19 +84,20 @@ class ProblemViewSet(GenericViewSet):
 
 class PrintRequestViewSet(ListModelMixin, RetrieveModelMixin,
                           UpdateModelMixin, GenericViewSet):
-    queryset = PrintRequest.objects.select_for_update()
+    queryset = PrintRequest.objects.all()
     serializer_class = PrintRequestSerializer
 
     def list(self, request, *args, **kwargs):
         """Get a printRequest for printing."""
-        queryset = self.get_queryset()
 
         try:
-            instance = queryset.filter(
-                status=PrintRequest.WAITING_STATUS
-            ).earliest('timestamp')
-            instance.status = PrintRequest.PRINTING_STATUS
-            instance.save()
+            with transaction.atomic():
+                queryset = self.get_queryset().select_for_update()
+                instance = queryset.filter(
+                    status=PrintRequest.WAITING_STATUS
+                ).earliest('timestamp')
+                instance.status = PrintRequest.PRINTING_STATUS
+                instance.save()
         except ObjectDoesNotExist:
             raise Http404
 
