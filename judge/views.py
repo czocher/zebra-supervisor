@@ -333,6 +333,7 @@ class ScoreRankingListView(TemplateView):
 
         return context
 
+
 class ProblemPDFView(View):
 
     """Return a PDF file attached to the given problem if it exists."""

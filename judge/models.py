@@ -67,7 +67,6 @@ On the output the program should print a binary number.
     has_pdf = property(_has_pdf)
 
 
-
 class SampleIO(models.Model):
     input = models.TextField(_("Input"))
     output = models.TextField(_("Output"))
