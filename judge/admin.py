@@ -97,12 +97,12 @@ class SampleIOInline(admin.StackedInline):
 class ProblemAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('codename', 'name', 'content'),
+            'fields': ('codename', 'name', 'content', 'pdf'),
         }),
     )
     inlines = [SampleIOInline, TestsInline, ]
     search_fields = ['codename', 'name']
-    list_display = ('codename', 'name')
+    list_display = ('codename', 'name', '_has_pdf')
     list_display_links = ('codename', 'name')
     prepopulated_fields = {'codename': ('name',)}
 

@@ -63,17 +63,17 @@ class ProblemViewSet(GenericViewSet):
     @detail_route()
     def test_input(self, request, codename, *args, **kwargs):
         problem = self.get_object()
-        return sendfile(problem.tests.input.file.path)
+        return sendfile(request, problem.tests.input.file.path)
 
     @detail_route()
     def test_output(self, request, codename, *args, **kwargs):
         problem = self.get_object()
-        return sendfile(problem.tests.output.file.path)
+        return sendfile(request, problem.tests.output.file.path)
 
     @detail_route()
     def test_config(self, request, codename, *args, **kwargs):
         problem = self.get_object()
-        return sendfile(problem.tests.config.file.path)
+        return sendfile(request, problem.tests.config.file.path)
 
     @detail_route()
     def test_timestamps(self, request, codename, *args, **kwargs):

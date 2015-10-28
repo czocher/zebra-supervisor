@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 import django.db.models.deletion
 import django.utils.timezone
 from django.conf import settings
@@ -26,7 +26,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Test config',
                 'verbose_name_plural': 'Test configs',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Contest',
@@ -46,7 +45,6 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'Contests',
                 'permissions': (('view_contest', 'Can view Contest'), ('see_unfrozen_ranking', 'Can see unfrozen ranking')),
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='InputTest',
@@ -59,7 +57,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Test input',
                 'verbose_name_plural': 'Test inputs',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='OutputTest',
@@ -72,7 +69,23 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Test output',
                 'verbose_name_plural': 'Test outputs',
             },
-            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='PrintRequest',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('status', models.IntegerField(default=1, verbose_name='Status', choices=[(1, 'Waiting'), (2, 'Printing'), (3, 'Printed')])),
+                ('source', models.TextField(verbose_name='Source code')),
+                ('timestamp', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Send time')),
+                ('language', models.CharField(max_length=10, verbose_name='Language', choices=[(b'c', b'C'), (b'cpp', b'C++'), (b'pas', b'Pascal'), (b'py', b'Python'), (b'java', b'Java'), (b'plain', b'Plain')])),
+                ('author', models.ForeignKey(related_name='printRequests', verbose_name='Author', to=settings.AUTH_USER_MODEL)),
+                ('contest', models.ForeignKey(related_name='printRequests', verbose_name='Contest', blank=True, to='judge.Contest', null=True)),
+            ],
+            options={
+                'ordering': ['-timestamp'],
+                'verbose_name': 'Print request',
+                'verbose_name_plural': 'Print requests',
+            },
         ),
         migrations.CreateModel(
             name='Problem',
@@ -81,12 +94,13 @@ class Migration(migrations.Migration):
                 ('codename', models.SlugField(help_text="Example: 'FIB01'. A short text to identify this problem, used as an id for urls.", unique=True, max_length=10, verbose_name='Codename')),
                 ('name', models.CharField(max_length=255, verbose_name='Name')),
                 ('content', models.TextField(default=b'\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nCurabitur id tortor at dui porta sollicitudin in sit amet nisi.\nNunc venenatis tincidunt orci eget imperdiet.\nMaecenas rutrum arcu at nunc aliquet pulvinar.\nMaecenas blandit augue nec augue semper id ornare lorem congue.\nEtiam non erat lorem, eget semper eros.</p>\n\n<h3>Input</h3>\nOn the input the program recives two binary numbers.\n\n<h3>Output</h3>\nOn the output the program should print a binary number.\n', verbose_name='Content')),
+                ('pdf', models.FileField(upload_to=b'problems/', null=True, verbose_name='PDF', blank=True)),
             ],
             options={
+                'ordering': ['codename'],
                 'verbose_name': 'Problem',
                 'verbose_name_plural': 'Problems',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Result',
@@ -101,7 +115,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Result',
                 'verbose_name_plural': 'Results',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='SampleIO',
@@ -115,7 +128,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Sample I/O',
                 'verbose_name_plural': 'Sample I/O',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Submission',
@@ -126,7 +138,7 @@ class Migration(migrations.Migration):
                 ('timestamp', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Send time')),
                 ('compilelog', models.TextField(default=b'', null=True, verbose_name='Compilation log', blank=True)),
                 ('score', models.IntegerField(default=-1, verbose_name='Score')),
-                ('status', models.IntegerField(default=1, verbose_name='Status', choices=[(2, 'Judging'), (1, 'Waiting'), (3, 'Judged')])),
+                ('status', models.IntegerField(default=1, verbose_name='Status', choices=[(1, 'Waiting'), (2, 'Judging'), (3, 'Judged')])),
                 ('author', models.ForeignKey(related_name='submissions', verbose_name='Author', to=settings.AUTH_USER_MODEL)),
                 ('contest', models.ForeignKey(related_name='submissions', verbose_name='Contest', blank=True, to='judge.Contest', null=True)),
                 ('node', models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, verbose_name='Node', blank=True, to='rest.Node', null=True)),
@@ -137,7 +149,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Submission',
                 'verbose_name_plural': 'Submissions',
             },
-            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Tests',
@@ -152,37 +163,20 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Tests',
                 'verbose_name_plural': 'Tests',
             },
-            bases=(models.Model,),
         ),
         migrations.AddField(
             model_name='result',
             name='submission',
             field=models.ForeignKey(related_name='results', verbose_name='Submission', to='judge.Submission'),
-            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='printrequest',
+            name='problem',
+            field=models.ForeignKey(related_name='printRequests', verbose_name='Problem', blank=True, to='judge.Problem', null=True),
         ),
         migrations.AddField(
             model_name='contest',
             name='problems',
             field=models.ManyToManyField(related_name='contests', verbose_name='Problems', to='judge.Problem'),
-            preserve_default=True,
-        ),
-        migrations.CreateModel(
-            name='PrintRequest',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('status', models.IntegerField(default=1, verbose_name='Status', choices=[(1, 'Waiting'), (2, 'Printing'), (3, 'Printed')])),
-                ('source', models.TextField(verbose_name='Source code')),
-                ('timestamp', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Send time')),
-                ('language', models.CharField(max_length=10, verbose_name='Language', choices=[(b'c', b'C'), (b'cpp', b'C++'), (b'pas', b'Pascal'), (b'py', b'Python'), (b'java', b'Java')])),
-                ('author', models.ForeignKey(related_name='printRequests', verbose_name='Author', to=settings.AUTH_USER_MODEL)),
-                ('contest', models.ForeignKey(related_name='printRequests', verbose_name='Contest', blank=True, to='judge.Contest', null=True)),
-                ('problem', models.ForeignKey(related_name='printRequests', verbose_name='Problem', blank=True, to='judge.Problem', null=True)),
-            ],
-            options={
-                'ordering': ['-timestamp'],
-                'verbose_name': 'Print request',
-                'verbose_name_plural': 'Print requests',
-            },
-            bases=(models.Model,),
         ),
     ]

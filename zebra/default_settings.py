@@ -44,6 +44,10 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+if DEBUG:
+    SENDFILE_BACKEND = 'sendfile.backends.development'
+else:
+    SENDFILE_BACKEND = 'sendfile.backends.xsendfile'
 
 # Application definition
 

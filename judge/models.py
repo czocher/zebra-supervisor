@@ -46,6 +46,8 @@ On the output the program should print a binary number.
     )
     name = models.CharField(_("Name"), max_length=255)
     content = models.TextField(_("Content"), default=EXAMPLE_PROBLEM)
+    pdf = models.FileField(_("PDF"), upload_to='problems/',
+            blank=True, null=True)
 
     class Meta:
         verbose_name = _("Problem")
@@ -57,6 +59,13 @@ On the output the program should print a binary number.
 
     def get_absolute_url(self):
         return reverse('problem', args=(self.id, self.codename))
+
+    def _has_pdf(self):
+        return bool(self.pdf)
+    _has_pdf.boolean = True
+    _has_pdf.short_description = _("Has PDF")
+    has_pdf = property(_has_pdf)
+
 
 
 class SampleIO(models.Model):

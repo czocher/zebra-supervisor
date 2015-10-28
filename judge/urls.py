@@ -6,7 +6,6 @@ from judge.views import ContestListView, ContestDetailView, \
     SubmissionDetailView, SubmissionPrintCreateView, ProblemPrintView, \
     ProblemPDFView
 
-
 urlpatterns = patterns('',
     url(r'^$', ContestListView.as_view(), name='contests'),
 

@@ -20,11 +20,12 @@ from collections import OrderedDict
 from judge.models import Contest, Problem, Submission, PrintRequest
 from judge.forms import SubmissionForm, PrintRequestForm
 
+from sendfile import sendfile
+
 from django.http import HttpResponse
 
 import StringIO
 from cgi import escape
-from xhtml2pdf import pisa
 
 
 class ContestListView(ListView):
@@ -332,36 +333,13 @@ class ScoreRankingListView(TemplateView):
 
         return context
 
+class ProblemPDFView(View):
 
-class PDFTemplateResponse(TemplateResponse):
+    """Return a PDF file attached to the given problem if it exists."""
 
-    def generate_pdf(self, *args):
-        html = self.content.decode('utf-8')
-        result = StringIO.StringIO()
-        rendering = pisa.pisaDocument(StringIO.StringIO(html.encode('utf-8')),
-                                      result, encoding='utf-8')
-        if rendering.err:
-            return HttpResponse(escape(html))
-        else:
-            self.content = result.getvalue()
-
-    def __init__(self, *args, **kwargs):
-        kwargs['content_type'] = 'application/pdf'
-        super(PDFTemplateResponse, self).__init__(*args, **kwargs)
-        self.add_post_render_callback(self.generate_pdf)
-
-
-class PDFTemplateView(TemplateView):
-    response_class = PDFTemplateResponse
-
-
-class ProblemPDFView(PDFTemplateView):
-    template_name = 'problem_detail_pdf.html'
-
-    def get_context_data(self, **kwargs):
-        problem = get_object_or_404(Problem,
-                                    codename=self.kwargs['slug'])
+    def get(self, request, *args, **kwargs):
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
+        problem = get_object_or_404(Problem, codename=self.kwargs['slug'])
 
         if problem not in contest.problems.all():
             raise Http404
@@ -372,7 +350,7 @@ class ProblemPDFView(PDFTemplateView):
         elif not contest.is_started and not user.is_superuser:
             raise Http404
 
-        return super(ProblemPDFView, self).get_context_data(
-            problem=problem,
-            **kwargs
-        )
+        if not problem.pdf:
+            raise Http404
+
+        return sendfile(request, problem.pdf.path)

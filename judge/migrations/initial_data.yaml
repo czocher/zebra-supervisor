@@ -78,11 +78,11 @@
       \ b.</p>\r\n\r\n<h2>Input</h2>\r\n<p>Two natural numbers a and b (0 <= a <=\
       \ b <= 1000) divided with a space.</p>\r\n\r\n<h2>Output</h2>\r\n<p>The program\
       \ has to print all the numbers between a and b divided with a space.</p>", name: Number
-      printing}
+        printing, pdf: null}
   model: judge.problem
   pk: 1
 - fields: {codename: HELLO, content: "<p>The goal of this problem is to print \"Hello\
-      \ World!\" to the screen</p>\r\n\r\n", name: Hello World!}
+      \ World!\" to the screen</p>\r\n\r\n", name: Hello World!, pdf: null}
   model: judge.problem
   pk: 2
 - fields: {input: None, output: Hello World!, problem: 2}
