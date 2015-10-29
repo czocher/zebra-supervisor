@@ -100,6 +100,14 @@ class SubmissionCreateView(ValidRequestMixin, CreateView):
     form_class = SubmissionForm
     success_url = '../../../submissions/'
 
+    def dispatch(self, request, *args, **kwargs):
+
+        if not self.contest.is_active:
+            raise PermissionDenied
+
+        return super(SubmissionCreateView, self).dispatch(
+            request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(SubmissionCreateView, self).get_context_data(**kwargs)
 
