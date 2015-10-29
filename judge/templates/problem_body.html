@@ -3,7 +3,9 @@
 
 <h3>{{ problem.name }} ({{ problem.codename }})</h3>
 
-{{ problem.content|safe }}
+<div class="latex-render">
+  {{ problem.content|safe }}
+</div>
 
 {% for sampleio in problem.sampleio_set.all %}
 <h3>{% trans "Example" %} #{{ forloop.counter }}:</h3>

@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" type="text/css">
     <link rel="stylesheet" href="{% static "css/bootstrap-theme.min.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "css/katex.min.css" %}" type="text/css">
     <link rel="stylesheet" href="{% static "css/style.css" %}" type="text/css">
 
     <title>{% block title %}Zebra{% endblock %}</title>
@@ -93,12 +94,23 @@
     <script src="{% static "js/get_submission_score.js" %}" type="text/javascript"></script>
     <script src="{% static "js/tableclick.js" %}" type="text/javascript"></script>
     <script src="{% static "js/jqClock.js" %}" type="text/javascript"></script>
+    <script src="{% static "js/katex.min.js" %}" type="text/javascript"></script>
+    <script src="{% static "js/auto-render.min.js" %}" type="text/javascript"></script>
+
     <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
 
     <script>
       $(document).ready(function() {
         $(".table-sortable").tablesorter();
         $("#clock").clock({"format": "24", "calendar": "false", "timestamp": {% now "U" %} * 1000});
+        $.each(
+          document.getElementsByClassName("latex-render"),
+          function(index, value){
+            renderMathInElement(value, {"delimiters": [
+              {left: "$$$", right: "$$$", display: true},
+              {left: "$$", right: "$$", display: false},
+            ]});
+          });
       });
     </script>
 
