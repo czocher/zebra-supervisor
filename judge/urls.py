@@ -5,7 +5,7 @@ from django.conf.urls import include, url
 from .views import ContestListView, ContestDetailView, ProblemDetailView, \
     ScoreRankingListView, SubmissionCreateView, ContestSubmissionListView, \
     SubmissionListView, SubmissionPrintView, SubmissionDetailView, \
-    SubmissionPrintCreateView, ProblemPrintView, ProblemPDFView
+    SubmissionPrintCreateView, ProblemPDFView
 
 urlpatterns = [
     url(r'^$', ContestListView.as_view(), name='contests'),
@@ -16,10 +16,6 @@ urlpatterns = [
 
         url(r'^problem/(?P<slug>[\w\-_]+)/$',
             ProblemDetailView.as_view(), name='problem'),
-
-        url(r'^problem/(?P<slug>[\w\-_]+)/print$',
-            ProblemPrintView.as_view(),
-            name='printProblem'),
 
         url(r'^problem/(?P<slug>[\w\-_]+)/pdf$',
             ProblemPDFView.as_view(),

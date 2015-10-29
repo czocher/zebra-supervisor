@@ -75,7 +75,8 @@ rejudge_all_submissions.short_description = _(
 @admin.register(Contest)
 class ContestAdmin(GuardedModelAdmin):
     list_filter = (ActiveListFilter,)
-    list_display = ('name', 'start_time', 'end_time', 'team', '_is_active')
+    list_display = ('name', 'start_time', 'end_time', 'team',
+                    '_is_active', '_is_printing_available')
     search_fields = ['name']
     actions = [rejudge_all_submissions, rejudge_last_submissions, ]
 
