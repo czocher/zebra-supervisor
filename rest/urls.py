@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls import patterns, url, include
-from views import router
+"""This module contains url patterns for the rest app."""
+from django.conf.urls import url, include
+from .views import ROUTER
 
-urlpatterns = patterns('',
-    url(r'^', include(router.urls)),
-)
+urlpatterns = [
+    url(r'^', include(ROUTER.urls)),
+]

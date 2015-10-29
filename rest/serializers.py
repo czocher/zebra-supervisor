@@ -5,7 +5,7 @@ from rest_framework import serializers
 import logging
 
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 class TestsTimestampsSerializer(serializers.ModelSerializer):
@@ -45,9 +45,9 @@ class SubmissionSerializer(serializers.ModelSerializer):
         submission.results.all().delete()
 
         if error:
-            logger.warning(
-                "There was an error while "
-                "judging submission id {}.".format(submission.id)
+            LOGGER.warning(
+                "There was an error while judging submission id %s.",
+                submission.id
             )
             submission.score = -1
             submission.status = Submission.WAITING_STATUS
@@ -101,9 +101,9 @@ class PrintRequestSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         error = validated_data.pop('error')
         if error:
-            logger.warning(
-                "There was an error while "
-                "printing PrintRequest id {}.".format(instance.id)
+            LOGGER.warning(
+                "There was an error while printing PrintRequest id %s.",
+                instance.id
             )
             instance.status = PrintRequest.WAITING_STATUS
         else:

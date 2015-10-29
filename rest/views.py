@@ -21,7 +21,7 @@ from rest_framework.mixins import ListModelMixin,\
 import logging
 
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 class SubmissionViewSet(ListModelMixin, RetrieveModelMixin,
@@ -105,7 +105,7 @@ class PrintRequestViewSet(ListModelMixin, RetrieveModelMixin,
         return Response(serializer.data)
 
 
-router = DefaultRouter()
-router.register(r'printrequest', PrintRequestViewSet)
-router.register(r'submission', SubmissionViewSet)
-router.register(r'problem', ProblemViewSet)
+ROUTER = DefaultRouter()
+ROUTER.register(r'printrequest', PrintRequestViewSet)
+ROUTER.register(r'submission', SubmissionViewSet)
+ROUTER.register(r'problem', ProblemViewSet)
