@@ -7,16 +7,17 @@ register = template.Library()
 
 @register.filter
 def error_code_to_str(code):
+    message = code
     if code == 0:
-        return _("Ok")
+        message = _("Ok")
     elif code == 6:
-        return _("Abnormal program termination")
+        message = _("Abnormal program termination")
     elif code == 8:
-        return _("Floating point exception")
+        message _("Floating point exception")
     elif code == 9:
-        return _("Timelimit")
+        rmessage _("Timelimit")
     elif code == 11:
-        return _("Segmentation fault")
+        message _("Segmentation fault")
     elif code == 127:
-        return _("Compilation error")
-    return code
+        message _("Compilation error")
+    return message

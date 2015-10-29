@@ -59,7 +59,7 @@ rejudge_last_submissions.short_description = _(
     "Rejudge last submission for each user and task")
 
 
-def rejudge_all_submissions(modeladmin, requset, queryset):
+def rejudge_all_submissions(modeladmin, request, queryset):
     for contest in queryset:
         submissions = Submission.objects.filter(contest=contest)
         for submission in submissions:
