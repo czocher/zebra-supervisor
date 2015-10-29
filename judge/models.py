@@ -12,12 +12,12 @@ from django.core.urlresolvers import reverse
 
 from django.contrib.auth.models import User
 
-from rest.models import Node
 from copy import deepcopy
-
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
+
+from rest.models import Node
 
 
 class Problem(models.Model):

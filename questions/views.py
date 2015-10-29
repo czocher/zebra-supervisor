@@ -7,9 +7,11 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 
 from django.db.models import Q
-from questions.models import Question
-from questions.forms import QuestionForm
+
 from judge.models import Contest
+
+from .models import Question
+from .forms import QuestionForm
 
 
 class ContestCreateQuestionView(CreateView):

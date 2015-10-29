@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import patterns, url
-from questions.views import ContestQuestionListView,\
-    ContestCreateQuestionView, ContestQuestionDetailView
+
+from .views import ContestQuestionListView, ContestCreateQuestionView, \
+    ContestQuestionDetailView
 
 urlpatterns = patterns('',
     url(r'^$',

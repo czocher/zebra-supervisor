@@ -3,7 +3,8 @@
 from django import forms
 
 from django.utils.translation import ugettext_lazy as _
-from judge.models import Submission, PrintRequest
+
+from .models import Submission, PrintRequest
 
 
 class SubmissionForm(forms.ModelForm):

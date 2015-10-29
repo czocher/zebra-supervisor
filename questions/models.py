@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth.models import User
 
-from judge.models import Contest, Problem
+from .models import Contest, Problem
 
 
 class Question(models.Model):

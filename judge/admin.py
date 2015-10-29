@@ -5,7 +5,8 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from guardian.admin import GuardedModelAdmin
-from judge.models import Submission, Tests, SampleIO, Result, InputTest, \
+
+from .models import Submission, Tests, SampleIO, Result, InputTest, \
     OutputTest, ConfigTest, Problem, Contest, PrintRequest
 
 

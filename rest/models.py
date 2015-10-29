@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """This module contains all the models used by the rest app."""
 from django.db import models
+
 from django.utils.translation import ugettext_lazy as _
 
 

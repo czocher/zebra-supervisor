@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-from .models import Node
 from django.contrib import admin
+
 from django.utils.translation import ugettext_lazy as _
+
+from .models import Node
 
 
 def set_authorized(modeladmin, request, queryset):

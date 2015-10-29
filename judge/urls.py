@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """This module contains url patterns for the judge app."""
 from django.conf.urls import include, url
-from judge.views import ContestListView, ContestDetailView, \
-    ProblemDetailView, ScoreRankingListView, SubmissionCreateView, \
-    ContestSubmissionListView, SubmissionListView, SubmissionPrintView, \
-    SubmissionDetailView, SubmissionPrintCreateView, ProblemPrintView, \
-    ProblemPDFView
+
+from .views import ContestListView, ContestDetailView, ProblemDetailView, \
+    ScoreRankingListView, SubmissionCreateView, ContestSubmissionListView, \
+    SubmissionListView, SubmissionPrintView, SubmissionDetailView, \
+    SubmissionPrintCreateView, ProblemPrintView, ProblemPDFView
 
 urlpatterns = [
     url(r'^$', ContestListView.as_view(), name='contests'),

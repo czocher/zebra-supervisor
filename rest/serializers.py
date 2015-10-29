@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from judge.models import Submission, PrintRequest, Result, Tests
 from rest_framework import serializers
-
 import logging
+
+from judge.models import Submission, PrintRequest, Result, Tests
 
 
 LOGGER = logging.getLogger(__name__)

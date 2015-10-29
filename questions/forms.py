@@ -2,8 +2,10 @@
 from django import forms
 
 from django.utils.translation import ugettext_lazy as _
+
 from judge.models import Problem
-from questions.models import Question
+
+from .models import Question
 
 
 class QuestionForm(forms.ModelForm):

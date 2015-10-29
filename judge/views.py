@@ -6,7 +6,6 @@ from django.views.generic.base import View
 
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import string_concat
-
 from django.utils.html import strip_tags
 
 from django.core.exceptions import PermissionDenied
@@ -16,10 +15,11 @@ from django.contrib.messages.api import success, error
 
 from datetime import timedelta
 from collections import OrderedDict
-from judge.models import Contest, Problem, Submission, PrintRequest
-from judge.forms import SubmissionForm, PrintRequestForm
-
 from sendfile import sendfile
+
+from .models import Contest, Problem, Submission, PrintRequest
+from .forms import SubmissionForm, PrintRequestForm
+
 
 
 class ContestListView(ListView):
