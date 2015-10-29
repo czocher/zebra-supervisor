@@ -21,7 +21,6 @@ from .models import Contest, Problem, Submission, PrintRequest
 from .forms import SubmissionForm, PrintRequestForm
 
 
-
 class ContestListView(ListView):
 
     template_name = 'contest_list.html'
