@@ -6,8 +6,6 @@ from django.views.generic.base import View
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import string_concat
 
-from django.template.response import TemplateResponse
-
 from django.utils.html import strip_tags
 
 from django.core.exceptions import PermissionDenied
@@ -23,9 +21,6 @@ from judge.forms import SubmissionForm, PrintRequestForm
 from sendfile import sendfile
 
 from django.http import HttpResponse
-
-import StringIO
-from cgi import escape
 
 
 class ContestListView(ListView):
@@ -45,6 +40,7 @@ class ContestDetailView(DetailView):
 
     template_name = 'contest_detail.html'
     context_object_name = 'contest'
+    pk_url_kwarg = 'contest_pk'
     model = Contest
 
     def get_object(self):

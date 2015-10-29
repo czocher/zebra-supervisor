@@ -4,5 +4,5 @@ from django.apps import AppConfig
 
 
 class JudgeConfig(AppConfig):
-        name = 'judge'
-        verbose_name = _("Judge")
+    name = 'judge'
+    verbose_name = _("Judge")
