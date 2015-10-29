@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=too-many-ancestors
 from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import CreateView, FormView
 from django.views.generic.base import View
@@ -19,8 +20,6 @@ from judge.models import Contest, Problem, Submission, PrintRequest
 from judge.forms import SubmissionForm, PrintRequestForm
 
 from sendfile import sendfile
-
-from django.http import HttpResponse
 
 
 class ContestListView(ListView):
@@ -43,7 +42,7 @@ class ContestDetailView(DetailView):
     pk_url_kwarg = 'contest_pk'
     model = Contest
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         contest = super(ContestDetailView, self).get_object()
         user = self.request.user
 
@@ -60,7 +59,7 @@ class ProblemDetailView(DetailView):
     model = Problem
     slug_field = 'codename'
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         problem = super(ProblemDetailView, self).get_object()
         contest = get_object_or_404(Contest, pk=self.kwargs['contest_pk'])
 
@@ -167,7 +166,7 @@ class SubmissionDetailView(DetailView):
     context_object_name = 'submission'
     model = Submission
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         submission = super(SubmissionDetailView, self).get_object()
 
         if submission.author != self.request.user:
@@ -184,13 +183,13 @@ class SubmissionPrintView(View):
            submission.author != self.request.user:
             error(request, _("Printing not available."))
         else:
-            printRequest = PrintRequest(
+            print_request = PrintRequest(
                 source=submission.source,
                 language=submission.language,
                 contest=submission.contest,
                 author=submission.author,
                 problem=submission.problem)
-            printRequest.save()
+            print_request.save()
             success(request, _("Print request added to print queue."))
 
         return redirect('submission', int(self.kwargs['pk']))
@@ -220,13 +219,13 @@ class ProblemPrintView(View):
                                        strip_tags(sampleio.input), '\n\n')
                 source = string_concat(source, _("Output"), ':\n',
                                        strip_tags(sampleio.output), '\n\n')
-            printRequest = PrintRequest(
+            print_request = PrintRequest(
                 source=source,
                 language='plain',
                 author=user,
                 contest=contest,
                 problem=problem)
-            printRequest.save()
+            print_request.save()
             success(request, _("Print request added to print queue."))
 
         return redirect('problem', self.kwargs['contest_pk'],
@@ -261,12 +260,12 @@ class SubmissionPrintCreateView(FormView):
            not contest.is_printing_available:
             raise PermissionDenied
 
-        printRequest = PrintRequest(
+        print_request = PrintRequest(
             source=form.cleaned_data['source'],
             language=form.cleaned_data['language'],
             contest=contest,
             author=user)
-        printRequest.save()
+        print_request.save()
 
         if not contest.is_printing_available:
             error(self.request, _("Printing not available."))
@@ -289,14 +288,14 @@ class ScoreRankingListView(TemplateView):
         if not user.has_perm('view_contest', contest):
             raise PermissionDenied
 
-        includeFreezed = True
+        include_freezed = True
 
         if self.request.user.is_superuser or \
            user.has_perm('see_unfrozen_ranking', contest):
-            includeFreezed = False
+            include_freezed = False
 
         problems, users = contest.getProblemsAndLastUsersSubmissions(
-            includeFreezed)
+            include_freezed)
 
         if len(users) == 0:
             return dict({'empty': True, 'contest': contest})

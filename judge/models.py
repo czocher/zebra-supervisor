@@ -47,7 +47,7 @@ On the output the program should print a binary number.
     name = models.CharField(_("Name"), max_length=255)
     content = models.TextField(_("Content"), default=EXAMPLE_PROBLEM)
     pdf = models.FileField(_("PDF"), upload_to='problems/',
-            blank=True, null=True)
+                           blank=True, null=True)
 
     class Meta:
         verbose_name = _("Problem")
@@ -225,7 +225,7 @@ class Contest(models.Model):
                 "problem__codename", "author__pk").annotate(
                     Count("id")).order_by("problem__name")
 
-        if (includeFreezing):
+        if includeFreezing:
             contestSubmissions = contestSubmissions.filter(
                 timestamp__lte=self.freeze_time)
 
@@ -247,7 +247,7 @@ class Contest(models.Model):
             lastSub = Submission.objects.order_by("-timestamp").filter(
                 contest=self, author__exact=submission["author"],
                 problem__exact=submission["problem"])
-            if (includeFreezing):
+            if includeFreezing:
                 lastSub = lastSub.filter(timestamp__lte=self.freeze_time)
             lastSub = lastSub[0]
             users[submission["author"]].score += lastSub.score

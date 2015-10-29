@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""This module contains forms used in the judge app."""
 from django import forms
 
 from django.utils.translation import ugettext_lazy as _
@@ -6,6 +7,9 @@ from judge.models import Submission, PrintRequest
 
 
 class SubmissionForm(forms.ModelForm):
+
+    """Submission creation form class."""
+
     source = forms.CharField(label=_("Source code"),
                              widget=forms.Textarea, required=False)
     sourcefile = forms.FileField(label=_("Source file"), required=False)
@@ -32,6 +36,9 @@ class SubmissionForm(forms.ModelForm):
 
 
 class PrintRequestForm(forms.ModelForm):
+
+    """Print request creation form class."""
+
     source = forms.CharField(label=_("Content"),
                              widget=forms.Textarea, required=False)
     sourcefile = forms.FileField(label=_("Content file"), required=False)

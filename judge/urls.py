@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""This module contains url patterns for the judge app."""
 from django.conf.urls import include, url
 from judge.views import ContestListView, ContestDetailView, \
     ProblemDetailView, ScoreRankingListView, SubmissionCreateView, \
