@@ -36,6 +36,6 @@ class AuthorizedListFilter(admin.SimpleListFilter):
 @admin.register(Node)
 class NodeAdmin(admin.ModelAdmin):
     list_filter = (AuthorizedListFilter, )
-    list_display = ('ip', 'token', 'authorized')
-    search_fields = ['ip', 'version']
+    list_display = ('ipaddr', 'token', 'authorized')
+    search_fields = ['ipaddr', 'version']
     actions = [set_authorized, set_unauthorized, ]
