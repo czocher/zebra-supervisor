@@ -34,6 +34,7 @@ class InputTest(Test):
 
     @property
     def problem(self):
+        # pylint: disable=no-member
         return self.input.problem.codename
 
 
@@ -46,6 +47,7 @@ class OutputTest(Test):
 
     @property
     def problem(self):
+        # pylint: disable=no-member
         return self.output.problem.codename
 
 
@@ -58,6 +60,7 @@ class ConfigTest(Test):
 
     @property
     def problem(self):
+        # pylint: disable=no-member
         return self.config.problem.codename
 
 

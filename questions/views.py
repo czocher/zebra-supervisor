@@ -93,7 +93,7 @@ class ContestQuestionDetailView(DetailView):
     context_object_name = 'question'
     model = Question
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         question = super(ContestQuestionDetailView, self).get_object()
 
         if question.author != self.request.user and not question.public:

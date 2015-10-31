@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
+# pylint: disable=no-name-in-module
 from pygments.formatters import HtmlFormatter
 
 from rest.models import Node
@@ -66,6 +67,7 @@ class Submission(models.Model):
         return reverse('submission', args=(self.id, ))
 
     def remove_results(self):
+        # pylint: disable=no-member
         for result in self.results.all():
             result.delete()
 

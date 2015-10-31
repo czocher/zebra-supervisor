@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 from copy import deepcopy
 
 from .problem import Problem
+from .submission import Submission
 
 
 class Contest(models.Model):
@@ -100,6 +101,7 @@ class Contest(models.Model):
 
         for submission in contestSubmissions:
             if submission["author"] not in users:
+                # pylint: disable=no-member
                 users[submission["author"]] = User.objects.get(
                     pk=(submission["author__pk"]))
                 users[submission["author"]].problems = deepcopy(problems)
