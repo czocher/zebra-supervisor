@@ -91,11 +91,6 @@
 
     {% block footer %}&copy; Zebra 2012{% endblock %}
 
-
-    {% block scripts %}
-    {% endblock %}
-
-
     <script src="{% static "js/jquery-1.7.2.min.js" %}" type="text/javascript"></script>
     <script src="{% static "js/jquery.tablesorter.min.js" %}" type="text/javascript"></script>
     <script src="{% static "js/bootstrap.min.js" %}" type="text/javascript"></script>
@@ -106,6 +101,9 @@
     <script src="{% static "js/auto-render.min.js" %}" type="text/javascript"></script>
 
     <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+
+    {% block scripts %}
+    {% endblock %}
 
     <script>
       $(document).ready(function() {

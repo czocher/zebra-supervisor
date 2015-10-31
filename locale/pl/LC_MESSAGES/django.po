@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-31 23:36+0100\n"
+"POT-Creation-Date: 2015-11-01 00:30+0100\n"
 "PO-Revision-Date: 2012-05-07 00:12+0200\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -17,23 +17,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/base.html:35
+#: templates/base.html:37
 msgid "Toggle navigation"
 msgstr "Pokaż/Ukryj menu"
 
-#: templates/base.html:47
+#: templates/base.html:54
 msgid "Anonymous"
 msgstr "Anonim"
 
-#: templates/base.html:50
+#: templates/base.html:57
 msgid "Admin panel"
 msgstr "Panel administracyjny"
 
-#: templates/base.html:53
+#: templates/base.html:60
 msgid "Change password"
 msgstr "Zmiana hasła"
 
-#: templates/base.html:54
+#: templates/base.html:61
 msgid "Logout"
 msgstr "Wyloguj"
 

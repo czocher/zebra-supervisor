@@ -20,6 +20,11 @@
 {% if empty %}
 <div class="alert alert-info" role="alert">{% trans "The score rankings are empty." %}</div>
 {% else %}
+<div class="checkbox">
+  <label>
+    <input type="checkbox" id="autorefresh" /> {% trans "Autorefresh every" %} <input type="number" value="5" id="time"> {% trans "seconds" %}.
+  </label>
+</div>
 <table class="table table-striped table-hover table-sortable">
   <thead>
     <tr>
@@ -50,6 +55,25 @@
 </table>
 {% endif %}
 
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  function refreshPage() {
+    if($("#autorefresh").attr("checked")) {
+      var time = parseInt($("#time").val());
+      setTimeout(function(){
+        location.reload();
+      }, time*1000);
+    }
+  }
+  $(document).ready(function(){
+    refreshPage();
+    $("#autorefresh").click(function(){
+      refreshPage();
+    });
+  });
+</script>
 {% endblock %}
 
 {% block aside %}

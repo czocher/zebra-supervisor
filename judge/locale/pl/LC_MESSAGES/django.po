@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-31 23:36+0100\n"
+"POT-Creation-Date: 2015-11-01 00:30+0100\n"
 "PO-Revision-Date: 2012-11-04 11:24+0100\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -408,11 +408,19 @@ msgstr "Ranking zamrożony od: "
 msgid "The score rankings are empty."
 msgstr "Ranking jest pusty."
 
-#: judge/templates/ranking_list.html:26
+#: judge/templates/ranking_list.html:25
+msgid "Autorefresh every"
+msgstr "Odświeżaj co"
+
+#: judge/templates/ranking_list.html:25
+msgid "seconds"
+msgstr "sekund"
+
+#: judge/templates/ranking_list.html:31
 msgid "User"
 msgstr "Użytkownik"
 
-#: judge/templates/ranking_list.html:30
+#: judge/templates/ranking_list.html:35
 msgid "Total Score"
 msgstr "Wynik"
 
