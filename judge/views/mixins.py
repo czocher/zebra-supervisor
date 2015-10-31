@@ -44,4 +44,3 @@ class ValidRequestMixin(object):
 
         return super(ValidRequestMixin, self).dispatch(
             request, *args, **kwargs)
-
