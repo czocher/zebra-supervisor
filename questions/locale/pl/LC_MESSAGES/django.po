@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-29 00:19+0100\n"
+"POT-Creation-Date: 2015-10-31 23:36+0100\n"
 "PO-Revision-Date: 2012-11-03 15:46+0100\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -20,19 +20,19 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: questions/admin.py:9
+#: questions/admin.py:10
 msgid "is answered"
 msgstr "odpowiedziane"
 
-#: questions/admin.py:15
+#: questions/admin.py:16
 msgid "answered"
 msgstr "odpowiedziane"
 
-#: questions/admin.py:16
+#: questions/admin.py:17
 msgid "not answered"
 msgstr "nieodpowiedziane"
 
-#: questions/admin.py:28
+#: questions/admin.py:29
 msgid "Make questions public"
 msgstr "Zmień widoczność na publiczną"
 
@@ -42,23 +42,23 @@ msgstr "Zmień widoczność na publiczną"
 msgid "Questions"
 msgstr "Pytania"
 
-#: questions/forms.py:10 questions/models.py:20
+#: questions/forms.py:12 questions/models.py:20
 #: questions/templates/question_list.html:24
 msgid "Title"
 msgstr "Tytuł"
 
-#: questions/forms.py:12 questions/models.py:21 questions/models.py:28
+#: questions/forms.py:14 questions/models.py:21 questions/models.py:28
 #: questions/templates/question_detail.html:10
 #: questions/templates/question_detail.html:17
 #: questions/templates/question_detail.html:21
 msgid "Question"
 msgstr "Pytanie"
 
-#: questions/forms.py:21 questions/templates/question_list.html:35
+#: questions/forms.py:23 questions/templates/question_list.html:35
 msgid "General"
 msgstr "Ogólne"
 
-#: questions/forms.py:22 questions/models.py:17
+#: questions/forms.py:24 questions/models.py:17
 #: questions/templates/question_list.html:25
 msgid "Problem"
 msgstr "Zadanie"
