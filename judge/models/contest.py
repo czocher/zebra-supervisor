@@ -14,7 +14,6 @@ from django.contrib.auth.models import User
 from copy import deepcopy
 
 from .problem import Problem
-from .submission import Submission
 
 
 class Contest(models.Model):
@@ -83,11 +82,9 @@ class Contest(models.Model):
             self.timestamp = 0
 
     def getProblemsAndLastUsersSubmissions(self, includeFreezing):
-        contestSubmissions = self.submissions.objects.filter(
-            status=Submission.JUDGED_STATUS).values(
-                "author", "problem",
-                "problem__codename", "author__pk").annotate(
-                    Count("id")).order_by("problem__name")
+        contestSubmissions = self.submissions.judged().values(
+            "author", "problem", "problem__codename", "author__pk").annotate(
+                Count("id")).order_by("problem__name")
 
         if includeFreezing:
             contestSubmissions = contestSubmissions.filter(
@@ -109,8 +106,8 @@ class Contest(models.Model):
                 users[submission["author"]].totalTime = 0
                 users[submission["author"]].currentSubmissions = []
             totalSubmissions = submission["id__count"]
-            lastSub = Submission.objects.order_by("-timestamp").filter(
-                contest=self, author__exact=submission["author"],
+            lastSub = self.submissions.order_by("-timestamp").filter(
+                author__exact=submission["author"],
                 problem__exact=submission["problem"])
             if includeFreezing:
                 lastSub = lastSub.filter(timestamp__lte=self.freeze_time)
