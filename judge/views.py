@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=too-many-ancestors
 from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import CreateView, FormView
 from django.views.generic.base import View
