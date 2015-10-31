@@ -82,6 +82,7 @@ class Contest(models.Model):
             self.timestamp = 0
 
     def getProblemsAndLastUsersSubmissions(self, includeFreezing):
+        # pylint: disable=no-member
         contestSubmissions = self.submissions.judged().values(
             "author", "problem", "problem__codename", "author__pk").annotate(
                 Count("id")).order_by("problem__name")
@@ -106,6 +107,7 @@ class Contest(models.Model):
                 users[submission["author"]].totalTime = 0
                 users[submission["author"]].currentSubmissions = []
             totalSubmissions = submission["id__count"]
+            # pylint: disable=no-member
             lastSub = self.submissions.order_by("-timestamp").filter(
                 author__exact=submission["author"],
                 problem__exact=submission["problem"])

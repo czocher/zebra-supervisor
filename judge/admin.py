@@ -62,7 +62,7 @@ rejudge_last_submissions.short_description = _(
 
 def rejudge_all_submissions(modeladmin, request, queryset):
     for contest in queryset:
-        submissions = Submission.objects.filter(contest=contest)
+        submissions = contest.submissions.all()
         for submission in submissions:
             submission.remove_results()
             submission.score = -1
