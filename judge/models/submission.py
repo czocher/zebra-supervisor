@@ -18,7 +18,6 @@ from pygments.formatters import HtmlFormatter
 from rest.models import Node
 
 from .problem import Problem
-from .contest import Contest
 
 
 class Submission(models.Model):
@@ -39,7 +38,7 @@ class Submission(models.Model):
         User, verbose_name=_("Author"), related_name='submissions')
     problem = models.ForeignKey(
         Problem, verbose_name=_("Problem"), related_name='submissions')
-    contest = models.ForeignKey(Contest, verbose_name=_(
+    contest = models.ForeignKey('Contest', verbose_name=_(
         "Contest"), related_name='submissions', blank=True, null=True)
     source = models.TextField(_("Source code"))
     language = models.CharField(

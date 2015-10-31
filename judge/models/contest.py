@@ -83,8 +83,8 @@ class Contest(models.Model):
             self.timestamp = 0
 
     def getProblemsAndLastUsersSubmissions(self, includeFreezing):
-        contestSubmissions = Submission.objects.filter(
-            status=Submission.JUDGED_STATUS, contest=self).values(
+        contestSubmissions = self.submissions.objects.filter(
+            status=Submission.JUDGED_STATUS).values(
                 "author", "problem",
                 "problem__codename", "author__pk").annotate(
                     Count("id")).order_by("problem__name")
