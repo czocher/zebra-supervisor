@@ -33,6 +33,10 @@ th, tr {
   border: 0;
 }
 
+#clock {
+  width: 100%;
+}
+
 /*
  * Sidebar
  */
