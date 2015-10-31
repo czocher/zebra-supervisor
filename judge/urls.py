@@ -18,8 +18,7 @@ urlpatterns = [
             ProblemDetailView.as_view(), name='problem'),
 
         url(r'^problem/(?P<slug>[\w\-_]+)/pdf$',
-            ProblemPDFView.as_view(),
-            name='pdfProblem'),
+            ProblemPDFView.as_view(), name='pdfProblem'),
 
         url(r'^ranking/$',
             ScoreRankingListView.as_view(), name='ranking'),
@@ -28,24 +27,20 @@ urlpatterns = [
             SubmissionCreateView.as_view()),
 
         url(r'^submissions/$',
-            ContestSubmissionListView.as_view(
-            ), name='contestSubmissions'),
+            ContestSubmissionListView.as_view(), name='contestSubmissions'),
 
         url(r'^print/$',
-            SubmissionPrintCreateView.as_view(
-            ), name='printSourceCode'),
+            SubmissionPrintCreateView.as_view(), name='printSourceCode'),
 
-        url(r'^questions/',
-            include('questions.urls')),
+        url(r'^questions/', include('questions.urls')),
     ])),
 
     url(r'^submissions/', include([
         url(r'^$',
             SubmissionListView.as_view(), name='submissions'),
 
-        url(r'^print/$',
-            SubmissionPrintView.as_view(
-            ), name='printSubmission'),
+        url(r'^(?P<pk>\d+)/print/',
+            SubmissionPrintView.as_view(), name='printSubmission'),
 
         url(r'^(?P<pk>\d+)/$',
             SubmissionDetailView.as_view(), name='submission'),
