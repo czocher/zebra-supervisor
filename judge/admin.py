@@ -7,7 +7,22 @@ from django.utils.translation import ugettext_lazy as _
 from guardian.admin import GuardedModelAdmin
 
 from .models import Submission, Tests, SampleIO, Result, InputTest, \
-    OutputTest, ConfigTest, Problem, Contest, PrintRequest
+    OutputTest, ConfigTest, Problem, Contest, PrintRequest, Profile
+
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
+
+
+class ProfileInline(admin.StackedInline):
+    model = Profile
+
+
+admin.site.unregister(User)
+
+
+@admin.register(User)
+class ProfileAdmin(UserAdmin):
+    inlines = [ProfileInline, ]
 
 
 class ActiveListFilter(admin.SimpleListFilter):

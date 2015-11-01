@@ -103,6 +103,20 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
+            name='Profile',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('institute_name', models.CharField(max_length=255, null=True, verbose_name='Institute name', blank=True)),
+                ('room_number', models.CharField(max_length=10, null=True, verbose_name='Room number', blank=True)),
+                ('computer_number', models.CharField(max_length=10, null=True, verbose_name='Computer number', blank=True)),
+                ('user', models.OneToOneField(related_name='profile', to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'verbose_name': 'Profile',
+                'verbose_name_plural': 'Profiles',
+            },
+        ),
+        migrations.CreateModel(
             name='Result',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
