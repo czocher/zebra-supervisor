@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.views.generic import RedirectView
-from django.conf.urls import include, url
+from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.conf import settings
 import rest_framework
@@ -9,7 +9,7 @@ import rest_framework
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = [
+urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'zebra.views.home', name='home'),
     # url(r'^zebra/', include('zebra.foo.urls')),
@@ -41,7 +41,7 @@ urlpatterns = [
         permanent=True), name='password_change_done'),
 
     (r'^jsi18n/$', 'django.views.i18n.javascript_catalog'),
-]
+)
 
 # Works only if DEBUG = True
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

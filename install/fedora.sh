@@ -15,8 +15,12 @@ else
   sudo systemctl enable mariadb
   sudo systemctl restart mariadb
   sudo mysql_secure_installation
+  echo "Please enter the MySQL root password to create a database"
+  mysql -uroot -p -e "CREATE DATABASE zebra CHARACTER SET utf8"
   echo "Change settings.py MySQL password!"
-  mysql -uroot -p -e "CREATE DATABASE zebra"
+  read -p "Press any key to continue... " -n1 -s
   sudo ../manage.py makemigrations
   sudo ../manage.py migrate
+  echo "If above failed it's because settings.py has the wrong password"
+  sudo chown apache:apache -R ../*
 fi
