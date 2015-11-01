@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-01 00:30+0100\n"
+"POT-Creation-Date: 2015-11-01 03:30+0100\n"
 "PO-Revision-Date: 2012-11-04 11:24+0100\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -20,41 +20,41 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: judge/admin.py:16
+#: judge/admin.py:31
 msgid "active"
 msgstr "aktywne"
 
-#: judge/admin.py:22
+#: judge/admin.py:37
 msgid "is active"
 msgstr "tylko aktywne"
 
-#: judge/admin.py:23
+#: judge/admin.py:38
 msgid "is inactive"
 msgstr "tylko nieaktywne"
 
-#: judge/admin.py:40
+#: judge/admin.py:55
 msgid "Set selected submissions as waiting for judging"
 msgstr "Ustaw wybrane wysyłki jako oczekujące na ocenę"
 
-#: judge/admin.py:46
+#: judge/admin.py:61
 msgid "Set selected print requests as waiting for printing"
 msgstr "Ustaw wybrane żądania wydruku jako oczekujące na wydruk"
 
-#: judge/admin.py:60
+#: judge/admin.py:75
 msgid "Rejudge last submission for each user and task"
 msgstr ""
 "Ponownie oceń ostatnie wysyłki dla każdego problemu każdemu użytkownikowi"
 
-#: judge/admin.py:72
+#: judge/admin.py:87
 msgid "Rejudge all submission for this contest"
 msgstr "Ponownie oceń wszystkie wysyłki dla tych zawodów"
 
-#: judge/admin.py:123 judge/admin.py:148
+#: judge/admin.py:138 judge/admin.py:163
 #: judge/templates/submission_detail.html:36
 msgid "Source"
 msgstr "Źródło"
 
-#: judge/admin.py:127 judge/models/submission.py:69
+#: judge/admin.py:142 judge/models/submission.py:69
 msgid "Node"
 msgstr "Węzeł"
 
@@ -208,7 +208,6 @@ msgstr ""
 
 #: judge/models/problem.py:34 judge/templates/problem_detail.html:26
 #: judge/templates/problem_detail.html:28
-#: judge/templates/submission_detail.html:66
 msgid "PDF"
 msgstr "PDF"
 
@@ -227,6 +226,27 @@ msgstr "Wyjście"
 #: judge/models/problem.py:62 judge/models/problem.py:63
 msgid "Sample I/O"
 msgstr "Przykładowe wejście/wyjście"
+
+#: judge/models/profile.py:17
+#| msgid "Contest name"
+msgid "Institute name"
+msgstr "Nazwa instytutu"
+
+#: judge/models/profile.py:19
+msgid "Room number"
+msgstr "Numer pokoju"
+
+#: judge/models/profile.py:21
+msgid "Computer number"
+msgstr "Numer komputera"
+
+#: judge/models/profile.py:25
+msgid "Profile"
+msgstr "Profil"
+
+#: judge/models/profile.py:26
+msgid "Profiles"
+msgstr "Profile"
 
 #: judge/models/submission.py:49
 msgid "Judging"
