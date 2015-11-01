@@ -90,6 +90,12 @@ class PrintRequestSerializer(serializers.ModelSerializer):
                                    read_only=True)
     author = serializers.CharField(source='author.username',
                                    read_only=True)
+    institute = serializers.CharField(source='author.profile.institute_name',
+                                      read_only=True)
+    room = serializers.CharField(source='author.profile.room_number',
+                                 read_only=True)
+    computer = serializers.CharField(source='author.profile.computer_number',
+                                     read_only=True)
     contest = serializers.CharField(source='contest.name',
                                     read_only=True)
     problem = serializers.CharField(source='problem.codename',
@@ -113,6 +119,6 @@ class PrintRequestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PrintRequest
-        fields = ('id', 'status', 'author', 'contest', 'problem', 'language',
-                  'source', 'error',)
+        fields = ('id', 'status', 'author', 'institute', 'room', 'computer',
+                  'contest', 'problem', 'language', 'source', 'error',)
         read_only_fields = ('source', 'id',)
