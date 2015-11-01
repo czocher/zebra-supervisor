@@ -16,6 +16,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
     institute_name = models.CharField(_("Institute name"), max_length=255,
                                       blank=True, null=True)
+    team_name = models.CharField(_("Team name"), max_length=255, blank=True,
+                                 null=True)
     room_number = models.CharField(_("Room number"), max_length=10, blank=True,
                                    null=True)
     computer_number = models.CharField(_("Computer number"), max_length=10,

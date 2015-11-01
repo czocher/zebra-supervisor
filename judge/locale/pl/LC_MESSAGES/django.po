@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-01 03:30+0100\n"
+"POT-Creation-Date: 2015-11-01 13:49+0100\n"
 "PO-Revision-Date: 2012-11-04 11:24+0100\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -228,23 +228,27 @@ msgid "Sample I/O"
 msgstr "Przykładowe wejście/wyjście"
 
 #: judge/models/profile.py:17
-#| msgid "Contest name"
 msgid "Institute name"
 msgstr "Nazwa instytutu"
 
 #: judge/models/profile.py:19
+#| msgid "Team contest"
+msgid "Team name"
+msgstr "Nazwa drużyny"
+
+#: judge/models/profile.py:21
 msgid "Room number"
 msgstr "Numer pokoju"
 
-#: judge/models/profile.py:21
+#: judge/models/profile.py:23
 msgid "Computer number"
 msgstr "Numer komputera"
 
-#: judge/models/profile.py:25
+#: judge/models/profile.py:27
 msgid "Profile"
 msgstr "Profil"
 
-#: judge/models/profile.py:26
+#: judge/models/profile.py:28
 msgid "Profiles"
 msgstr "Profile"
 
