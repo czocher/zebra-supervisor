@@ -33,5 +33,5 @@ class Profile(models.Model):
 def create_profile(sender, instance, created, **kwargs):
     """Create an empty profile as soon as a user is created."""
     if created:
-        Profile.objects.get_or_create(user=instance)
+        Profile.objects.create(user=instance)
 post_save.connect(create_profile, sender=User)
