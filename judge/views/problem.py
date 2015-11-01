@@ -31,5 +31,5 @@ class ProblemPDFView(ValidRequestMixin, View):
     def get(self, request, *args, **kwargs):
         if not self.problem.pdf:
             raise Http404
-
+        print self.problem.pdf.path
         return sendfile(request, self.problem.pdf.path)
