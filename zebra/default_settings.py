@@ -78,6 +78,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -116,6 +117,25 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# Security
+
+# Set to true if SSL is enabled
+SECURE_HSTS_SECONDS = 0
+
+SESSION_COOKIE_SECURE = False
+
+CSRF_COOKIE_SECURE = False
+
+SECURE_SSL_REDIRECT = False
+
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+SECURE_BROWSER_XSS_FILTER = True
+
+CSRF_COOKIE_HTTPONLY = True
+
+X_FRAME_OPTIONS = 'DENY'
 
 # Where to search for templates
 
@@ -198,7 +218,7 @@ PROGRAMMING_LANGUAGES = (
 )
 
 # Show print buttons for users
-PRINTING_AVAILABLE = False
+PRINTING_AVAILABLE = True
 
 BOOTSTRAP3 = {
     'success_css_class': '',
