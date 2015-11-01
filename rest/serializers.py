@@ -93,7 +93,7 @@ class PrintRequestSerializer(serializers.ModelSerializer):
     institute = serializers.CharField(source='author.profile.institute_name',
                                       read_only=True)
     team = serializers.CharField(source='author.profile.team_name',
-                                      read_only=True)
+                                 read_only=True)
     room = serializers.CharField(source='author.profile.room_number',
                                  read_only=True)
     computer = serializers.CharField(source='author.profile.computer_number',
