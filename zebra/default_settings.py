@@ -242,7 +242,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'zebra.log',
+            'filename': p('zebra.log'),
             'formatter': 'verbose'
         },
     },
