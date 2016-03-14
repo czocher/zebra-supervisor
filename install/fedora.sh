@@ -23,4 +23,5 @@ else
   sudo ../manage.py migrate
   echo "If above failed it's because settings.py has the wrong password"
   sudo chown apache:apache -R ../*
+  echo "Remember to disable SELinux"
 fi
