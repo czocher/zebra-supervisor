@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.views.generic import RedirectView
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+from django.views.i18n import JavaScriptCatalog
 from django.conf import settings
 import rest_framework
 
@@ -9,7 +11,7 @@ import rest_framework
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = [
     # Examples:
     # url(r'^$', 'zebra.views.home', name='home'),
     # url(r'^zebra/', include('zebra.foo.urls')),
@@ -29,19 +31,19 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^login/$', 'django.contrib.auth.views.login', {
-        'template_name': 'login.html', }),
+    url(r'^login/$', auth_views.login, {
+        'template_name': 'login.html', }, name='login'),
 
-    url(r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
+    url(r'^logout/$', auth_views.logout_then_login),
 
-    url(r'password_change/$', 'django.contrib.auth.views.password_change', {
-        'template_name': 'password_change.html', }),
+    url(r'password_change/$', auth_views.password_change, {
+        'template_name': 'password_change.html', }, name='password-change'),
 
     url(r'password_change_done/$', RedirectView.as_view(url='/',
         permanent=True), name='password_change_done'),
 
-    (r'^jsi18n/$', 'django.views.i18n.javascript_catalog'),
-)
+    url(r'^jsi18n/$', JavaScriptCatalog.as_view(), name='javascript-catalog'),
+]
 
 # Works only if DEBUG = True
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

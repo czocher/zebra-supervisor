@@ -38,6 +38,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('judge', '0001_initial'),
+        ('questions', '0001_initial'),
     ]
 
     operations = [

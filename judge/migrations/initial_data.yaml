@@ -1,20 +1,5 @@
 
 - fields:
-    date_joined: "2012-05-22 10:37:43.580635+00:00"
-    email: ''
-    first_name: ''
-    groups: []
-    is_active: true
-    is_staff: false
-    is_superuser: false
-    last_login: "2012-05-22 10:37:43.580612+00:00"
-    last_name: ''
-    password: ''
-    user_permissions: []
-    username: AnonymousUser
-  model: auth.user
-  pk: -1
-- fields:
     date_joined: "2012-05-22 10:37:43+00:00"
     email: pablow91@gmail.com
     first_name: "Pawe\u0142"
