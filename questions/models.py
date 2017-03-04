@@ -3,12 +3,13 @@ from django.db import models
 
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import python_2_unicode_compatible
 
 from django.contrib.auth.models import User
 
 from judge.models import Contest, Problem
 
-
+@python_2_unicode_compatible
 class Question(models.Model):
     author = models.ForeignKey(User, verbose_name=_("Author"),
                                related_name='questions')
@@ -37,6 +38,6 @@ class Question(models.Model):
     _is_answered.short_description = _("Answered")
     is_answered = property(_is_answered)
 
-    def __unicode__(self):
+    def __str__(self):
         return u"{} question from {}".format(self.question,
                                              self.author.username)

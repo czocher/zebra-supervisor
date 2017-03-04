@@ -4,10 +4,12 @@ from django.db.models.signals import pre_delete
 
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import python_2_unicode_compatible
 
 from .problem import Problem
 
 
+@python_2_unicode_compatible
 class Test(models.Model):
     timestamp = models.DateTimeField(_("Timestamp"), default=timezone.now)
     file = models.FileField(_("Tests File"), upload_to='tests/')
@@ -17,7 +19,7 @@ class Test(models.Model):
         ordering = ['timestamp']
         app_label = 'judge'
 
-    def __unicode__(self):
+    def __str__(self):
         return u"{}".format(self.name,)
 
     @property
@@ -72,6 +74,7 @@ pre_delete.connect(remove_test_file, sender=OutputTest)
 pre_delete.connect(remove_test_file, sender=ConfigTest)
 
 
+@python_2_unicode_compatible
 class Tests(models.Model):
     input = models.OneToOneField(
         InputTest, verbose_name=_("Inputs"), related_name='input')
@@ -86,5 +89,5 @@ class Tests(models.Model):
         verbose_name_plural = _("Tests")
         app_label = 'judge'
 
-    def __unicode__(self):
+    def __str__(self):
         return u"Tests for {}".format(self.problem.codename,)

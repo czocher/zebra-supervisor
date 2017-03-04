@@ -1,10 +1,12 @@
 from django.db import models
 
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import python_2_unicode_compatible
 
 from django.core.urlresolvers import reverse
 
 
+@python_2_unicode_compatible
 class Problem(models.Model):
 
     """Model representing a single problem."""
@@ -40,7 +42,7 @@ On the output the program should print a binary number.
         ordering = ['codename', ]
         app_label = 'judge'
 
-    def __unicode__(self):
+    def __str__(self):
         return u"{} ({})".format(self.name, self.codename)
 
     def get_absolute_url(self):
@@ -53,6 +55,7 @@ On the output the program should print a binary number.
     has_pdf = property(_has_pdf)
 
 
+@python_2_unicode_compatible
 class SampleIO(models.Model):
     input = models.TextField(_("Input"))
     output = models.TextField(_("Output"))
@@ -63,5 +66,5 @@ class SampleIO(models.Model):
         verbose_name_plural = _("Sample I/O")
         app_label = 'judge'
 
-    def __unicode__(self):
+    def __str__(self):
         return u"{}".format(self.id)

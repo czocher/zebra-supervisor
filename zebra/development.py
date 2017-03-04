@@ -25,7 +25,7 @@ def p(*x):
 
 # Generate a unique SECRET_KEY on first run.
 try:
-    from secretkey import SECRET_KEY
+    from .secretkey import SECRET_KEY
 except ImportError:
     from django.utils.crypto import get_random_string
 

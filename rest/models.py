@@ -3,8 +3,9 @@
 from django.db import models
 
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import python_2_unicode_compatible
 
-
+@python_2_unicode_compatible
 class Node(models.Model):
 
     """Class representing the system node used for solution testing."""
@@ -17,5 +18,5 @@ class Node(models.Model):
         verbose_name = _("Node")
         verbose_name_plural = _("Nodes")
 
-    def __unicode__(self):
+    def __str__(self):
         return u"{} {}".format(self.ipaddr, self.token)

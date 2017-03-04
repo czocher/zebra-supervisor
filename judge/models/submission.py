@@ -5,6 +5,7 @@ from django.conf import settings
 
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import python_2_unicode_compatible
 
 from django.core.urlresolvers import reverse
 
@@ -36,6 +37,7 @@ class SubmissionManager(models.Manager):
             status=Submission.WAITING_STATUS)
 
 
+@python_2_unicode_compatible
 class Submission(models.Model):
 
     """Class representing a single user submited solution for a problem."""
@@ -76,7 +78,7 @@ class Submission(models.Model):
         ordering = ['-timestamp']
         app_label = 'judge'
 
-    def __unicode__(self):
+    def __str__(self):
         return u"Solution for {} by {}".format(self.problem.codename,
                                                self.author.username, )
 
@@ -103,6 +105,7 @@ class Submission(models.Model):
             return 'Judged'
 
 
+@python_2_unicode_compatible
 class Result(models.Model):
 
     """Class representing a single test result for a submission."""
@@ -119,6 +122,6 @@ class Result(models.Model):
         ordering = ['time']
         app_label = 'judge'
 
-    def __unicode__(self):
+    def __str__(self):
         return u"{} result for {}".format(self.submission.author.username,
                                           self.submission.problem.codename)

@@ -5,13 +5,14 @@ from django.conf import settings
 
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import python_2_unicode_compatible
 
 from django.contrib.auth.models import User
 
 from .contest import Contest
 from .problem import Problem
 
-
+@python_2_unicode_compatible
 class PrintRequest(models.Model):
 
     """Class representing a single print request from a user."""
@@ -49,7 +50,7 @@ class PrintRequest(models.Model):
         ordering = ['-timestamp']
         app_label = 'judge'
 
-    def __unicode__(self):
+    def __str__(self):
         return u"Print request by {} for {} in {}".format(
             self.author.username, self.problem, self.contest)
 

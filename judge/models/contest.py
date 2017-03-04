@@ -6,6 +6,8 @@ from django.conf import settings
 
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.six import iterkeys
 
 from django.core.urlresolvers import reverse
 
@@ -16,6 +18,7 @@ from copy import deepcopy
 from .problem import Problem
 
 
+@python_2_unicode_compatible
 class Contest(models.Model):
 
     """Model representing a single contest."""
@@ -40,7 +43,7 @@ class Contest(models.Model):
         )
         app_label = 'judge'
 
-    def __unicode__(self):
+    def __str__(self):
         return u"{}".format(self.name)
 
     def get_absolute_url(self):
@@ -123,4 +126,4 @@ class Contest(models.Model):
                 submission["problem__codename"]].timestamp = lastSub.timestamp
             users[submission["author"]].currentSubmissions.append(lastSub)
 
-        return sorted(problems.iterkeys()), users
+        return sorted(iterkeys(problems)), users

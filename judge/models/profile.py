@@ -3,12 +3,14 @@
 """Module containing judge user profiles and various utilities."""
 
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import python_2_unicode_compatible
 
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
 
+@python_2_unicode_compatible
 class Profile(models.Model):
 
     """The users profile class."""
@@ -28,7 +30,7 @@ class Profile(models.Model):
         verbose_name_plural = _("Profiles")
         app_label = 'judge'
 
-    def __unicode__(self):
+    def __str__(self):
         return u"{}".format(self.user.username)
 
 
