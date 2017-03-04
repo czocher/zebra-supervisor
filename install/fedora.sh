@@ -20,7 +20,7 @@ else
   echo "Change settings.py MySQL password!"
   read -p "Press any key to continue... " -n1 -s
   sudo ../manage.py makemigrations
-  sudo ../manage.py migrate
+  sudo ../manage.py migrate --run-syncdb
   echo "If above failed it's because settings.py has the wrong password"
   sudo chown apache:apache -R ../*
   echo "Remember to disable SELinux"
