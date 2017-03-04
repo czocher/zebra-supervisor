@@ -7,7 +7,7 @@ from rest_framework.exceptions import NotAuthenticated
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.routers import DefaultRouter
 from rest_framework.response import Response
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import detail_route, list_route
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, \
     UpdateModelMixin
 
@@ -29,7 +29,8 @@ class SubmissionViewSet(ListModelMixin, RetrieveModelMixin,
     queryset = Submission.objects.all()
     serializer_class = SubmissionSerializer
 
-    def list(self, request, *args, **kwargs):
+    @list_route()
+    def for_judging(self, request, *args, **kwargs):
         """Get a submission for judging."""
         token = request.META.get('HTTP_X_TOKEN')
 
@@ -87,7 +88,8 @@ class PrintRequestViewSet(ListModelMixin, RetrieveModelMixin,
     queryset = PrintRequest.objects.all()
     serializer_class = PrintRequestSerializer
 
-    def list(self, request, *args, **kwargs):
+    @list_route()
+    def for_printing(self, request, *args, **kwargs):
         """Get a printRequest for printing."""
 
         try:
