@@ -1,8 +1,10 @@
 $(document).ready(function() {
-  // Dummy translations for makemessages
-  gettext("Judging");
-  gettext("Judged");
-  gettext("Waiting");
+  var messages = {
+    "Judging": gettext("Judging"),
+    "Judged": gettext("Judged"),
+    "Waiting": gettext("Waiting"),
+    "Server error": gettext("Server error")
+  };
 
   function getSubmissionScore(element) {
     finished = $(element).attr("data-finished");
@@ -14,7 +16,7 @@ $(document).ready(function() {
       url: "/rest/submission/" + $(element).data("id") + "/?format=json",
       dataType: "json",
       error: function() {
-        $(element).text(gettext("Server error"));
+        $(element).text(messages["Server error"]);
       },
       success: function(json) {
         this.status = json['status'];
@@ -24,10 +26,10 @@ $(document).ready(function() {
           $(element).text(this.score);
           $(element).attr("data-finished", true);
         } else {
-          $(element).text(gettext(this.status));
+          $(element).text(messages[this.status]);
           // Perform a new check in 5 seconds
           setTimeout(function(){
-            $(element).text(gettext(this.status));
+            $(element).text(messages[this.status]);
             getSubmissionScore(element);
           }, 5000);
 

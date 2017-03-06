@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-21 16:56+0100\n"
+"POT-Creation-Date: 2017-03-06 21:03+0100\n"
 "PO-Revision-Date: 2014-12-24 11:37+0200\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -29,6 +29,6 @@ msgstr "Ocenione"
 msgid "Waiting"
 msgstr "Oczekiwanie"
 
-#: static/js/get_submission_score.js:17
+#: static/js/get_submission_score.js:6
 msgid "Server error"
 msgstr "Błąd serwera"
