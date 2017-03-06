@@ -4,4 +4,6 @@ settings.py
 *.mo
 secretkey.py
 db.sqlite3
+database.db
+static-files/
 *.log
