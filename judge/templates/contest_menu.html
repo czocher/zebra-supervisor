@@ -6,6 +6,13 @@
 
 {% if "view_contest" in contest_perms %}
 <ul class="nav nav-sidebar">
+  {% if user.is_staff %}
+  <li class="active">
+    <a href="{% url 'latestContestSubmissions' contest.pk %}">{% trans "Latest submissions" %}</a>
+  </li>
+  {% endif %}
+</ul>
+<ul class="nav nav-sidebar">
   <li class="active">
     <a href="{% url 'contest' contest.pk %}">{% trans "Problems" %}</a>
   </li>

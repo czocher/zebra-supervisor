@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-01 13:49+0100\n"
+"POT-Creation-Date: 2017-03-06 21:21+0100\n"
 "PO-Revision-Date: 2012-11-04 11:24+0100\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -54,7 +54,7 @@ msgstr "Ponownie oceń wszystkie wysyłki dla tych zawodów"
 msgid "Source"
 msgstr "Źródło"
 
-#: judge/admin.py:142 judge/models/submission.py:69
+#: judge/admin.py:142 judge/models/submission.py:71
 msgid "Node"
 msgstr "Węzeł"
 
@@ -62,8 +62,8 @@ msgstr "Węzeł"
 msgid "Judge"
 msgstr "Sędzia"
 
-#: judge/forms.py:14 judge/models/print_request.py:36
-#: judge/models/submission.py:59
+#: judge/forms.py:14 judge/models/print_request.py:37
+#: judge/models/submission.py:61
 msgid "Source code"
 msgstr "Kod źródłowy"
 
@@ -83,7 +83,7 @@ msgstr "Plik jest zbyt duży."
 msgid "Cannot submit binary file."
 msgstr "Nie można wysłać pliku binarnego."
 
-#: judge/forms.py:43 judge/models/problem.py:33
+#: judge/forms.py:43 judge/models/problem.py:35
 msgid "Content"
 msgstr "Zawartość"
 
@@ -95,110 +95,112 @@ msgstr "Plik z zawartością"
 msgid "Please provide content for printing."
 msgstr "Proszę zapewnić zawartość do wydruku."
 
-#: judge/models/contest.py:22 judge/models/problem.py:32
+#: judge/models/contest.py:25 judge/models/problem.py:34
 #: judge/templates/contest_detail.html:27
 msgid "Name"
 msgstr "Nazwa"
 
-#: judge/models/contest.py:23 judge/templates/contest_list.html:26
+#: judge/models/contest.py:26 judge/templates/contest_list.html:26
 msgid "Start time"
 msgstr "Czas rozpoczęcia"
 
-#: judge/models/contest.py:24
+#: judge/models/contest.py:27
 msgid "Freeze time"
 msgstr "Czas zamrożenia"
 
-#: judge/models/contest.py:25 judge/templates/contest_list.html:27
+#: judge/models/contest.py:28 judge/templates/contest_list.html:27
 msgid "End time"
 msgstr "Czas zakończenia"
 
-#: judge/models/contest.py:27 judge/models/problem.py:39
-#: judge/templates/contest_menu.html:10
+#: judge/models/contest.py:30 judge/models/problem.py:41
+#: judge/templates/contest_menu.html:17
 msgid "Problems"
 msgstr "Zadania"
 
-#: judge/models/contest.py:28
+#: judge/models/contest.py:31
 msgid "Team contest"
 msgstr "Zawody drużynowe"
 
-#: judge/models/contest.py:30
+#: judge/models/contest.py:33
 msgid "Penalty for wrong submissions"
 msgstr "Kara za błędną wysyłkę"
 
-#: judge/models/contest.py:31
+#: judge/models/contest.py:34
 msgid "Is printing avaliable"
 msgstr "Drukowanie dostępne"
 
-#: judge/models/contest.py:34 judge/models/print_request.py:41
-#: judge/models/submission.py:58
+#: judge/models/contest.py:37 judge/models/print_request.py:42
+#: judge/models/submission.py:60
 msgid "Contest"
 msgstr "Zawody"
 
-#: judge/models/contest.py:35 judge/templates/contest_list.html:16
+#: judge/models/contest.py:38 judge/templates/contest_list.html:16
 #: judge/templates/submission_list.html:47
 msgid "Contests"
 msgstr "Zawody"
 
-#: judge/models/contest.py:53 judge/templates/contest_list.html:28
+#: judge/models/contest.py:56 judge/templates/contest_list.html:28
 msgid "Active"
 msgstr "Aktywne"
 
-#: judge/models/contest.py:59
+#: judge/models/contest.py:62
 msgid "Started"
 msgstr "Czy rozpoczęte"
 
-#: judge/models/contest.py:66
+#: judge/models/contest.py:69
 msgid "Freezed"
 msgstr "Zamrożony"
 
-#: judge/models/contest.py:74 judge/models/print_request.py:25
+#: judge/models/contest.py:77 judge/models/print_request.py:26
 msgid "Printing"
 msgstr "Drukowanie"
 
-#: judge/models/print_request.py:24 judge/models/submission.py:48
+#: judge/models/print_request.py:25 judge/models/submission.py:50
 msgid "Waiting"
 msgstr "Oczekiwanie"
 
-#: judge/models/print_request.py:26
+#: judge/models/print_request.py:27
 msgid "Printed"
 msgstr "Wydrukowane"
 
-#: judge/models/print_request.py:33 judge/models/submission.py:67
+#: judge/models/print_request.py:34 judge/models/submission.py:69
 msgid "Status"
 msgstr "Status"
 
-#: judge/models/print_request.py:35 judge/models/submission.py:54
+#: judge/models/print_request.py:36 judge/models/submission.py:56
+#: judge/templates/latest_contest_submissions.html:31
 msgid "Author"
 msgstr "Autor"
 
-#: judge/models/print_request.py:37 judge/models/submission.py:62
+#: judge/models/print_request.py:38 judge/models/submission.py:64
 msgid "Send time"
 msgstr "Czas wysyłki"
 
-#: judge/models/print_request.py:39 judge/models/submission.py:61
+#: judge/models/print_request.py:40 judge/models/submission.py:63
 msgid "Language"
 msgstr "Język"
 
-#: judge/models/print_request.py:43 judge/models/problem.py:38
-#: judge/models/problem.py:59 judge/models/submission.py:56
-#: judge/models/test.py:82 judge/templates/contest_submission_list.html:24
+#: judge/models/print_request.py:44 judge/models/problem.py:40
+#: judge/models/problem.py:62 judge/models/submission.py:58
+#: judge/models/test.py:85 judge/templates/contest_submission_list.html:24
+#: judge/templates/latest_contest_submissions.html:29
 #: judge/templates/submission_list.html:21
 msgid "Problem"
 msgstr "Zadanie"
 
-#: judge/models/print_request.py:47
+#: judge/models/print_request.py:48
 msgid "Print request"
 msgstr "Żądanie wydruku"
 
-#: judge/models/print_request.py:48
+#: judge/models/print_request.py:49
 msgid "Print requests"
 msgstr "Żądania wydruku"
 
-#: judge/models/problem.py:27 judge/templates/contest_detail.html:26
+#: judge/models/problem.py:29 judge/templates/contest_detail.html:26
 msgid "Codename"
 msgstr "Nazwa kodowa"
 
-#: judge/models/problem.py:29
+#: judge/models/problem.py:31
 msgid ""
 "Example: 'FIB01'. A short text to identify this problem, used as an id for "
 "urls."
@@ -206,146 +208,146 @@ msgstr ""
 "Przykład: 'FIB01'. Krótki tekst identyfikujący zadanie, używany jako "
 "identyfikator przy adresach."
 
-#: judge/models/problem.py:34 judge/templates/problem_detail.html:26
+#: judge/models/problem.py:36 judge/templates/problem_detail.html:26
 #: judge/templates/problem_detail.html:28
 msgid "PDF"
 msgstr "PDF"
 
-#: judge/models/problem.py:52
+#: judge/models/problem.py:54
 msgid "Has PDF"
 msgstr "Załadowany PDF"
 
-#: judge/models/problem.py:57 judge/templates/problem_body.html:12
+#: judge/models/problem.py:60 judge/templates/problem_body.html:12
 msgid "Input"
 msgstr "Wejście"
 
-#: judge/models/problem.py:58 judge/templates/problem_body.html:14
+#: judge/models/problem.py:61 judge/templates/problem_body.html:14
 msgid "Output"
 msgstr "Wyjście"
 
-#: judge/models/problem.py:62 judge/models/problem.py:63
+#: judge/models/problem.py:65 judge/models/problem.py:66
 msgid "Sample I/O"
 msgstr "Przykładowe wejście/wyjście"
 
-#: judge/models/profile.py:17
+#: judge/models/profile.py:19
 msgid "Institute name"
 msgstr "Nazwa instytutu"
 
-#: judge/models/profile.py:19
-#| msgid "Team contest"
+#: judge/models/profile.py:21
 msgid "Team name"
 msgstr "Nazwa drużyny"
 
-#: judge/models/profile.py:21
+#: judge/models/profile.py:23
 msgid "Room number"
 msgstr "Numer pokoju"
 
-#: judge/models/profile.py:23
+#: judge/models/profile.py:25
 msgid "Computer number"
 msgstr "Numer komputera"
 
-#: judge/models/profile.py:27
+#: judge/models/profile.py:29
 msgid "Profile"
 msgstr "Profil"
 
-#: judge/models/profile.py:28
+#: judge/models/profile.py:30
 msgid "Profiles"
 msgstr "Profile"
 
-#: judge/models/submission.py:49
+#: judge/models/submission.py:51
 msgid "Judging"
 msgstr "Ocenianie"
 
-#: judge/models/submission.py:50
+#: judge/models/submission.py:52
 msgid "Judged"
 msgstr "Ocenione"
 
-#: judge/models/submission.py:64 judge/templates/submission_detail.html:33
+#: judge/models/submission.py:66 judge/templates/submission_detail.html:33
 msgid "Compilation log"
 msgstr "Dziennik kompilacji"
 
-#: judge/models/submission.py:65
+#: judge/models/submission.py:67
 #: judge/templates/contest_submission_list.html:26
 #: judge/templates/submission_detail.html:29
 #: judge/templates/submission_list.html:23
 msgid "Score"
 msgstr "Wynik"
 
-#: judge/models/submission.py:74 judge/models/submission.py:111
+#: judge/models/submission.py:76 judge/models/submission.py:114
 msgid "Submission"
 msgstr "Wysyłka"
 
-#: judge/models/submission.py:75 judge/templates/contest_list.html:53
-#: judge/templates/contest_menu.html:24
+#: judge/models/submission.py:77 judge/templates/contest_list.html:53
+#: judge/templates/contest_menu.html:31
 msgid "Submissions"
 msgstr "Wysyłki"
 
-#: judge/models/submission.py:112
+#: judge/models/submission.py:115
 msgid "Return code"
 msgstr "Kod wykonania"
 
-#: judge/models/submission.py:113 judge/templates/submission_detail.html:45
+#: judge/models/submission.py:116 judge/templates/submission_detail.html:45
 msgid "Mark"
 msgstr "Poprawność"
 
-#: judge/models/submission.py:114
+#: judge/models/submission.py:117
 msgid "Execution time"
 msgstr "Czas wykonania"
 
-#: judge/models/submission.py:117
+#: judge/models/submission.py:120
 msgid "Result"
 msgstr "Rezultat"
 
-#: judge/models/submission.py:118 judge/templates/submission_detail.html:39
+#: judge/models/submission.py:121 judge/templates/submission_detail.html:39
 msgid "Results"
 msgstr "Rezultaty"
 
-#: judge/models/test.py:12 judge/templates/contest_submission_list.html:25
+#: judge/models/test.py:14 judge/templates/contest_submission_list.html:25
+#: judge/templates/latest_contest_submissions.html:30
 #: judge/templates/submission_list.html:22
 msgid "Timestamp"
 msgstr "Data wysłania"
 
-#: judge/models/test.py:13
+#: judge/models/test.py:15
 msgid "Tests File"
 msgstr "Pliki testów"
 
-#: judge/models/test.py:31
+#: judge/models/test.py:33
 msgid "Test input"
 msgstr "Wejście testów"
 
-#: judge/models/test.py:32
+#: judge/models/test.py:34
 msgid "Test inputs"
 msgstr "Wejścia testów"
 
-#: judge/models/test.py:44
+#: judge/models/test.py:46
 msgid "Test output"
 msgstr "Wyjście testów"
 
-#: judge/models/test.py:45
+#: judge/models/test.py:47
 msgid "Test outputs"
 msgstr "Wyjścia testów"
 
-#: judge/models/test.py:57
+#: judge/models/test.py:59
 msgid "Test config"
 msgstr "Konfiguracje testów"
 
-#: judge/models/test.py:58
+#: judge/models/test.py:60
 msgid "Test configs"
 msgstr "Konfiguracja testów"
 
-#: judge/models/test.py:77
+#: judge/models/test.py:80
 msgid "Inputs"
 msgstr "Wejścia"
 
-#: judge/models/test.py:79
+#: judge/models/test.py:82
 msgid "Outputs"
 msgstr "Wyjścia"
 
-#: judge/models/test.py:81
+#: judge/models/test.py:84
 msgid "Config"
 msgstr "Konfiguracja"
 
-#: judge/models/test.py:85 judge/models/test.py:86
+#: judge/models/test.py:88 judge/models/test.py:89
 msgid "Tests"
 msgstr "Testy"
 
@@ -355,6 +357,7 @@ msgstr "Lista zadań"
 
 #: judge/templates/contest_detail.html:12
 #: judge/templates/contest_submission_list.html:17
+#: judge/templates/latest_contest_submissions.html:21
 #: judge/templates/submission_detail.html:18
 #: judge/templates/submission_form.html:16
 msgid "in"
@@ -381,16 +384,20 @@ msgstr "Nazwa zawodów"
 msgid "No contests to show."
 msgstr "Brak zawodów do wyświetlenia."
 
-#: judge/templates/contest_menu.html:40
+#: judge/templates/contest_menu.html:11
+msgid "Latest submissions"
+msgstr "Ostatnie wysyłki"
+
+#: judge/templates/contest_menu.html:47
 #: judge/templates/print_submission_form.html:10
 msgid "Print source code"
 msgstr "Drukuj kod źródłowy"
 
-#: judge/templates/contest_menu.html:48 judge/templates/ranking_list.html:10
+#: judge/templates/contest_menu.html:55 judge/templates/ranking_list.html:10
 msgid "Ranking"
 msgstr "Ranking"
 
-#: judge/templates/contest_menu.html:55
+#: judge/templates/contest_menu.html:62
 msgid "Questions"
 msgstr "Pytania"
 
@@ -402,8 +409,19 @@ msgid "List of submissions"
 msgstr "Lista wysyłek "
 
 #: judge/templates/contest_submission_list.html:42
+#: judge/templates/latest_contest_submissions.html:45
 msgid "There are no submissions in this contest."
 msgstr "Brak wysyłek w tych zawodach."
+
+#: judge/templates/latest_contest_submissions.html:16
+#: judge/templates/latest_contest_submissions.html:21
+msgid "List of latest submissions"
+msgstr "Lista ostatnich wysyłek"
+
+#: judge/templates/latest_contest_submissions.html:38
+#: judge/templates/submission_detail.html:28
+msgid "ago"
+msgstr "temu"
 
 #: judge/templates/print_submission_form.html:14
 #: judge/templates/submission_detail.html:62
@@ -456,10 +474,6 @@ msgstr "Wysyłka dla"
 #: judge/templates/submission_detail.html:27
 msgid "Submited"
 msgstr "Wysłane"
-
-#: judge/templates/submission_detail.html:28
-msgid "ago"
-msgstr "temu"
 
 #: judge/templates/submission_detail.html:43
 msgid "Returncode"

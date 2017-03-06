@@ -5,7 +5,8 @@ from django.conf.urls import include, url
 from .views import ContestListView, ContestDetailView, ProblemDetailView, \
     ScoreRankingListView, SubmissionCreateView, ContestSubmissionListView, \
     SubmissionListView, SubmissionPrintView, SubmissionDetailView, \
-    SubmissionPrintCreateView, ProblemPDFView
+    SubmissionPrintCreateView, LatestContestSubmissionsTemplateView,\
+    ProblemPDFView
 
 urlpatterns = [
     url(r'^$', ContestListView.as_view(), name='contests'),
@@ -28,6 +29,10 @@ urlpatterns = [
 
         url(r'^submissions/$',
             ContestSubmissionListView.as_view(), name='contestSubmissions'),
+
+        url(r'^submissions/latest/$',
+            LatestContestSubmissionsTemplateView.as_view(),
+            name='latestContestSubmissions'),
 
         url(r'^print/$',
             SubmissionPrintCreateView.as_view(), name='printSourceCode'),

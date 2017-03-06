@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
+
+from django.contrib.admin.views.decorators import staff_member_required
+
+from django.utils.decorators import method_decorator
 
 from django.shortcuts import get_object_or_404
 
@@ -50,3 +54,21 @@ class ContestSubmissionListView(ListView):
         submissions = submissions.filter(
             author=self.request.user, contest=contest)
         return submissions
+
+
+@method_decorator(staff_member_required, name='dispatch')
+class LatestContestSubmissionsTemplateView(ValidRequestMixin, DetailView):
+
+    template_name = 'latest_contest_submissions.html'
+    context_object_name = 'contest'
+    pk_url_kwarg = 'contest_pk'
+    model = Contest
+
+    def get_context_data(self, **kwargs):
+        context = super(
+            LatestContestSubmissionsTemplateView, self).get_context_data(
+                    **kwargs)
+        contest = self.get_object()
+        submissions = contest.submissions.all()[:8]
+        context['submissions'] = submissions
+        return context
