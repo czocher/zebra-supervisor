@@ -261,5 +261,9 @@ LOGGING = {
             'handlers': ['file'],
             'level': 'DEBUG',
         },
+        'rest': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
     }
 }
