@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-01 13:49+0100\n"
+"POT-Creation-Date: 2017-03-07 16:10+0100\n"
 "PO-Revision-Date: 2012-05-07 00:12+0200\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -37,14 +37,14 @@ msgstr "Zmiana hasła"
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: templates/login.html:7 templates/login.html.py:13
+#: templates/login.html:6 templates/login.html:12
 msgid "Login"
 msgstr "Zaloguj się"
 
-#: templates/password_change.html:7
+#: templates/password_change.html:6
 msgid "Password change"
 msgstr "Zmiana hasła"
 
-#: templates/password_change.html:13
+#: templates/password_change.html:12
 msgid "Change my password"
 msgstr "Zmień hasło"

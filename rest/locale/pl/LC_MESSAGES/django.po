@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-01 13:49+0100\n"
+"POT-Creation-Date: 2017-03-07 16:10+0100\n"
 "PO-Revision-Date: 2012-11-04 11:24+0100\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -44,22 +44,22 @@ msgstr "nieautoryzowane"
 msgid "REST"
 msgstr "REST"
 
-#: rest/models.py:12
+#: rest/models.py:13
 msgid "IP Address"
 msgstr "Adres IP"
 
-#: rest/models.py:13
+#: rest/models.py:14
 msgid "Token"
 msgstr "Token"
 
-#: rest/models.py:14
+#: rest/models.py:15
 msgid "Authorized"
 msgstr "Autoryzowany"
 
-#: rest/models.py:17
+#: rest/models.py:18
 msgid "Node"
 msgstr "Węzeł"
 
-#: rest/models.py:18
+#: rest/models.py:19
 msgid "Nodes"
 msgstr "Węzły"
