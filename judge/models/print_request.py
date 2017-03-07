@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from .contest import Contest
 from .problem import Problem
 
+
 @python_2_unicode_compatible
 class PrintRequest(models.Model):
 

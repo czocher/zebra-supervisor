@@ -39,6 +39,7 @@ def is_authorized_user(request):
     # If user is staff then give him full access
     return request.user.is_staff or request.user.is_authenticated
 
+
 def is_author(request, obj):
     """Return True if the user is the author of the given object
     and wants to read."""
@@ -53,7 +54,7 @@ class TokenPermission(permissions.BasePermission):
     def has_permission(self, request, view):
         if not request.is_secure():
             LOGGER.warning(
-                    "Received an insecure REST request, HTTPS required.")
+                "Received an insecure REST request, HTTPS required.")
         # has_permission is always called before has_object_permission
         # it has to return True if has_object_permission is meant to be called
         # therefore return True if a user is not a node but is authenticated
@@ -74,7 +75,7 @@ class TokenPermission(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if not request.is_secure():
             LOGGER.warning(
-                    "Received an insecure REST request, HTTPS required.")
+                "Received an insecure REST request, HTTPS required.")
         return (is_authorized_node(request) or
-                (is_authorized_user(request)
-                    and is_author(request, obj)))
+                (is_authorized_user(request) and
+                is_author(request, obj)))

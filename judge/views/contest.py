@@ -67,7 +67,7 @@ class LatestContestSubmissionsTemplateView(ValidRequestMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(
             LatestContestSubmissionsTemplateView, self).get_context_data(
-                    **kwargs)
+                **kwargs)
         contest = self.get_object()
         submissions = contest.submissions.all()[:8]
         context['submissions'] = submissions

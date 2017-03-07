@@ -8,9 +8,9 @@ class RequireLoginMiddleware(object):
     def __init__(self, get_response):
         self.get_response = get_response
         self.urls = tuple(
-                [re.compile(url) for url in settings.LOGIN_REQUIRED_URLS])
+            [re.compile(url) for url in settings.LOGIN_REQUIRED_URLS])
         self.require_login_path = getattr(
-                settings, 'LOGIN_URL', '/accounts/login/')
+            settings, 'LOGIN_URL', '/accounts/login/')
 
     def __call__(self, request):
         for url in self.urls:
