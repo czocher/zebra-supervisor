@@ -27,7 +27,7 @@ class ValidRequestMixin(object):
         user = self.request.user
         if not user.has_perm('view_contest', self.contest):
             raise PermissionDenied
-        elif not self.contest.is_started and not user.is_superuser:
+        elif not self.contest.is_started and not user.is_staff:
             raise PermissionDenied
 
     def _check_problem_exists(self):

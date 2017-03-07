@@ -24,7 +24,7 @@ class SubmissionCreateView(ValidRequestMixin, CreateView):
 
     def dispatch(self, request, *args, **kwargs):
 
-        if not self.contest.is_active and not request.user.is_superuser:
+        if not self.contest.is_active and not request.user.is_staff:
             raise PermissionDenied
 
         return super(SubmissionCreateView, self).dispatch(

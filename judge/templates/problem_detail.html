@@ -15,8 +15,12 @@
 
 {% block content %}
 
-{% if not contest.is_active %}
-<div class="alert alert-warning" role="alert">{% trans "Contest is inactive, you cannot send solutions." %}</div>
+{% if not contest.is_started and request.user.is_staff %}
+<div class="alert alert-warning" role="alert">{% trans "Contest hasn't started yet. You can only see problems because you are a staff member." %}</div>
+{% endif %}
+
+{% if contest.is_finished %}
+<div class="alert alert-warning" role="alert">{% trans "Contest has finished, you cannot send any more solutions." %}</div>
 {% endif %}
 
 {% include "problem_body.html" %}
@@ -29,7 +33,7 @@
 {% endif %}
 </div>
 
-{% if contest.is_active or request.user.is_superuser %}
+{% if contest.is_active or request.user.is_staff %}
 <a href="submit/" class="btn btn-primary btn-lg btn-block">{% trans "Send solution" %}</a>
 {% else %}
 <a href="#" class="btn btn-primary btn-lg btn-block" disabled="disabled">{% trans "Send solution" %}</a>

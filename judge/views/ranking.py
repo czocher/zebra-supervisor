@@ -17,7 +17,7 @@ class ScoreRankingListView(ValidRequestMixin, TemplateView):
 
         include_freezed = True
         user = self.request.user
-        if user.is_superuser or \
+        if user.is_staff or \
                 user.has_perm('see_unfrozen_ranking', self.contest):
             include_freezed = False
 

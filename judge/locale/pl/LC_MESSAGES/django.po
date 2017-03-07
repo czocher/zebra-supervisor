@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.01\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-06 21:21+0100\n"
+"POT-Creation-Date: 2017-03-07 16:10+0100\n"
 "PO-Revision-Date: 2012-11-04 11:24+0100\n"
 "Last-Translator: Paweł Jan Czochański <czochanski@gmail.com>\n"
 "Language-Team: Zebra Polish Language Team\n"
@@ -147,11 +147,15 @@ msgstr "Aktywne"
 msgid "Started"
 msgstr "Czy rozpoczęte"
 
-#: judge/models/contest.py:69
+#: judge/models/contest.py:68
+msgid "Finished"
+msgstr "Zakończone"
+
+#: judge/models/contest.py:75
 msgid "Freezed"
 msgstr "Zamrożony"
 
-#: judge/models/contest.py:77 judge/models/print_request.py:26
+#: judge/models/contest.py:83 judge/models/print_request.py:26
 msgid "Printing"
 msgstr "Drukowanie"
 
@@ -208,8 +212,8 @@ msgstr ""
 "Przykład: 'FIB01'. Krótki tekst identyfikujący zadanie, używany jako "
 "identyfikator przy adresach."
 
-#: judge/models/problem.py:36 judge/templates/problem_detail.html:26
-#: judge/templates/problem_detail.html:28
+#: judge/models/problem.py:36 judge/templates/problem_detail.html:30
+#: judge/templates/problem_detail.html:32
 msgid "PDF"
 msgstr "PDF"
 
@@ -276,7 +280,7 @@ msgstr "Wynik"
 msgid "Submission"
 msgstr "Wysyłka"
 
-#: judge/models/submission.py:77 judge/templates/contest_list.html:53
+#: judge/models/submission.py:77 judge/templates/contest_list.html:58
 #: judge/templates/contest_menu.html:31
 msgid "Submissions"
 msgstr "Wysyłki"
@@ -364,13 +368,17 @@ msgid "in"
 msgstr "w"
 
 #: judge/templates/contest_detail.html:17
-#: judge/templates/problem_detail.html:19
-msgid "Contest is inactive, you cannot send solutions."
-msgstr "Zawody są nieaktywne, nie można wysyłać rozwiązań."
+#: judge/templates/problem_detail.html:23
+msgid "Contest has finished, you cannot send any more solutions."
+msgstr "Zawody dobiegły końca, nie można wysyłać rozwiązań."
 
 #: judge/templates/contest_detail.html:19
-msgid "Contest hasn't started yet, you cannot view problems."
-msgstr "Zawody nie rozpoczęły się jeszcze, podgląd problemów jest niemożliwy."
+#: judge/templates/problem_detail.html:19
+msgid ""
+"Contest hasn't started yet. You can only see problems because you are a "
+"staff member."
+msgstr "Zawody nie rozpoczęły się jeszcze. Możesz oglądać zadania "
+"tylko ze względu na to, że jesteś częścią obsługi."
 
 #: judge/templates/contest_detail.html:40
 msgid "No problems to show."
@@ -380,7 +388,7 @@ msgstr "Brak zadań do wyświetlenia."
 msgid "Contest name"
 msgstr "Nazwa zawodów"
 
-#: judge/templates/contest_list.html:46
+#: judge/templates/contest_list.html:51
 msgid "No contests to show."
 msgstr "Brak zawodów do wyświetlenia."
 
@@ -433,8 +441,8 @@ msgstr "Drukuj"
 msgid "Example"
 msgstr "Przykład"
 
-#: judge/templates/problem_detail.html:33
-#: judge/templates/problem_detail.html:35
+#: judge/templates/problem_detail.html:37
+#: judge/templates/problem_detail.html:39
 msgid "Send solution"
 msgstr "Wyślij rozwiązanie"
 

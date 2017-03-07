@@ -13,10 +13,10 @@
 
 {% block content %}
 
-{% if not contest.is_active and contest.is_started %}
-<div class="alert alert-warning" role="alert">{% trans "Contest is inactive, you cannot send solutions." %}</div>
+{% if contest.is_finished %}
+<div class="alert alert-warning" role="alert">{% trans "Contest has finished, you cannot send any more solutions." %}</div>
 {% elif not contest.is_started %}
-<div class="alert alert-warning" role="alert">{% trans "Contest hasn't started yet, you cannot view problems." %}</div>
+<div class="alert alert-warning" role="alert">{% trans "Contest hasn't started yet. You can only see problems because you are a staff member." %}</div>
 {% endif %}
 
 {% if contest.problems.count != 0 %}
@@ -31,7 +31,7 @@
     {% for problem in contest.problems.all %}
     <tr>
       <td>{{ problem.codename }}</td>
-      <td><a {% if contest.is_started or not contest.is_started and user.is_superuser %}href="{% url 'problem' contest.pk problem.codename %}"{% else %}href="#"{% endif %}>{{ problem.name }}</a></td>
+      <td><a href="{% url 'problem' contest.pk problem.codename %}">{{ problem.name }}</a></td>
     </tr>
     {% endfor %}
   </tbody>

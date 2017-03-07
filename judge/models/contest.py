@@ -62,6 +62,12 @@ class Contest(models.Model):
     _is_started.short_desctiption = _("Started")
     is_started = property(_is_started)
 
+    def _is_finished(self):
+        return timezone.now() > self.end_time
+    _is_finished.boolean = True
+    _is_finished.short_description = _("Finished")
+    is_finished = property(_is_finished)
+
     def _is_freezed(self):
         return timezone.now() > self.freeze_time and \
             timezone.now() < self.end_time
