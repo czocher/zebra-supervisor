@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 
 from judge.models import Contest, Problem
 
+
 @python_2_unicode_compatible
 class Question(models.Model):
     author = models.ForeignKey(User, verbose_name=_("Author"),

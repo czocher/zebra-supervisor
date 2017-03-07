@@ -2,6 +2,8 @@
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
 
+from django.core.urlresolvers import reverse
+
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404
@@ -33,8 +35,9 @@ class ContestCreateQuestionView(CreateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        self.success_url = '/judge/contest/{}/questions/'.format(
-            kwargs['contest_pk'], )
+        self.success_url = reverse('questions', kwargs={
+            'contest_pk': kwargs['contest_pk'],
+        })
         return super(ContestCreateQuestionView,
                      self).post(request, *args, **kwargs)
 
