@@ -59,7 +59,7 @@
   </dl>
 <div class="btn-group">
 {% if submission.contest.is_printing_available %}
-<a href="{% url 'printSubmission' submission.pk %}" class="btn btn-default"><span class="glyphicon glyphicon-print"></span> {% trans "Print" %}</a>
+<a href="{% url 'submission_print' submission.pk %}" class="btn btn-default"><span class="glyphicon glyphicon-print"></span> {% trans "Print" %}</a>
 {% else %}
 <a href="#" class="btn btn-default disabled"><span class="glyphicon glyphicon-print"></span> {% trans "Print" %}</a>
 {% endif %}

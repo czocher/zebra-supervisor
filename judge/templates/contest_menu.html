@@ -8,7 +8,7 @@
 <ul class="nav nav-sidebar">
   {% if user.is_staff %}
   <li class="active">
-    <a href="{% url 'latestContestSubmissions' contest.pk %}">{% trans "Latest submissions" %}</a>
+    <a href="{% url 'contest_submissions_latest' contest.pk %}">{% trans "Latest submissions" %}</a>
   </li>
   {% endif %}
 </ul>
@@ -28,7 +28,7 @@
 
 <ul class="nav nav-sidebar">
   <li class="active">
-    <a href="{% url 'contestSubmissions' contest.pk %}">{% trans "Submissions" %}</a>
+    <a href="{% url 'contest_submissions' contest.pk %}">{% trans "Submissions" %}</a>
   </li>
   {% if submissions %}
   <ul class="nav nav-sidebar">
@@ -44,7 +44,7 @@
 {% if contest.is_printing_available %}
 <ul class="nav nav-sidebar">
   <li class="active">
-    <a href="{% url 'printSourceCode' contest.pk %}">{% trans "Print source code" %}</a>
+    <a href="{% url 'source_code_print' contest.pk %}">{% trans "Print source code" %}</a>
   </li>
 </ul>
 {% endif %}

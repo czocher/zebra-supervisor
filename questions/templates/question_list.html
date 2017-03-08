@@ -41,7 +41,7 @@
 {% else %}
 <div class="alert alert-info" role="alert">{% trans "No questions for this contest." %}</div>
 {% endif %}
-<a href="{% url 'new_question' contest.pk %}" class="btn btn-primary btn-block">{% trans "Add new question"%}</a>
+<a href="{% url 'question_new' contest.pk %}" class="btn btn-primary btn-block">{% trans "Add new question"%}</a>
 {% endblock %}
 
 

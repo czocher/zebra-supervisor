@@ -27,7 +27,7 @@
 
 <div class="btn-group margin-bottom">
 {% if problem.pdf %}
-<a href="{% url 'pdfProblem' contest.pk problem.codename %}" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> {% trans "PDF" %}</a>
+<a href="{% url 'problem_pdf' contest.pk problem.codename %}" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> {% trans "PDF" %}</a>
 {% else %}
 <a href="#" class="btn btn-default disabled"><span class="glyphicon glyphicon-file"></span> {% trans "PDF" %}</a>
 {% endif %}

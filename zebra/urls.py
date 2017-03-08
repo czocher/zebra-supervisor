@@ -34,15 +34,15 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, {
         'template_name': 'login.html', }, name='login'),
 
-    url(r'^logout/$', auth_views.logout_then_login),
+    url(r'^logout/$', auth_views.logout_then_login, name='logout'),
 
     url(r'password_change/$', auth_views.password_change, {
-        'template_name': 'password_change.html', }, name='password-change'),
+        'template_name': 'password_change.html', }, name='password_change'),
 
     url(r'password_change_done/$', RedirectView.as_view(url='/',
         permanent=True), name='password_change_done'),
 
-    url(r'^jsi18n/$', JavaScriptCatalog.as_view(), name='javascript-catalog'),
+    url(r'^jsi18n/$', JavaScriptCatalog.as_view(), name='javascript_catalog'),
 ]
 
 # Works only if DEBUG = True
