@@ -34,8 +34,8 @@ except ImportError:
         secretkey.write('SECRET_KEY = \'{}\'\n'.format(
             get_random_string(50, chars)))
 
-    import secretkey
-    SECRET_KEY = secretkey.SECRET_KEY
+    from .secretkey import SECRET_KEY as SECRET
+    SECRET_KEY = SECRET
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
