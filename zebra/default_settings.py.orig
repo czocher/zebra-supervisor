@@ -34,7 +34,10 @@ except ImportError:
         secretkey.write('SECRET_KEY = \'{}\'\n'.format(
             get_random_string(50, chars)))
 
+<<<<<<< 4e713887747cdd11a716b42c7808f299bf6bd030
+=======
 
+>>>>>>> Fixed bad config file in python3
     from .secretkey import SECRET_KEY as SECRET
     SECRET_KEY = SECRET
 
