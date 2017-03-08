@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.six import iterkeys
 
+from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 
 from django.contrib.auth.models import User
@@ -82,6 +83,23 @@ class Contest(models.Model):
     _is_printing_available.boolean = True
     _is_printing_available.short_description = _("Printing")
     is_printing_available = property(_is_printing_available)
+
+    def clean(self):
+        if not self.start_time <= self.end_time:
+            raise ValidationError({'start_time':
+                _("Contest start time can not be after its end time.")})
+
+        if not self.start_time <= self.freeze_time:
+            raise ValidationError({'freeze_time':
+                _("Contest freeze time can not be before its start time.")})
+
+        if not self.freeze_time <= self.end_time:
+            raise ValidationError({'freeze_time':
+                _("Contest freeze time can not be after its end time.")})
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super(Contest, self).save(*args, **kwargs)
 
     class Res(object):
 
