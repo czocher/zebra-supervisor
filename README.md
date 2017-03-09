@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/stosdev/zebra-supervisor.svg)](https://travis-ci.org/stosdev/zebra-supervisor)
-[![Coverage Status](https://coveralls.io/repos/stosdev/zebra-supervisor/badge.svg?branch=master)](https://coveralls.io/r/stosdev/zebra-supervisor?branch=master)
+[![Build Status](https://travis-ci.org/Czocher/zebra-supervisor.svg?branch=master)](https://travis-ci.org/Czocher/zebra-supervisor)
+[![Coverage Status](https://coveralls.io/repos/github/Czocher/zebra-supervisor/badge.svg?branch=master)](https://coveralls.io/github/Czocher/zebra-supervisor?branch=master)
 
 zebra-supervisor
 =====
