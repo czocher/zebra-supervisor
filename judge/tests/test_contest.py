@@ -12,6 +12,7 @@ from judge.models import Contest
 
 from guardian.shortcuts import assign_perm
 
+
 class ContestTestCase(TestCase):
 
     def setUp(self):
@@ -291,7 +292,6 @@ class ContestTestCase(TestCase):
 
         self.assertEquals(response.status_code, 403)
 
-
     def test_superuser_access_before_start(self):
         """Superusers should be allowed to access
         a contest even before it starts."""
@@ -311,7 +311,6 @@ class ContestTestCase(TestCase):
         response = self.client.get(contest.get_absolute_url())
 
         self.assertEquals(response.status_code, 200)
-
 
     def test_staff_access_before_start(self):
         """Staff user with permissions should be allowed to access
@@ -334,4 +333,3 @@ class ContestTestCase(TestCase):
         response = self.client.get(contest.get_absolute_url())
 
         self.assertEquals(response.status_code, 200)
-

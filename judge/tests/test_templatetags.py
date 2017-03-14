@@ -2,9 +2,10 @@
 
 from django.test import TestCase, override_settings
 
+from django.utils.translation import activate
+
 from judge.templatetags.error_code_to_str import error_code_to_str
 
-from django.utils.translation import activate
 
 class TemplatetagsTestCase(TestCase):
 
