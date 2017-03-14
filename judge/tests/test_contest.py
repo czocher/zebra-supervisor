@@ -2,14 +2,15 @@
 
 from django.core.exceptions import ValidationError
 
+from django.contrib.auth.models import User
+
 from django.test import TestCase, override_settings
 
 from django.utils import timezone
 
 from judge.models import Contest
 
-from django.contrib.auth.models import User
-
+from guardian.shortcuts import assign_perm
 
 class ContestTestCase(TestCase):
 
@@ -205,7 +206,7 @@ class ContestTestCase(TestCase):
 
     def test_get_absolute_url(self):
         """Contests should have a get_absolute_url
-        method poiting to a valid url."""
+        method pointing to a valid url."""
 
         contest = Contest(
             name="Test contest",
@@ -219,3 +220,118 @@ class ContestTestCase(TestCase):
         response = self.client.get(contest.get_absolute_url())
 
         self.assertEquals(response.status_code, 200)
+
+    def test_anonymous_access(self):
+        """Anonymous users should be redirected to the login page."""
+
+        contest = Contest(
+            name="Test contest",
+        )
+        contest.save()
+
+        response = self.client.get(contest.get_absolute_url())
+
+        self.assertEquals(response.status_code, 302)
+        self.assertTrue('login' in response.url)
+
+    def test_authorized_access(self):
+        """Reads by permitted users should be allowed."""
+
+        contest = Contest(
+            name="Test contest",
+        )
+        contest.save()
+
+        password = 'test'
+        user = User.objects.create_user('test', 'test@test.com', password)
+        assign_perm('view_contest', user, contest)
+        logged_in = self.client.login(username=user.username,
+                password=password)
+
+        response = self.client.get(contest.get_absolute_url())
+
+        self.assertEquals(response.status_code, 200)
+
+    def test_unauthorized_access(self):
+        """Reads by users without a given permission should be forbidden."""
+
+        contest = Contest(
+            name="Test contest",
+        )
+        contest.save()
+
+        password = 'test'
+        user = User.objects.create_user('test', 'test@test.com', password)
+        logged_in = self.client.login(username=user.username,
+                password=password)
+
+        response = self.client.get(contest.get_absolute_url())
+
+        self.assertEquals(response.status_code, 403)
+
+    def test_authorized_access_before_start(self):
+        """Reads by permitted users should not be allowed
+        before the contest starts."""
+
+        contest = Contest(
+            start_time=self.tomorrow,
+            end_time=self.tomorrow,
+            freeze_time=self.tomorrow,
+            name="Test contest",
+        )
+        contest.save()
+
+        password = 'test'
+        user = User.objects.create_user('test', 'test@test.com', password)
+        assign_perm('view_contest', user, contest)
+        logged_in = self.client.login(username=user.username,
+                password=password)
+
+        response = self.client.get(contest.get_absolute_url())
+
+        self.assertEquals(response.status_code, 403)
+
+
+    def test_superuser_access_before_start(self):
+        """Superusers should be allowed to access
+        a contest even before it starts."""
+
+        contest = Contest(
+            start_time=self.tomorrow,
+            end_time=self.tomorrow,
+            freeze_time=self.tomorrow,
+            name="Test contest",
+        )
+        contest.save()
+
+        password = 'test'
+        admin = User.objects.create_superuser('test', 'test@t.com', password)
+        logged_in = self.client.login(username=admin.username,
+                password=password)
+        response = self.client.get(contest.get_absolute_url())
+
+        self.assertEquals(response.status_code, 200)
+
+
+    def test_staff_access_before_start(self):
+        """Staff user with permissions should be allowed to access
+        a contest even before it starts."""
+
+        contest = Contest(
+            start_time=self.tomorrow,
+            end_time=self.tomorrow,
+            freeze_time=self.tomorrow,
+            name="Test contest",
+        )
+        contest.save()
+
+        password = 'test'
+        user = User.objects.create_user('test', 'test@test.com', password,
+                is_staff=True)
+        assign_perm('view_contest', user, contest)
+        logged_in = self.client.login(username=user.username,
+                password=password)
+        response = self.client.get(contest.get_absolute_url())
+
+        self.assertEquals(response.status_code, 200)
+
