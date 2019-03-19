@@ -140,14 +140,16 @@ class Contest(models.Model):
                 problem__exact=submission["problem"])
             if includeFreezing:
                 lastSub = lastSub.filter(timestamp__lte=self.freeze_time)
-            lastSub = lastSub[0]
-            users[submission["author"]].score += lastSub.score
-            users[submission["author"]].problems[
-                submission["problem__codename"]].score = lastSub.score
-            users[submission["author"]].problems[
-                submission["problem__codename"]].total = totalSubmissions
-            users[submission["author"]].problems[
-                submission["problem__codename"]].timestamp = lastSub.timestamp
-            users[submission["author"]].currentSubmissions.append(lastSub)
+            if len(lastSub) > 0:
+                lastSub = lastSub[0]
+                users[submission["author"]].score += lastSub.score
+                users[submission["author"]].problems[
+                    submission["problem__codename"]].score = lastSub.score
+                users[submission["author"]].problems[
+                    submission["problem__codename"]].total = totalSubmissions
+                users[submission["author"]].problems[
+                    submission["problem__codename"]].timestamp \
+                    = lastSub.timestamp
+                users[submission["author"]].currentSubmissions.append(lastSub)
 
         return sorted(iterkeys(problems)), users
