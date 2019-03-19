@@ -34,16 +34,22 @@ class PrintRequest(models.Model):
     status = models.IntegerField(
         _("Status"), choices=STATUS_CHOICES, default=WAITING_STATUS)
     author = models.ForeignKey(
-        User, verbose_name=_("Author"), related_name='printRequests')
+        User, verbose_name=_("Author"), related_name='printRequests',
+        on_delete=models.CASCADE
+    )
     source = models.TextField(_("Source code"))
     timestamp = models.DateTimeField(_("Send time"), default=timezone.now)
     language = models.CharField(
         _("Language"), max_length=10, choices=PRINTING_LANGUAGES)
     contest = models.ForeignKey(Contest, verbose_name=_(
-        "Contest"), related_name='printRequests', blank=True, null=True)
+        "Contest"), related_name='printRequests', blank=True, null=True,
+        on_delete=models.CASCADE
+    )
     problem = models.ForeignKey(
         Problem, verbose_name=_("Problem"), related_name='printRequests',
-        blank=True, null=True)
+        blank=True, null=True,
+        on_delete=models.CASCADE
+    )
 
     class Meta:
         verbose_name = _("Print request")

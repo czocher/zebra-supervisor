@@ -15,7 +15,8 @@ class Profile(models.Model):
 
     """The users profile class."""
 
-    user = models.OneToOneField(User, related_name='profile')
+    user = models.OneToOneField(User, related_name='profile',
+                                on_delete=models.CASCADE)
     institute_name = models.CharField(_("Institute name"), max_length=255,
                                       blank=True, null=True)
     team_name = models.CharField(_("Team name"), max_length=255, blank=True,

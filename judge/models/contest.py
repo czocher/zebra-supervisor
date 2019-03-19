@@ -10,7 +10,8 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.six import iterkeys
 
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
+
+from django.urls import reverse
 
 from django.contrib.auth.models import User
 
@@ -39,8 +40,7 @@ class Contest(models.Model):
         verbose_name_plural = _("Contests")
         ordering = ['name']
         permissions = (
-            ('view_contest', "Can view Contest"),
-            ('see_unfrozen_ranking', "Can see unfrozen ranking")
+            ('see_unfrozen_ranking', "Can see unfrozen ranking"),
         )
         app_label = 'judge'
 

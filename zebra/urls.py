@@ -29,15 +29,16 @@ urlpatterns = [
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
 
-    url(r'^login/$', auth_views.login, {
-        'template_name': 'login.html', }, name='login'),
+    url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'),
+        name='login'),
 
     url(r'^logout/$', auth_views.logout_then_login, name='logout'),
 
-    url(r'password_change/$', auth_views.password_change, {
-        'template_name': 'password_change.html', }, name='password_change'),
+    url(r'password_change/$',
+        auth_views.PasswordChangeView.as_view(
+            template_name='password_change.html'), name='password_change'),
 
     url(r'password_change_done/$', RedirectView.as_view(url='/',
         permanent=True), name='password_change_done'),

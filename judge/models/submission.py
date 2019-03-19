@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from django.contrib.auth.models import User
 
@@ -53,11 +53,16 @@ class Submission(models.Model):
     )
 
     author = models.ForeignKey(
-        User, verbose_name=_("Author"), related_name='submissions')
+        User, verbose_name=_("Author"), related_name='submissions',
+        on_delete=models.CASCADE)
     problem = models.ForeignKey(
-        Problem, verbose_name=_("Problem"), related_name='submissions')
+        Problem, verbose_name=_("Problem"), related_name='submissions',
+        on_delete=models.CASCADE
+    )
     contest = models.ForeignKey(Contest, verbose_name=_(
-        "Contest"), related_name='submissions', blank=True, null=True)
+        "Contest"), related_name='submissions', blank=True, null=True,
+        on_delete=models.CASCADE
+    )
     source = models.TextField(_("Source code"))
     language = models.CharField(
         _("Language"), max_length=10, choices=settings.PROGRAMMING_LANGUAGES)
@@ -111,7 +116,9 @@ class Result(models.Model):
     """Class representing a single test result for a submission."""
 
     submission = models.ForeignKey(
-        Submission, verbose_name=_("Submission"), related_name='results')
+        Submission, verbose_name=_("Submission"), related_name='results',
+        on_delete=models.CASCADE
+    )
     returncode = models.IntegerField(_("Return code"), default=0)
     mark = models.BooleanField(_("Mark"), default=True)
     time = models.FloatField(_("Execution time"), default=0)

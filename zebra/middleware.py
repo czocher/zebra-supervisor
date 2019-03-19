@@ -14,7 +14,7 @@ class RequireLoginMiddleware(object):
 
     def __call__(self, request):
         for url in self.urls:
-            if url.match(request.path) and request.user.is_anonymous():
+            if url.match(request.path) and request.user.is_anonymous:
                 return HttpResponseRedirect(
                     '{}?next={}'.format(self.require_login_path, request.path))
         return self.get_response(request)

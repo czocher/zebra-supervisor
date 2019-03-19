@@ -77,12 +77,18 @@ pre_delete.connect(remove_test_file, sender=ConfigTest)
 @python_2_unicode_compatible
 class Tests(models.Model):
     input = models.OneToOneField(
-        InputTest, verbose_name=_("Inputs"), related_name='input')
+        InputTest, verbose_name=_("Inputs"), related_name='input',
+        on_delete=models.CASCADE)
     output = models.OneToOneField(
-        OutputTest, verbose_name=_("Outputs"), related_name='output')
+        OutputTest, verbose_name=_("Outputs"), related_name='output',
+        on_delete=models.CASCADE
+    )
     config = models.OneToOneField(
-        ConfigTest, verbose_name=_("Config"), related_name='config')
-    problem = models.OneToOneField(Problem, verbose_name=_("Problem"))
+        ConfigTest, verbose_name=_("Config"), related_name='config',
+        on_delete=models.CASCADE
+    )
+    problem = models.OneToOneField(Problem, verbose_name=_("Problem"),
+                                   on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _("Tests")

@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 @python_2_unicode_compatible
@@ -59,7 +59,8 @@ On the output the program should print a binary number.
 class SampleIO(models.Model):
     input = models.TextField(_("Input"))
     output = models.TextField(_("Output"))
-    problem = models.ForeignKey(Problem, verbose_name=_("Problem"))
+    problem = models.ForeignKey(Problem, verbose_name=_("Problem"),
+                                on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _("Sample I/O")
