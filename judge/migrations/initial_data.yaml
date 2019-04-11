@@ -13,7 +13,7 @@
     user_permissions: []
     username: pablo
   model: auth.user
-  pk: 1
+  pk: 2
 - fields:
     date_joined: "2012-05-22 10:38:35+00:00"
     email: czochanski@gmail.com
@@ -28,7 +28,7 @@
     user_permissions: []
     username: czocher
   model: auth.user
-  pk: 2
+  pk: 3
 - fields:
     date_joined: "2012-05-22 10:39:08+00:00"
     email: karol@gmail.com
@@ -43,7 +43,7 @@
     user_permissions: []
     username: karol
   model: auth.user
-  pk: 3
+  pk: 4
 - fields:
     date_joined: "2012-05-22 10:39:27+00:00"
     email: jak_kowal@gmail.com
@@ -58,7 +58,7 @@
     user_permissions: []
     username: jan
   model: auth.user
-  pk: 4
+  pk: 5
 - fields: {codename: PRI, content: "<p>Print to screen all the numbers between a and\
       \ b.</p>\r\n\r\n<h2>Input</h2>\r\n<p>Two natural numbers a and b (0 <= a <=\
       \ b <= 1000) divided with a space.</p>\r\n\r\n<h2>Output</h2>\r\n<p>The program\
@@ -122,28 +122,28 @@
     team: true
   model: judge.contest
   pk: 2
-- fields: {author: 1, compilelog: '', contest: 1, language: cpp, node: null, problem: 1,
+- fields: {author: 2, compilelog: '', contest: 1, language: cpp, node: null, problem: 1,
     score: -1, source: "#include <iostream>\r\nusing namespace std;\r\nint main(){\r\
       \n\tint a,b;\r\n\tcin>>a>>b;\r\n\tfor (int i=a;i<=b;i++){\r\n\t\tcout<<i<<\"\
       \ \";\r\n\t}\r\n\tcout<<endl;\r\n\treturn 0;\r\n}\r\n", status: 1, timestamp: "2012-05-22
       08:59:44+00:00"}
   model: judge.submission
   pk: 1
-- fields: {author: 1, compilelog: '', contest: 1, language: pas, node: null, problem: 1,
+- fields: {author: 2, compilelog: '', contest: 1, language: pas, node: null, problem: 1,
     score: -1, source: "program HelloWorld;\r\nvar j,a,b : integer;\r\nbegin\r\n\t\
       read(a);\r\n\tread(b);\r\n\tfor  j:= 1 to b do\r\n\tbegin\r\n\t\tif (j>=a) then\r\
       \n\t\tbegin\r\n\t\t\twrite(j);\r\n\t\t\twrite(' ');\r\n\t\tend;\r\n\tend;\r\n\
       \twriteln();\r\nend.\r\n", status: 1, timestamp: "2012-05-22 08:59:53+00:00"}
   model: judge.submission
   pk: 2
-- fields: {author: 1, compilelog: '', contest: 1, language: py, node: null, problem: 1,
+- fields: {author: 2, compilelog: '', contest: 1, language: py, node: null, problem: 1,
     score: -1, source: "import sys\r\nx, y = raw_input().split()\r\nfor n in range(int(x),\
       \ int(y) + 1):\r\n    sys.stdout.write(str(n))\r\n    sys.stdout.write(' ')\r\
       \nsys.stdout.write('\\n')\r\n", status: 1, timestamp: "2012-05-22
       09:00:01+00:00"}
   model: judge.submission
   pk: 3
-- fields: {author: 1, compilelog: '', contest: 1, language: java, node: null, problem: 1,
+- fields: {author: 2, compilelog: '', contest: 1, language: java, node: null, problem: 1,
     score: -1, source: "import java.util.Scanner;\r\npublic class code{\r\n\tpublic\
       \ static void main(String[] args){\r\n\t\tScanner sc = new Scanner(System.in);\r\
       \n\t\tint a = sc.nextInt();\r\n\t\tint b = sc.nextInt();\r\n\t\tfor (int i =\
@@ -151,39 +151,39 @@
       \n  }\r\n}\r\n", status: 1, timestamp: "2012-05-22 09:00:09+00:00"}
   model: judge.submission
   pk: 4
-- fields: {author: 4, compilelog: '', contest: 1, language: cpp, node: null, problem: 1,
+- fields: {author: 5, compilelog: '', contest: 1, language: cpp, node: null, problem: 1,
     score: -1, source: "#include <iostream>\r\nusing namespace std;\r\nint main(){\r\
       \n\tint a,b;\r\n\tcin>>a>>b;\r\n\tfor (int i=a;i<=b;i++){\r\n\t\tcout<<i<<\"\
       \ \";\r\n\t}\r\n\tcout<<endl;\r\n\treturn 0;\r\n}\r\n", status: 1, timestamp: "2012-05-22
       09:17:12+00:00"}
   model: judge.submission
   pk: 5
-- fields: {author: 1, compilelog: '', contest: 1, language: cpp, node: null, problem: 2,
+- fields: {author: 2, compilelog: '', contest: 1, language: cpp, node: null, problem: 2,
     score: -1, source: "#include <iostream>\r\n\r\nusing namespace std;\r\nint main(){\r\
       \ncout<<\"Hello World!\"<<endl;\r\n}", status: 1, timestamp: "2012-06-03
       15:42:38+00:00"}
   model: judge.submission
   pk: 6
-- fields: {author: 2, compilelog: '', contest: 2, language: cpp, node: null, problem: 1,
+- fields: {author: 3, compilelog: '', contest: 2, language: cpp, node: null, problem: 1,
     score: -1, source: "#include <iostream>\r\nusing namespace std;\r\nint main(){\r\
       \n\tint a,b;\r\n\tcin>>a>>b;\r\n\tfor (int i=a;i<=b;i++){\r\n\t\tcout<<i<<\"\
       \ \";\r\n\t}\r\n\tcout<<endl;\r\n\treturn 0;\r\n}\r\n", status: 1, timestamp: "2012-06-03
       15:52:52+00:00"}
   model: judge.submission
   pk: 7
-- fields: {author: 3, compilelog: '', contest: 2, language: py, node: null, problem: 2,
+- fields: {author: 4, compilelog: '', contest: 2, language: py, node: null, problem: 2,
     score: -1, source: print "Hello World!", status: 1, timestamp: "2012-06-03
       15:53:48+00:00"}
   model: judge.submission
   pk: 8
-- fields: {author: 3, compilelog: '', contest: 2, language: py, node: null, problem: 2,
+- fields: {author: 4, compilelog: '', contest: 2, language: py, node: null, problem: 2,
     score: -1, source: print "Bad Hello World", status: 1, timestamp: "2012-06-03
       15:50:57+00:00"}
   model: judge.submission
   pk: 9
 - fields:
     answer: ''
-    author: 2
+    author: 3
     contest: 2
     problem: 1
     public: false
@@ -195,7 +195,7 @@
   pk: 1
 - fields:
     answer: Pizza will be here shortly.
-    author: 1
+    author: 2
     contest: 2
     problem: null
     public: true
@@ -207,7 +207,7 @@
   pk: 2
 - fields:
     answer: One hint == one beer.
-    author: 3
+    author: 4
     contest: 2
     problem: 2
     public: false
